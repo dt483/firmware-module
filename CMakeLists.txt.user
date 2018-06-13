@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.5.1, 2018-06-05T14:44:26. -->
+<!-- Written by QtCreator 3.5.1, 2018-06-08T17:55:23. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -63,7 +63,7 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{de8d50e6-46e2-42bc-ab93-d5b528e4a446}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">-1</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">1</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="bool" key="CMakeProjectManager.CMakeBuildConfiguration.UseNinja">false</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/aleksey/module/firmware_module-build</value>
@@ -87,7 +87,7 @@
     </valuemap>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">false</value>
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments"></value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">/home/aleksey/module/firmware_module/reconfigure.sh</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">/home/aleksey/module/firmware_module</value>
@@ -155,12 +155,15 @@
      <value type="int">13</value>
      <value type="int">14</value>
     </valuelist>
-    <value type="QString" key="BareMetal.RunConfig.WorkingDirectory"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">firmware-module (через сервер GDB или аппаратный отладчик)</value>
+    <value type="int" key="PE.EnvironmentAspect.Base">2</value>
+    <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments"></value>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">/home/aleksey/module/software_install/upload.sh</value>
+    <value type="bool" key="ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal">true</value>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory">/home/aleksey/module/software_install</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Запуск /home/aleksey/module/software_install/upload.sh</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">BareMetal/home/aleksey/module/firmware_module-build/firmware-module</value>
-    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.Arguments"></value>
-    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.ProFile">../firmware_module-build/firmware-module</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
@@ -203,15 +206,12 @@
      <value type="int">13</value>
      <value type="int">14</value>
     </valuelist>
-    <value type="int" key="PE.EnvironmentAspect.Base">2</value>
-    <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments"></value>
-    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">/home/aleksey/module/software_install/upload.sh</value>
-    <value type="bool" key="ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal">true</value>
-    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory">/home/aleksey/module/software_install</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Запуск /home/aleksey/module/software_install/upload.sh</value>
+    <value type="QString" key="BareMetal.RunConfig.WorkingDirectory"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">firmware-module (через сервер GDB или аппаратный отладчик)</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">BareMetal/home/aleksey/module/firmware_module-build/firmware-module</value>
+    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.Arguments"></value>
+    <value type="QString" key="Qt4ProjectManager.MaemoRunConfiguration.ProFile">../firmware_module-build/firmware-module</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

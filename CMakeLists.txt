@@ -31,12 +31,17 @@
 
 
 # CONFIGURE WITH:
-# cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../firmware_module/toolchain-arm-none-eabi-rpi.cmake ../firmware_module/
+# cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../firmware_module/toolchain-arm-none-eabi-module.cmake ../firmware_module/
 cmake_minimum_required( VERSION 2.8 )
+
+
 
 # Mark the language as C so that CMake doesn't try to test the C++
 # cross-compiler's ability to compile a simple program because that will fail
 project( firmware-module C ASM )
+
+#add_subdirectory("${PROJECT_SOURCE_DIR}/nmc/" "${CMAKE_BINARY_DIR}/nmc" )
+
 
 # Add any C compiler flags here. The C flags concerned with processor tuning
 # are in the toolchain files toolchain-arm-none-eabi-bcm2835.cmake, etc.
@@ -50,30 +55,27 @@ set( CMAKE_EXE_LINKER_FLAGS "-Wl,-T,${PROJECT_SOURCE_DIR}/k1879.lds,-Map=linker.
 #set( CMAKE_EXE_LINKER_FLAGS "-Wl,-T,${PROJECT_SOURCE_DIR}/.x,-Map=linker.map " )
 
 
+execute_process(COMMAND sh ./make.sh
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/nmc
+)
+
+
 add_executable(firmware-module
     firmware.c
     armc-cstartup.c
     armc-cstubs.c
     armc-start.S
-#    ./peripheral/rpi-armtimer.c
-#    ./peripheral/rpi-armtimer.h
-#    ./peripheral/rpi-aux.c
-#    ./peripheral/rpi-aux.h
     ./peripheral/module-uart.c
     ./peripheral/module-uart.h
     ./peripheral/module-base.h
     ./peripheral/module-gpio.c
     ./peripheral/module-gpio.h
-#    ./peripheral/rpi-interrupts.c
-#    ./peripheral/rpi-interrupts.h
-#    ./peripheral/rpi-mailbox.c
-#    ./peripheral/rpi-mailbox.h
-#    ./peripheral/rpi-mailbox-interface.c
-#    ./peripheral/rpi-mailbox-interface.h
     ./peripheral/module-systimer.c
     ./peripheral/module-systimer.h
-#    ./peripheral/rpi-smi.c
-#    ./peripheral/rpi-smi.h
+    ./peripheral/lls/nmcload.c
+    ./peripheral/lls/nmcload.h
+    ./k1879.lds
+    #./toolchain-arm-none-eabi-module.cmake
 )
 
 TARGET_LINK_LIBRARIES(firmware-module m)
@@ -90,6 +92,7 @@ add_custom_command(
     COMMAND ${CMAKE_OBJCOPY} ./firmware-module -O srec ./firmware.srec
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Convert the ELF output file to a hex" )
+
 
 add_custom_command(
     TARGET firmware-module POST_BUILD

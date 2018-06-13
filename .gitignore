@@ -1,0 +1,11 @@
+*~
+*.user
+*.asmx
+*.o
+*.abs
+*.elf
+*.dump
+*.ac
+*.dep
+*.so
+*.pc
