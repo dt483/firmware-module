@@ -40,7 +40,7 @@
 
 unsigned char NM_part_abs[] __attribute__((section(".NM_prog")));
 unsigned char initnmc_mini_abs[] __attribute__((section(".NM_prog.init")));
-#include "./nmc/NM_part_abs.h"
+//#include "./nmc/NM_part_abs.h"
 
 
 
@@ -113,9 +113,86 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
 
         PL_Word returnValue = 0;
-         printf ("Sync with nm. %i /n/r", returnValue);
+         printf ("Sync with nm. %i \n\r", returnValue);
         PL_Sync(&access0,0xDEADBEAF, &returnValue);
-        printf ("Return value: %i /n/r", returnValue);
+        printf ("Return value: %i \n\r", returnValue);
+
+        unsigned int k = 0;
+        unsigned int* g2  = (unsigned int*) (4*0x42002);
+        printf ("Massiv: %i ",g2[k]);
+       for(k = 1; k<512; k++){
+            printf (" %i ",g2[k]);
+            if(k%1 == 0) { printf ("\n\r");}
+        };
+
+
+
+        unsigned int* g1  = (unsigned int*) (4*(0x40002+4000));
+        printf ("Massiv \n\r ");
+       // unsigned int mask1 = 0xff<<16;
+       // unsigned int mask0 =0xff;
+        unsigned int word;
+
+        for(k = 0; k<100; k++){
+
+
+         int k1=0;
+         for(k1 = 0; k1<2; k1++){
+                if(k%1 == 0) { printf ("\n\r");};
+            word = (g1[k] & (0xff<<(16*k1)))>>(16*k1);
+            if(word>127) { word = 256-word; printf("-");};
+            printf ("%i ",word);
+            //printf (" 0x%08X ",word);
+          //   printf (" ");
+
+          };
+           //printf (" 0x%08X ",g1[k]);
+          //if(k%1 == 0) { printf ("\n\r");}
+        };
+
+         printf ("\n\r");
+          printf ("Freq, kHz: %i ",g2[514]);
+          printf ("\n\r");
+          printf ("Sum0: %i ",g2[516]);
+          printf ("\n\r");
+          printf ("Sum1: %i ",g2[518]);
+          printf ("\n\r");
+          printf ("time1: %i ",g2[520]);
+          printf ("\n\r");
+          printf ("time2: %i ",g2[522]);
+          printf ("\n\r");
+
+        int k2;
+        for(k2 = 1; k2<10; k2++){
+
+            word = g1[k2];
+            //if(word>127) { word = 256-word; printf("-");};
+          //  printf ("%i ",word);
+             printf (" 0x%08X ",word);
+
+          if(k2%10 == 0) { printf ("\n\r");}
+        };
+
+        printf ("\n\r");
+        printf ("\n\r");
+        int k4;
+        int* g3  = (int*) (4*(0x42002+1000));
+        for(k4 = 0; k4<512; k4++){
+            if(k4%4 == 0) { printf ("\n\r");}
+      //      word = g3[k4];
+
+            word = (g3[k4]);
+            //if(word>(2<<31)) { word = 256-word; printf("-");};
+            printf ("%i ",word);
+
+
+
+         //    printf (" 0x%08X ",word);
+
+
+        };
+
+
     while( 1 )
     {
 
@@ -133,7 +210,5 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
            // printf("Counter: %i \n\r", c);
             module_led_off();
            // module_WaitMilSeconds( 100);
-
-
     }
 }

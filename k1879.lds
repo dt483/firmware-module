@@ -48,5 +48,5 @@ SECTIONS
 
     .NM_prog : {
         *(.NM_prog*)
-    } > AMB1
+    } > SHARED
 }

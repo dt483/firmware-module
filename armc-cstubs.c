@@ -233,7 +233,7 @@ int wait( int *status )
 }
 
 
-void outbyte( char b )
+void outbyte( unsigned char b )
 {
     //assert_blink();
     module_UART_send( b );

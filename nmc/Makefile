@@ -62,7 +62,7 @@ $(NM1):
 
 clean: 
 	rm *.asm *.elf *.abs 
-	rm *.bin *.o *.exe
+	rm *_abs.h *_abs.dump 
  
 
 	
