@@ -36,12 +36,12 @@
 #include "./peripheral/module-gpio.h"
 #include "./peripheral/module-systimer.h"
 #include "./peripheral/lls/nmcload.h"
-#include "./peripheral/lls/initnmc_mini_abs.h"
+
 
 unsigned char NM_part_abs[] __attribute__((section(".NM_prog")));
 unsigned char initnmc_mini_abs[] __attribute__((section(".NM_prog.init")));
-//#include "./nmc/NM_part_abs.h"
-
+#include "./nmc/NM_part_abs.h"
+#include "./peripheral/lls/initnmc_mini_abs.h"
 
 
 /** Main function - we'll never return from here */

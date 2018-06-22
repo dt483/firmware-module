@@ -4,8 +4,7 @@ OUTPUT_ARCH(ARM)
 ENTRY(_start)
 MEMORY
 {
-	AMB0 (rwx) : ORIGIN = 0xC0000000, LENGTH = 0x3FFFF
-        AMB1 (rwx) : ORIGIN = 0xC0040000, LENGTH = 0x3FFFF
+        AMB (rwx) : ORIGIN = 0xC0000000, LENGTH = 0x7FFFF
         SHARED (rw) : ORIGIN = 0x00100000, LENGTH = 0x7FFFF
   
 }
@@ -48,5 +47,5 @@ SECTIONS
 
     .NM_prog : {
         *(.NM_prog*)
-    } > SHARED
+    }
 }

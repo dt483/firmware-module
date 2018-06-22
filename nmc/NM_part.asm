@@ -24,9 +24,13 @@ extern _ncl_hostSync : label;
 extern _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2 : label;
 extern _void._.8.8VEC_Cnv.1char._.0.9._long._.0.9._int.2 : label;
 extern _void._.8.8VEC_Abs.1int._.0.9._int._.0.9._int.2 : label;
+extern _void._.8.8VEC_Neg.1long._.0.9._long._.0.9._int.2 : label;
+extern _void._.8.8VEC_AddC.1long._.0.9._long._.0.9._long._.0.9._int.2 : label;
 extern _void._.8.8VEC_AddV.1long._.0.9._long._.0.9._long._.0.9._int.2 : label;
+extern _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2 : label;
 extern _FFT_Fwd256Set6bit : label;
 extern _FFT_Fwd256 : label;
+extern IDiv64 : label;
 extern UDiv32 : label;
 
 	// Function declaration.
@@ -63,7 +67,7 @@ global __main : label;
 <__main>
 <L1>
 
-//--- /home/eduard/module/firmware_module/nmc/NM_part.cpp
+//--- /home/aleksey/module/firmware_module/nmc/NM_part.cpp
 
 //1:    //----------------------------------------------------------------------//
 //2:    //                                                                      //
@@ -1192,28 +1196,139 @@ global __main : label;
 
 //291:      VEC_Cnv ((nm8s*) SIGQ, (nm64s*) Signal2, len/2);
 
-	gr7 = [ar6+5];                                  //<291,50>
 	ar0 = ar7 set;                                  //<291,50>
+	gr7 = [ar6+5];                                  //<291,50>
 	gr6 = [ar6+11];                                  //<291,50>
 	gr5 = 256 set;                                  //<291,50>
+	ar7 = ar7 + 4;                                  //<291,50>
 	[ar0++] = ar0;                                  //<291,50>
 	[ar0++] = gr5;                                  //<291,50>
 	[ar0++] = gr6;                                  //<291,50>
 	[ar0++] = gr7;                                  //<291,50>
-	ar7 = ar7 + 4;                                  //<291,50>
 	call _void._.8.8VEC_Cnv.1char._.0.9._long._.0.9._int.2;                                  //<291,50>
 	ar7 = ar7 - 4;                                  //<291,50>
 
 //292:      //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
-//293:  /*
+//293:  
 //294:      VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
+
+	ar0 = ar7 set;                                  //<294,48>
+	gr7 = [ar6+10];                                  //<294,48>
+	ar4 = ar6 + 52;                                  //<294,48>
+	[ar0++] = ar0;                                  //<294,48>
+	[ar0++] = ar4;                                  //<294,48>
+	gr6 = 512 set;                                  //<294,48>
+	ar7 = ar7 + 4;                                  //<294,48>
+	[ar0++] = gr6;                                  //<294,48>
+	[ar0++] = gr7;                                  //<294,48>
+	call _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2;                                  //<294,48>
+	ar7 = ar7 - 4;                                  //<294,48>
+
 //295:      VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
+
+	ar0 = ar7 set;                                  //<295,48>
+	gr7 = [ar6+11];                                  //<295,48>
+	ar4 = ar6 + 54;                                  //<295,48>
+	[ar0++] = ar0;                                  //<295,48>
+	[ar0++] = ar4;                                  //<295,48>
+	gr6 = 512 set;                                  //<295,48>
+	ar7 = ar7 + 4;                                  //<295,48>
+	[ar0++] = gr6;                                  //<295,48>
+	[ar0++] = gr7;                                  //<295,48>
+	call _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2;                                  //<295,48>
+
 //296:      sum_Sig_0 = -sum_Sig_0/128;
+
+	gr0 = [ar6+52];                                  //<296,28>
+	gr7 = false noflags;                                  //<296,28>
+	gr0 = - gr0;                                  //<296,28>
+	ar7 = ar7 - 4;                                  //<295,48>
+	gr6 = [ar6+53];                                  //<296,28>
+	ar0 = ar7 set;                                  //<296,28>
+	gr7 = gr7 - gr6 -1 + carry noflags;                                  //<296,28>
+	[ar0++] = gr0;                                  //<296,28>
+	[ar0++] = gr7;                                  //<296,28>
+	gr6 = hiword( 128l ) set;                                  //<296,28>
+	gr7 = loword( 128l ) set;                                  //<296,28>
+	[ar0++] = gr7;                                  //<296,28>
+	[ar0++] = gr6;                                  //<296,28>
+	ar7 = ar7 + 4;                                  //<296,28>
+	call IDiv64;                                  //<296,28>
+	ar0 = ar7 set;                                  //<296,28>
+	gr7 = [--ar0];                                  //<296,28>
+	gr6 = [--ar0];                                  //<296,28>
+	[ar6 + 52] = gr6;                                  //<296,28>
+	[ar6 + 53] = gr7;                                  //<296,28>
+
 //297:      sum_Sig_1 = -sum_Sig_1/128;
+
+	gr0 = [ar6+54];                                  //<297,28>
+	gr7 = false noflags;                                  //<297,28>
+	gr0 = - gr0;                                  //<297,28>
+	ar7 = ar7 - 4;                                  //<296,28>
+	gr6 = [ar6+55];                                  //<297,28>
+	ar0 = ar7 set;                                  //<297,28>
+	gr7 = gr7 - gr6 -1 + carry noflags;                                  //<297,28>
+	[ar0++] = gr0;                                  //<297,28>
+	[ar0++] = gr7;                                  //<297,28>
+	gr6 = hiword( 128l ) set;                                  //<297,28>
+	gr7 = loword( 128l ) set;                                  //<297,28>
+	[ar0++] = gr7;                                  //<297,28>
+	[ar0++] = gr6;                                  //<297,28>
+	ar7 = ar7 + 4;                                  //<297,28>
+	call IDiv64;                                  //<297,28>
+	ar0 = ar7 set;                                  //<297,28>
+	gr7 = [--ar0];                                  //<297,28>
+	gr6 = [--ar0];                                  //<297,28>
+	ar7 = ar7 - 4;                                  //<297,28>
+	[ar6 + 54] = gr6;                                  //<297,28>
+
 //298:  
 //299:      VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
+
+	ar0 = ar7 set;                                  //<299,75>
+	[ar6 + 55] = gr7;                                  //<297,28>
+	gr7 = [ar6+10];                                  //<299,75>
+	gr6 = [ar6+10];                                  //<299,75>
+	gr5 = 256 set;                                  //<299,75>
+	[ar0++] = gr5;                                  //<299,75>
+	[ar0++] = gr6;                                  //<299,75>
+	ar4 = ar6 + 52;                                  //<299,75>
+	ar7 = ar7 + 4;                                  //<299,75>
+	[ar0++] = ar4;                                  //<299,75>
+	[ar0++] = gr7;                                  //<299,75>
+	call _void._.8.8VEC_AddC.1long._.0.9._long._.0.9._long._.0.9._int.2;                                  //<299,75>
+	ar7 = ar7 - 4;                                  //<299,75>
+
 //300:      VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
-//301:      VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);*/
+
+	ar0 = ar7 set;                                  //<300,75>
+	gr7 = [ar6+11];                                  //<300,75>
+	ar4 = ar6 + 54;                                  //<300,75>
+	gr5 = [ar6+11];                                  //<300,75>
+	gr4 = 256 set;                                  //<300,75>
+	[ar0++] = gr4;                                  //<300,75>
+	[ar0++] = gr5;                                  //<300,75>
+	[ar0++] = ar4;                                  //<300,75>
+	[ar0++] = gr7;                                  //<300,75>
+	ar7 = ar7 + 4;                                  //<300,75>
+	call _void._.8.8VEC_AddC.1long._.0.9._long._.0.9._long._.0.9._int.2;                                  //<300,75>
+	ar7 = ar7 - 4;                                  //<300,75>
+
+//301:      VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
+
+	gr7 = [ar6+11];                                  //<301,53>
+	ar0 = ar7 set;                                  //<301,53>
+	gr6 = [ar6+11];                                  //<301,53>
+	gr5 = 256 set;                                  //<301,53>
+	[ar0++] = ar0;                                  //<301,53>
+	[ar0++] = gr5;                                  //<301,53>
+	[ar0++] = gr6;                                  //<301,53>
+	[ar0++] = gr7;                                  //<301,53>
+	ar7 = ar7 + 4;                                  //<301,53>
+	call _void._.8.8VEC_Neg.1long._.0.9._long._.0.9._int.2;                                  //<301,53>
+	ar7 = ar7 - 4;                                  //<301,53>
+
 //302:  
 //303:      VEC_AddV((nm64s*) ((int) Signal1 + 2), (nm64s*) Signal2, (nm64s*) Signal1, len/2);
 
@@ -1669,7 +1784,7 @@ weak _void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnit
 <_void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._.6.2._const>
 <L33>
 
-//--- /home/eduard/module/nmsdk/DSPPU/include/DSPPUBase.h
+//--- /home/aleksey/module/nmsdk/DSPPU/include/DSPPUBase.h
 
 //1:    #ifndef _DSPPU_BASE_H_
 //2:    #define _DSPPU_BASE_H_
@@ -2545,7 +2660,7 @@ weak _dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2 : label;
 <_dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2>
 <L43>
 
-//--- /home/eduard/module/nmsdk/DSPPU/include/DSPPUControl.h
+//--- /home/aleksey/module/nmsdk/DSPPU/include/DSPPUControl.h
 
 //1:    #ifndef _DSPPU_CONTROL_H_
 //2:    #define _DSPPU_CONTROL_H_
@@ -2642,7 +2757,7 @@ weak _dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2 : label;
 <_dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2>
 <L46>
 
-//--- /home/eduard/module/firmware_module/nmc/NM_part.cpp
+//--- /home/aleksey/module/firmware_module/nmc/NM_part.cpp
 
 //1:    //----------------------------------------------------------------------//
 //2:    //                                                                      //
@@ -2777,7 +2892,7 @@ weak _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2 : label;
 <_void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2>
 <L47>
 
-//--- /home/eduard/module/nmsdk/NMPP1/nmplv/include/vSupport.h
+//--- /home/aleksey/module/nmsdk/NMPP1/nmplv/include/vSupport.h
 
 //1:      //------------------------------------------------------------------------
 //2:    //

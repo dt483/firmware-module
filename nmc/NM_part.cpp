@@ -290,7 +290,7 @@ int main()
     VEC_Cnv ((nm8s*) SIGI, (nm64s*) Signal1, len/2);
     VEC_Cnv ((nm8s*) SIGQ, (nm64s*) Signal2, len/2);
     //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
-/*
+
     VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
     VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
     sum_Sig_0 = -sum_Sig_0/128;
@@ -298,7 +298,7 @@ int main()
 
     VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
     VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
-    VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);*/
+    VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
 
     VEC_AddV((nm64s*) ((int) Signal1 + 2), (nm64s*) Signal2, (nm64s*) Signal1, len/2);
 

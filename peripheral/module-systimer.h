@@ -113,8 +113,9 @@
 
 
 
-extern void module_WaitMicroSeconds( uint32_t us );
-void module_WaitMilSeconds( uint32_t ms );
-void module_runFreeCounter ();
+extern void module_Systimer_WaitMicroSeconds( uint32_t us );
+void module_Systimer_WaitMilSeconds( uint32_t ms );
+void  module_Systimer_runFreeCounter ();
+uint32_t module_Systimer_stamp();
 
 #endif

@@ -1,11 +1,28 @@
 #include "module-base.h"
 
-#define UART0
-#ifdef UART0
-    #define UART_BASE       ( PERIPHERAL_BASE + 0xB000 )
-#else
-    #define UART_BASE       ( PERIPHERAL_BASE + 0xC000 )
-#endif
+
+#define UART0_BASE       ( PERIPHERAL_BASE + 0xB000 )
+
+#define UART1_BASE       ( PERIPHERAL_BASE + 0xC000 )
+
+
+typedef struct {
+    int number;
+    reg_rw_t base;
+    int init_status;
+} module_uart_t ;
+
+typedef enum {
+    UART0 = 0,
+    UART1 = 1
+} uart_num;
+
+typedef enum {
+    NOT_INIT = 0,
+    INIT = 1
+} uart_init_status;
+
+
 
 #define IO_WRITE(addr, val) (*(volatile unsigned int *)(addr) = (val))
 #define IO_READ(addr) (*(volatile unsigned int *)(addr))
@@ -115,8 +132,12 @@
 
 
 
-extern void module_UART_init ();
-extern void module_UART_send (char data);
 
+module_uart_t *module_UART_init_console();
+module_uart_t *module_UART_init_data();
+
+void module_UART_console_send(char byte);
+void module_UART_data_send(char byte);
+char module_UART_data_rcv(uint32_t timeout);
 
 

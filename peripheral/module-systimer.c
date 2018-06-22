@@ -16,7 +16,7 @@ static inline uint32_t read_reg(reg_rw_t reg_offset)
     return reg_value;
 }
 
-void module_runFreeCounter()
+void module_Systimer_runFreeCounter()
 {
     uint32_t divider = noDIV;// DIV_256;
 
@@ -39,7 +39,7 @@ void module_runFreeCounter()
 
 }
 
-void module_WaitMicroSeconds( uint32_t us )
+void module_Systimer_WaitMicroSeconds( uint32_t us )
 {
    /* uint32_t divider = noDIV;// DIV_256;
     uint32_t tick_num = 0;
@@ -73,7 +73,7 @@ void module_WaitMicroSeconds( uint32_t us )
         /* BLANK */
     }
 }
-void module_WaitMilSeconds( uint32_t ms )
+void module_Systimer_WaitMilSeconds( uint32_t ms )
 {
     uint32_t tick_num = 0;
     tick_num = ((TIMER_TICKRATE/noDIV)/1000) * ms;
@@ -83,4 +83,10 @@ void module_WaitMilSeconds( uint32_t ms )
         /* BLANK */
     }
 
+}
+uint32_t module_Systimer_stamp()
+{
+    uint32_t tick_num;
+    tick_num = read_reg(Timer1Value);
+    return tick_num;
 }

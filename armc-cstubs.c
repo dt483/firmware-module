@@ -236,7 +236,7 @@ int wait( int *status )
 void outbyte( unsigned char b )
 {
     //assert_blink();
-    module_UART_send( b );
+    module_UART_console_send(b);
 }
 
 /* Write to a file. libc subroutines will use this system routine for output to

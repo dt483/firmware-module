@@ -61,7 +61,8 @@ execute_process(COMMAND sh ./make.sh
 
 
 add_executable(firmware-module
-    firmware.c
+    #firmware.c
+    firmware_test.c
     armc-cstartup.c
     armc-cstubs.c
     armc-start.S
@@ -74,6 +75,10 @@ add_executable(firmware-module
     ./peripheral/module-systimer.h
     ./peripheral/lls/nmcload.c
     ./peripheral/lls/nmcload.h
+    ./peripheral/xmodem-1k/xmodem.c
+    ./peripheral/xmodem-1k/xmodem.h
+    ./peripheral/xmodem-1k/crc16.c
+    ./peripheral/xmodem-1k/crc16.h
     ./k1879.lds
     #./toolchain-arm-none-eabi-module.cmake
 )
@@ -83,7 +88,7 @@ TARGET_LINK_LIBRARIES(firmware-module m)
 
 add_custom_command(
     TARGET  firmware-module POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} ./firmware-module -O binary ./firmware.img
+    COMMAND ${CMAKE_OBJCOPY} ./firmware-module -O binary ./firmware.bin -v
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Convert the ELF output file to a binary image" )
 
