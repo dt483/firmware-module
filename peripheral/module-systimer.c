@@ -86,7 +86,7 @@ void module_Systimer_WaitMilSeconds( uint32_t ms )
 }
 uint32_t module_Systimer_stamp()
 {
-    uint32_t tick_num;
+    volatile uint32_t tick_num;
     tick_num = read_reg(Timer1Value);
     return tick_num;
 }

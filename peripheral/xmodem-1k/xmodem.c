@@ -37,6 +37,7 @@
 #include "../module-uart.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "crc16.h"
 #include "xmodem.h"
 
@@ -187,16 +188,16 @@ int xmodemTransmit(unsigned char *src, int srcsz)
 				switch (c) {
 				case 'C':
 					crc = 1;
-                    printf ("DEBUG: xmodemTransmit - C recieved \n\r");
+                   // printf ("DEBUG: xmodemTransmit - C recieved \n\r");
 					goto start_trans;
 				case NAK:
 					crc = 0;
-                    printf ("DEBUG: xmodemTransmit - C recieved \n\r");
+                    //printf ("DEBUG: xmodemTransmit - C recieved \n\r");
 					goto start_trans;
 				case CAN:
 					if ((c = _inbyte(DLY_1S)) == CAN) {
 						_outbyte(ACK);
-                        printf ("DEBUG: xmodemTransmit - CAN recieved \n\r");
+                        //printf ("DEBUG: xmodemTransmit - CAN recieved \n\r");
 						flushinput();
 						return -1; /* canceled by remote */
 					}
@@ -230,7 +231,7 @@ int xmodemTransmit(unsigned char *src, int srcsz)
                 if (c < bufsz)
                 {
                     xbuff[3+c] = CTRLZ;
-                    printf ("DEBUG: xmodemTransmit - CTRLZ reached \n\r");
+                    //printf ("DEBUG: xmodemTransmit - CTRLZ reached \n\r");
                 }
 				if (crc) {
 					unsigned short ccrc = crc16_ccitt(&xbuff[3], bufsz);
@@ -276,9 +277,9 @@ int xmodemTransmit(unsigned char *src, int srcsz)
 			else {
 				for (retry = 0; retry < 10; ++retry) {
 					_outbyte(EOT);
-                    printf ("DEBUG: xmodemTransmit - EOT transmitted \n\r");
-                    //return 0;
-                    if ((c = _inbyte((DLY_1S)<<1)) == ACK) break;
+                    //printf ("DEBUG: xmodemTransmit - EOT transmitted \n\r");
+                   // return 0;
+                    if ((c = _inbyte((DLY_1S)<<1)) == ACK) return 0;//break;
 				}
 				flushinput();
 				return (c == ACK)?len:-5;

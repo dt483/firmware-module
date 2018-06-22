@@ -58,12 +58,12 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
     printf("**** Console uart initialized ***\n\r");
     printf ("Test data uart1: \n\r");
 
-  /*  char test_char='a', rec_char=0;
-    for (i=0;i<24;i++ )
+    char test_char='a', rec_char=0;
+   /* for (i=0;i<24;i++ )
     {
         printf("Sended: %c \n\r", test_char);
         module_UART_data_send(test_char++);
-        rec_char = module_UART_data_rcv();
+        rec_char = module_UART_data_rcv(1000);
         printf ("Recieved: %c \n\r",rec_char);
         //module_WaitMilSeconds( 1000);
     }*/
@@ -74,14 +74,16 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 
     //printf (" 0x%08X ",word);
 
-    uint32_t buffer[4096];
-    for (i=0;i<1024; i++)
+    uint32_t buffer[100000];
+    int length = 100000;
+    for (i=0;i<length; i++)
     {
         buffer[i] = i;
     }
     int status = -100;
     printf("Ready to transmit \n\r");
-    status = xmodemTransmit((unsigned char *) buffer, 4096*4);
+    status = xmodemTransmit((unsigned char *) buffer, length*4);
+    module_Systimer_WaitMilSeconds(1000);
     printf("Transfer complete: %i \n\r", status);
 
     while( 1 )
@@ -100,6 +102,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 //            if (c>=1024) c=0;
            // printf("Counter: %i \n\r", c);
             module_led_off();
-           // module_WaitMilSeconds( 100);
+            module_Systimer_WaitMilSeconds( 2000);
+
     }
 }

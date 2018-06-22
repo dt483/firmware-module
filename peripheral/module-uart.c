@@ -1,7 +1,8 @@
 #include "module-uart.h"
 #include "module-gpio.h"
 #include "module-systimer.h"
-#include "stdio.h"
+#include <stdio.h>
+#include <stdint.h>
 
 
 static module_uart_t console_uart;
@@ -83,23 +84,26 @@ void module_UART_send (char data, module_uart_t *uart_descriptor)
 char module_UART_recieve (module_uart_t *uart_descriptor, uint32_t timeout)
 {
     char _inbyte = 0;
-    uint32_t tick_timeout;
-    tick_timeout = timeout * ( (TIMER_TICKRATE/noDIV)/1000000 );
-    printf ('DBG: module_UART_recieve: tick_timeout =  %i \n\r', tick_timeout);
+    uint32_t tick_timeout = 0;
+    tick_timeout = timeout * ((TIMER_TICKRATE/noDIV)/1000);
+    //printf ("DBG: module_UART_recieve: tick_timeout =  %u \n\r", (unsigned int) tick_timeout);
 
-    volatile uint32_t _counter = 0;
-    uint32_t timestamp1, timestamp2=0;;
+    //volatile uint32_t _counter = 0;
+    volatile uint32_t timestamp1=0, timestamp2=0;;
     timestamp1 =  module_Systimer_stamp();
-    printf ('DBG: module_UART_recieve: timestamp1 =  %i \n\r', timestamp1);
+    //printf ("DBG: module_UART_recieve: timestamp1 =  %u \n\r",(unsigned int) timestamp1);
     while ( !((read_reg(LSR, uart_descriptor->base) & DR) == DR) )
     {
-        _counter++;
+        //_counter++;
+
+        //module_Systimer_WaitMilSeconds(1);
         timestamp2 = module_Systimer_stamp();
-        printf ('DBG: module_UART_recieve: timestamp2 =  %i \n\r', timestamp1);
-        if (( timestamp2*-timestamp1) >= tick_timeout)
+        //printf ("DBG: module_UART_recieve: timestamp2 =  %u \n\r", (unsigned int)timestamp2);
+        //printf ("DBG: module_UART_recieve: timestamp2-timestamp1 =  %u \n\r", (unsigned int)timestamp2-timestamp1);
+        if (( timestamp1-timestamp2) >= tick_timeout)
         {
-            printf("ERR: module_UART_recieve: timed out: %i > %i \n\r",timestamp2-timestamp1,  tick_timeout);
-            return '@';
+            //printf("ERR: module_UART_recieve: timed out: %u > %u \n\r",timestamp2-timestamp1,  tick_timeout);
+            return '\0';
         }
     }
     _inbyte = (char) read_reg(RFR, uart_descriptor->base);
@@ -122,7 +126,7 @@ module_uart_t *module_UART_init_data()
 }
 module_uart_t *module_UART_init_console()
 {
-    module_UART_init(&data_uart, UART1);
+    module_UART_init(&data_uart, UART0);
     return &data_uart;
 }
 
