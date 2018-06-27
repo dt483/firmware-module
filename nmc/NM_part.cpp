@@ -14,6 +14,7 @@
 #include "../../nmsdk/NMPP1/include/nmpp.h"
 #include "../../nmsdk/DSPPU/include/DSPPUControl.h"
 #include "../../nmsdk/include/time.h"
+#include "../../nmsdk/include/math.h"
 
 int n = 0;
 
@@ -45,14 +46,19 @@ int main()
 
 
             nm32sc *Spektr = NULL;
+            nm32sc *Spektr1 = NULL;
+
             nm64s *SpektrA = NULL;
+            nm64s *SpektrEqv = NULL;
             nm64s *LTmp1 = NULL;
             nm64s *LTmp2 = NULL;
             nm32s *Signal1 = NULL;
              nm32s *Signal2 = NULL;
 
             VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
+            VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
             VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
+            VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
             VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
             VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
             VEC_Malloc (&Signal1, len, MEM_LOCAL);
@@ -118,11 +124,23 @@ int main()
     dsppu::C_InputUnit &input_unit = dsppu::C_InputUnit::Inst();
     dsppu::C_InputUnit::S_Settings iu_settings;
     input_unit.GetSettings(iu_settings);
+   //iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
+   // iu_settings.source_2 = dsppu::C_InputUnit::S_Settings::ADC;
+
+   // input_unit.SetOffset(iu_settings.source_3, -2);
+   // input_unit.SetOffset(iu_settings.source_2, 2);
+
+    iu_settings.source_2= dsppu::C_InputUnit::S_Settings::ADC;
     iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
-    iu_settings.source_2 = dsppu::C_InputUnit::S_Settings::ADC;
-   // input_unit.SetOffset(iu_settings.source_0, 3);
-   // input_unit.SetOffset(iu_settings.source_1, 1);
+
+    //input_unit.SetOffset(iu_settings.source_0, 0);
+   // input_unit.SetOffset(iu_settings.source_1, 128);
+
+
+
     input_unit.SetSettings(iu_settings);
+
+
     // Получение экземпляра класса для настройки канала.
     // Используется первый канал из кластера
     // каналов без фильтров.
@@ -134,45 +152,25 @@ int main()
     channel_Q.EnableStart(true);
     channel_Q.EnableStop(true);
 
-    /*// Настройка гетеродина канала для старого -// Постоянные значения sin=0, cos=1.
-    dsppu::C_BaseChannel::S_Settings channel_settings1;
-    channel_Q.GetSettings(channel_settings1);
-    channel_settings1.het_trans_type = dsppu::C_Channel::S_Settings::SIN1_COS0;
-    channel_settings1.data_source = dsppu::C_Channel::S_Settings::INP_2;
-    channel_Q.SetSettings(channel_settings1);
 
-    dsppu::C_BaseChannel::S_Settings channel_settings;
-    channel_I.GetSettings(channel_settings);
-    channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::SIN1_COS0;
-    channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_3;
-    channel_I.SetSettings(channel_settings);*/
-
-    /*// Настройка гетеродина канала для образца негабаритного  -// Постоянные значения sin=0, cos=1.
-    dsppu::C_BaseChannel::S_Settings channel_settings1;
-    channel_Q.GetSettings(channel_settings1);
-    channel_settings1.het_trans_type = dsppu::C_Channel::S_Settings::SIN1_COS0;
-    channel_settings1.data_source = dsppu::C_Channel::S_Settings::INP_1;
-    channel_Q.SetSettings(channel_settings1);
-
-    dsppu::C_BaseChannel::S_Settings channel_settings;
-    channel_I.GetSettings(channel_settings);
-    channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::SIN1_COS0;
-    channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_0;
-    channel_I.SetSettings(channel_settings);*/
 
     //==============================================================================
     // Настройка гетеродина канала -// Постоянные значения sin=0, cos=1.
+    dsppu::C_BaseChannel::S_Settings channel_settings;
+    channel_I.GetSettings(channel_settings);
+    channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
+    channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_3;
+    channel_I.SetSettings(channel_settings);
+
+
+
     dsppu::C_BaseChannel::S_Settings channel_settings1;
     channel_Q.GetSettings(channel_settings1);
     channel_settings1.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
     channel_settings1.data_source = dsppu::C_Channel::S_Settings::INP_2;
     channel_Q.SetSettings(channel_settings1);
 
-    dsppu::C_BaseChannel::S_Settings channel_settings;
-    channel_I.GetSettings(channel_settings);
-    channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
-    channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_3;
-    channel_I.SetSettings(channel_settings);
+
 
     //Цифровой гетеродин
     channel_I.heterodyne.SetFreq(freq_het);
@@ -211,14 +209,14 @@ int main()
     dsppu::C_Normalizer::S_Settings norm_settings;
     channel_I.normalizer.GetSettings(norm_settings);
     //norm_settings.norm_from_bit = 13; //13 9
-    norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_1;
+    norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
     norm_settings.enable_auto_norm_repeat = true;
     channel_I.normalizer.SetSettings(norm_settings);
 
     dsppu::C_Normalizer::S_Settings norm_settings1;
     channel_Q.normalizer.GetSettings(norm_settings1);
     //norm_settings1.norm_from_bit = 13;  //13 9
-    norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_1;
+    norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
     norm_settings1.enable_auto_norm_repeat = true;
     channel_Q.normalizer.SetSettings(norm_settings1);
 
@@ -268,7 +266,7 @@ int main()
     int pok=0;
     int32b M=0;
 
-    while (ill<9) {
+    while (ill<99) {
      if ((DSPPU.GetStackMonitor(sm))&(sm.ag_number==ag_nI)) {
       //   if (ill%2 == 0){
 
@@ -296,35 +294,78 @@ int main()
     sum_Sig_0 = -sum_Sig_0/128;
     sum_Sig_1 = -sum_Sig_1/128;
 
-    VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
-    VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
-    VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
+    //VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
+    //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
+   //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
 
-    VEC_AddV((nm64s*) ((int) Signal1 + 2), (nm64s*) Signal2, (nm64s*) Signal1, len/2);
+
 
    // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
     //Вычисление БПФ
+
+
+
     FFT_Fwd256Set6bit();
-    FFT_Fwd256((nm32sc*) Signal1,(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,12);
-    VEC_Abs ((nm32s*) Spektr, (nm32s*) SpektrA, len);
+    FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
+
+    FFT_Fwd256Set6bit();
+    FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
+
+    VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
+
+  //  VEC_Neg ((nm32s*) ((int) Spektr1+2*0), (nm32s*) SpektrEqv,len);
+    VEC_AddV((nm32s*) Spektr, (nm32s*) Spektr1, (nm32s*) SpektrEqv, len);
+
+
+   VEC_Abs ((nm32s*) SpektrEqv, (nm32s*) SpektrA, len);
+   //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
+   // VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
 
    VEC_SetVal ((nm32s*) SpektrA, 0, 0);
    VEC_SetVal ((nm32s*) SpektrA, 1, 0);
-   // VEC_SetVal ((nm32s*) SpektrA, 2, 0);
-   // VEC_SetVal ((nm32s*) SpektrA, 3, 0);
-    //VEC_SetVal ((nm32s*) SpektrA, 4, 0);
-    //VEC_SetVal ((nm32s*) SpektrA, 5, 0);
-    //VEC_SetVal ((nm32s*) SpektrA, 6, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 2, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 3, 0);
+   VEC_SetVal ((nm32s*) SpektrA, 255, 0);
+   VEC_SetVal ((nm32s*) SpektrA, 256, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 12, 0);
     //VEC_MaxPos ((nm32s31b*) SpektrA, len,(int) (&pok),(int32b) (&M) ,(void*) LTmp1, (void*) LTmp2, 1);
-    //VEC_MaxPos ((nm32s31b*) SpektrA, len,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
+    VEC_MaxPos ((nm32s31b*) SpektrA, len/2,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
     //VEC_MaxPos (nm32s31b *pSrcVec, int nSize, int& nIndex, int32b &nMaxValue, void *pLTmpBuf,void *pGTmpBuf, int nSearchDir=1);
     t2=clock();
    M=0;
+  /* int Im0,Re0,Im1,Re1,Z0,Z1;
+
    int valS = 0;
-   for (int jk=0; jk<128; jk++){
+   for (int jk=0; jk<120; jk++){
        valS = VEC_GetVal((nm32s*) SpektrA,2*jk)+ VEC_GetVal((nm32s*) SpektrA,2*jk+1);
        if(valS>M) {pok = jk; M=valS;};
+
+       Im0=VEC_GetVal((nm32s*) Spektr,2*jk);
+       Re0=VEC_GetVal((nm32s*) Spektr,2*jk+1);
+       Im1=VEC_GetVal((nm32s*) Spektr1,2*jk);
+       Re1=VEC_GetVal((nm32s*) Spektr1,2*jk+1);
+
+       Z0=(int) sqrt((double) (Im0*Im0+Re0*Re0));
+       Z1=(int) sqrt((double) (Im1*Im1+Re1*Re1));
+       if(jk>3){
+        VEC_SetVal ((nm32s*) SpektrEqv, 2*jk, Re0-Re1*Z0/Z1);
+        VEC_SetVal ((nm32s*) SpektrEqv, 2*jk+1, Im0-Im1*Z0/Z1);
+        };
    };
+   */
+   int ImM0,ReM0, ImM1,ReM1;
+   //ImM0 = VEC_GetVal((nm32s*) Spektr,2*pok+1);
+   //ReM0 = VEC_GetVal((nm32s*) Spektr,2*pok);
+   //ImM1 = VEC_GetVal((nm32s*) Spektr1,2*pok+1);
+   //ReM1 = VEC_GetVal((nm32s*) Spektr1,2*pok);
+
+   //AM0 = (int) sqrt(ImM0*ImM0+ReM0*ReM0);
+  // AM1 = (int) (ImM1*ImM1+ReM1*ReM1);
+
+
+
+   //if (((ImM/ReM)*(ImM1/ReM1))<0 && (ReM*ReM1>0)) pok = 128-pok;
+
     t3=clock();
 
 
@@ -335,7 +376,12 @@ int main()
    int nom;
    for(nom=0; nom<2048; nom++) {VEC_SetVal ((nm32s*) SignalI, nom, (uint32b) nom);};
 
+   int norm_delI, norm_delQ;
+    //channel_I.normalizer.GetSettings(norm_settings);
+    norm_delI = norm_settings.norm_from_bit;
 
+    //channel_Q.normalizer.GetSettings(norm_settings1);
+    norm_delQ = norm_settings1.norm_from_bit;
    //===========In memory==================
 
    uint64b g2 = 0x42002;
@@ -343,23 +389,38 @@ int main()
 
 
 
-   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920*2)/256;
+
+   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/256;
    nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = sum_Sig_0;
    nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = sum_Sig_1;
    nm32s  *adresf520=reinterpret_cast<nm32s*>(g2+520); *adresf520 = (t2-t1)/82;
    nm32s  *adresf522=reinterpret_cast<nm32s*>(g2+522); *adresf522 = (t3-t1)/82;
-
+    nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = norm_delI;
+       nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = norm_delQ;
    uint64b g3 = 0x42002+1000;
    for(int k=0; k<512; k++) {nm32s  *adresf0=reinterpret_cast<nm32s*>(g3+k); *adresf0 = VEC_GetVal((nm32s*) Signal1,k);};
 
+   uint64b g4 = 0x42002+1600;
+   for(long int k=0; k<256; k++) {
+   nm32s  *adresf=reinterpret_cast<nm32s*>(g4+4*k); *adresf = VEC_GetVal((nm32s*) Spektr,2*k);
+   nm32s  *ad=reinterpret_cast<nm32s*>(g4+4*k+1); *ad = VEC_GetVal((nm32s*) Spektr,2*k+1);
+   nm32s  *adro=reinterpret_cast<nm32s*>(g4+4*k+2); *adro = VEC_GetVal((nm32s*) Spektr1,2*k);
+   nm32s  *adrok=reinterpret_cast<nm32s*>(g4+4*k+3); *adrok = VEC_GetVal((nm32s*) Spektr1,2*k+1);};
+
+    uint64b g6 = 0x42002+2700;
+    for(int k=0; k<512; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g6+k); *adresf1 = VEC_GetVal((nm32s*) SpektrEqv,k);};
    //======================================
 
 
 
 
    VEC_Free(SignalI);
-
-
+   VEC_Free(Signal1);
+   VEC_Free(Signal2);
+   VEC_Free(Spektr);
+   VEC_Free(Spektr1);
+   VEC_Free(SpektrA);
+   VEC_Free(SpektrEqv);
 
 
 

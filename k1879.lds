@@ -4,8 +4,9 @@ OUTPUT_ARCH(ARM)
 ENTRY(_start)
 MEMORY
 {
-        AMB (rwx) : ORIGIN = 0xC0000000, LENGTH = 0x7FFFF
-        SHARED (rw) : ORIGIN = 0x00100000, LENGTH = 0x7FFFF
+        AMB0 (rwx) : ORIGIN = 0xC0000000, LENGTH = 0x7FFFF
+        /*AMB1 (rwx) : ORIGIN = 0xC0040000, LENGTH = 0x3FFFF*/
+       /* SHARED (rw) : ORIGIN = 0x00100000, LENGTH = 0x7FFFF */
   
 }
 SECTIONS
@@ -43,9 +44,12 @@ SECTIONS
     .comment :   {
                 *(.comment*)
     }
-     _end =.;
 
-    .NM_prog : {
+     .NM_prog : {
         *(.NM_prog*)
     }
+     _end =.;
+
+
+
 }
