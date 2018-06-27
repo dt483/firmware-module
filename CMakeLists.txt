@@ -61,8 +61,7 @@ execute_process(COMMAND sh ./make.sh
 
 
 add_executable(firmware-module
-    #firmware.c
-    firmware_test.c
+    firmware.c
     armc-cstartup.c
     armc-cstubs.c
     armc-start.S
@@ -88,7 +87,7 @@ TARGET_LINK_LIBRARIES(firmware-module m)
 
 add_custom_command(
     TARGET  firmware-module POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} ./firmware-module -O binary ./firmware.bin -v
+    COMMAND ${CMAKE_OBJCOPY} ./firmware-module -O binary ./firmware.img -v
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Convert the ELF output file to a binary image" )
 

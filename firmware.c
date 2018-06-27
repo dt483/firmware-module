@@ -36,7 +36,7 @@
 #include "./peripheral/module-gpio.h"
 #include "./peripheral/module-systimer.h"
 #include "./peripheral/lls/nmcload.h"
-
+#include "./peripheral/xmodem-1k/xmodem.h"
 
 unsigned char NM_part_abs[] __attribute__((section(".NM_prog")));
 unsigned char initnmc_mini_abs[] __attribute__((section(".NM_prog.init")));
@@ -49,9 +49,10 @@ unsigned char initnmc_mini_abs[] __attribute__((section(".NM_prog.init")));
 void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
 {
 
-    module_runFreeCounter();
-    module_WaitMilSeconds( 2000);
-    module_UART_init();
+    module_Systimer_runFreeCounter();
+    module_Systimer_WaitMilSeconds( 2000);
+    module_UART_init_console();
+    module_UART_init_data();
     printf("start... \n\r");
 
     module_SetGpioOutput(module_GPIO0);
@@ -206,7 +207,10 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
         printf ("HSpe12 = [");
         int k5;
         int* g4  = (int*) (4*(0x42002+1600));
-        for(k5 = 0; k5<1024; k5++){
+
+        printf ("Rasdy to transmit \n\r");
+        xmodemTransmit((unsigned char *) g4, 4*1024);
+       /* for(k5 = 0; k5<1024; k5++){
             if(k5%4 == 0) {printf ("; \n\r");}
       //      word = g3[k4];
 
@@ -219,7 +223,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
          //    printf (" 0x%08X ",word);
               if(k5 == 1023) { printf ("];");};
 
-        };
+        };*/
   /*
         printf ("\n\r");
         printf ("\n\r");
@@ -244,7 +248,7 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
     {
 
             module_led_on();
-            module_WaitMilSeconds( 2000);
+            module_Systimer_WaitMilSeconds( 2000);
             //module_UART_send(c++);
 
            /* printf("%i | Reg at 0x%08X+0x%08X  : 0x%08X =  0x%08X \n\r",
