@@ -113,12 +113,36 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
             printf("- FAIL \n\r");
         }
 
+        unsigned int* pok_arm = (unsigned int*) (4*0x41ff0);
+        unsigned int* acq0_arm = (unsigned int*) (4*0x41ff2);
+        unsigned int* acq_arm = (unsigned int*) (4*0x41ff4);
+        unsigned int* stop_arm = (unsigned int*) (4*0x41ff6);
+
+        unsigned int arm0=0;
+        int freq=0;
+
 
 
         PL_Word returnValue = 0;
         printf ("Sync with nm. %i \n\r", returnValue);
         PL_Sync(&access0,0xDEADBEAF, &returnValue);
         printf ("Return value: %i \n\r", returnValue);
+
+        while((stop_arm[0]) == 0){
+
+          //  freq = (pok_arm[0])*81920/256;
+           if(arm0==0 && acq_arm[0] ==1) printf ("1");//{printf ("Freq, kHz: %i \n\r", freq);};
+           if(arm0 ==1 && acq_arm[0] ==0) printf ("0");//{printf ("No signal \n\r");};
+            arm0 =acq_arm[0];
+        }
+
+
+        printf ("Sync with nm. %i \n\r", returnValue);
+        PL_Sync(&access0,0xDEADBEAF, &returnValue);
+        printf ("Return value: %i \n\r", returnValue);
+
+
+
 
         unsigned int k = 0;
         unsigned int* g2  = (unsigned int*) (4*0x42002);
@@ -189,6 +213,65 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
         printf ("\n\r");
         printf ("\n\r");
 
+
+
+      //  printf ("HSpe12 = [");
+        int k5;
+        int* g4  = (int*) (4*(0x42002+1600));
+
+     //   printf ("Rasdy to transmit \n\r");
+        //xmodemTransmit((unsigned char *) g4, 4*1024);
+       /* for(k5 = 0; k5<1024; k5++){
+            if(k5%4 == 0) {printf ("; \n\r");}
+      //      word = g3[k4];
+
+            word = (g4[k5]);
+            //if(word>(2<<31)) { word = 256-word; printf("-");};
+            printf ("%i ",word);
+
+
+
+         //    printf (" 0x%08X ",word);
+              if(k5 == 1023) { printf ("];");};
+
+        };*/
+
+        printf ("\n\r");
+        printf ("\n\r");
+
+        int* g5  = (int*) (4*(0x42002+2700));
+        printf ("HSpeIssled = [ %i ",g5[k]);
+        for(k = 1; k<256; k++){
+            printf (" %i ",g5[k]);
+             printf (",");
+            if(k%4 == 0) { printf ("... \n\r");}
+             if(k == 255) { printf ("];");}
+        };
+
+        printf ("\n\r");
+
+        printf ("\n\r");
+
+        int* g6  = (int*) (4*(0x42002+2700+512));
+        printf ("HSpeIssled_Max = [ %i ",g6[k]);
+        for(k = 1; k<256; k++){
+            printf (" %i ",g6[k]);
+             printf (",");
+            if(k%4 == 0) { printf ("... \n\r");}
+             if(k == 255) { printf ("];");}
+        };
+        printf ("\n\r");
+        printf ("\n\r");
+        int* g7  = (int*) (4*(0x42002+2700+1512));
+        printf ("Pok= [ %i ",g7[0]);
+        for(k = 1; k<256; k++){
+            printf (" %i ",g7[k]);
+             printf (",");
+            if(k%4 == 0) { printf ("... \n\r");}
+             if(k == 255) { printf ("];");}
+        };
+
+        printf ("\n\r");
         printf ("Freq, kHz: %i ",g2[514]);
         printf ("\n\r");
         printf ("Sum0: %i ",g2[516]);
@@ -204,46 +287,6 @@ void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags)
         printf ("auto norm 2: %i ",g2[524]);
         printf ("\n\r");
 
-        printf ("HSpe12 = [");
-        int k5;
-        int* g4  = (int*) (4*(0x42002+1600));
-
-        printf ("Rasdy to transmit \n\r");
-        xmodemTransmit((unsigned char *) g4, 4*1024);
-       /* for(k5 = 0; k5<1024; k5++){
-            if(k5%4 == 0) {printf ("; \n\r");}
-      //      word = g3[k4];
-
-            word = (g4[k5]);
-            //if(word>(2<<31)) { word = 256-word; printf("-");};
-            printf ("%i ",word);
-
-
-
-         //    printf (" 0x%08X ",word);
-              if(k5 == 1023) { printf ("];");};
-
-        };*/
-  /*
-        printf ("\n\r");
-        printf ("\n\r");
-
-        int* g5  = (int*) (4*(0x42002+2700));
-        for(k5 = 4; k5<252; k5++){
-            if(k5%2 == 0) { word = (abs(g5[k5-1])+abs(g5[k5-2]));  printf ("%i ",word); printf ("\n\r");}
-      //      word = g3[k4];
-
-            word = (g5[k5]);
-            //if(word>(2<<31)) { word = 256-word; printf("-");};
-            printf ("%i ",word);
-
-
-
-         //    printf (" 0x%08X ",word);
-
-
-        };
-*/
     while( 1 )
     {
 

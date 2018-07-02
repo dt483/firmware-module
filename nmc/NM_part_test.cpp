@@ -39,7 +39,6 @@ int main()
              VEC_SetVal( Map01, 2*im, noo*2); VEC_SetVal(Map01, 2*im+1, noo*2 +1);
             };*/
 
-
             nm32s *SIGI = (nm32s*) (0x40002);
             nm32s *SIGQ = (nm32s*) (0x40002+4*BUF_SIZE);
 
@@ -51,31 +50,19 @@ int main()
 
             nm64s *SpektrA = NULL;
             nm64s *SpektrEqv = NULL;
-            nm64s *Spektr_issled = NULL;
-             nm64s *Spektr_issled_Max = NULL;
             nm64s *LTmp1 = NULL;
             nm64s *LTmp2 = NULL;
             nm32s *Signal1 = NULL;
              nm32s *Signal2 = NULL;
 
-            nm32s *MM = NULL;
-            nm32s *Pok = NULL;
-
             VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
-
-
             VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
             VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
             VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
-            VEC_Malloc ((nm64s**)&Spektr_issled, len/2, MEM_GLOBAL);
-            VEC_Malloc ((nm64s**)&Spektr_issled_Max, len/2, MEM_GLOBAL);
             VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
             VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
             VEC_Malloc (&Signal1, len, MEM_LOCAL);
              VEC_Malloc (&Signal2, len, MEM_LOCAL);
-
-             VEC_Malloc ((nm64s**)&MM, len, MEM_GLOBAL);
-             VEC_Malloc ((nm64s**)&Pok, len, MEM_GLOBAL);
 
             nm32s *Masko=NULL;
             VEC_Malloc (&Masko, len, MEM_GLOBAL);
@@ -221,16 +208,16 @@ int main()
     // Выбираем первые 8 бит из действительной и мнимой частей
     dsppu::C_Normalizer::S_Settings norm_settings;
     channel_I.normalizer.GetSettings(norm_settings);
-    norm_settings.norm_from_bit = 7; //13 9
-    //norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
-    //norm_settings.enable_auto_norm_repeat = true;
+    //norm_settings.norm_from_bit = 13; //13 9
+    norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
+    norm_settings.enable_auto_norm_repeat = true;
     channel_I.normalizer.SetSettings(norm_settings);
 
     dsppu::C_Normalizer::S_Settings norm_settings1;
     channel_Q.normalizer.GetSettings(norm_settings1);
-    norm_settings1.norm_from_bit = 7;  //13 9
-    //norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
-    //norm_settings1.enable_auto_norm_repeat = true;
+    //norm_settings1.norm_from_bit = 13;  //13 9
+    norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
+    norm_settings1.enable_auto_norm_repeat = true;
     channel_Q.normalizer.SetSettings(norm_settings1);
 
     // Настройка устройства паковки канала -
@@ -261,7 +248,7 @@ int main()
     // Установка интервала накопления - 25 мкс. - 0 50 мкс - 1 и т.д.
     // С данными настройками БПОС в кадре
     // будет находится 4096 комплексных отсчётов.
-    dsppu::C_IntervalTimer::Inst().SetInterval(9);
+    dsppu::C_IntervalTimer::Inst().SetInterval(0);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Запуск БПОС.
@@ -273,116 +260,19 @@ int main()
      dsppu::C_Normalizer::S_State snQ;
 
 
-     nm32s  *pok_arm=reinterpret_cast<nm32s*>(0x41ff0); *pok_arm = 0;
-     nm32s  *acq0_arm=reinterpret_cast<nm32s*>(0x41ff2); *acq0_arm= 0;
-     nm32s  *acq_arm=reinterpret_cast<nm32s*>(0x41ff4); *acq_arm = 0;
-     nm32s  *stop_arm=reinterpret_cast<nm32s*>(0x41ff6); *stop_arm = 0;
-
-     int a = 0xDEADBEAF;
-     ncl_hostSync(a);
-
     clock_t t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
-    int64b sum_Sig_0, sum_Sig_1, sum_SpeA , treshold_acq, treshold_acq1;//, mea_Sig0,  mea_Sig1;
-    int ill=0, i_acq=0;
+    int64b sum_Sig_0, sum_Sig_1;//, mea_Sig0,  mea_Sig1;
+    int ill=0;
     int pok=0;
-    int32b M = 0, M1 = 0;
-    int acq=0,acq0=0;
+    int32b M=0;
 
-    while (ill<200000 && acq<10) {
+    while (ill<99) {
      if ((DSPPU.GetStackMonitor(sm))&(sm.ag_number==ag_nI)) {
-
-
-         t1=clock();
-         //Сигнал
-             //VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
-       if(ill%2==0){
-         VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
-         //VEC_Cnv ((nm8s*) SIGQ, (nm32s*) Signal2, len/2);
-       }
-       else {
-           VEC_Cnv ((nm8s*) ((int) SIGI+2*BUF_SIZE), (nm32s*) Signal1, len);
-           //VEC_Cnv ((nm8s*) ((int) SIGQ+2*BUF_SIZE), (nm64s*) Signal2, len/2);
-       };
-         //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
-
-       //  VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
-       //  VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
-       //  sum_Sig_0 = -sum_Sig_0/128;
-       //  sum_Sig_1 = -sum_Sig_1/128;
-
-        VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len);
-        //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
-        //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
-        // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
-       t3=clock();
-
-
-         //Вычисление БПФ
-
-
-         FFT_Fwd256Set6bit();
-         FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
-
-         //FFT_Fwd256Set6bit();
-         //FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
-
-         VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
-
-       //  VEC_Neg ((nm32s*) ((int) Spektr1+2*0), (nm32s*) SpektrEqv,len);
-         VEC_AddV((nm32s*) Spektr, (nm32s*) Spektr1, (nm32s*) SpektrEqv, len);
-
-
-        //VEC_Abs ((nm32s*) ((int) SpektrEqv+20), (nm32s*) ((int) SpektrA+20), len/2-40);
-
-        VEC_Abs ((nm32s*) ((int) Spektr+4), (nm32s*) ((int) SpektrA+4), len/2-4);
-        //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
-         //VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
-
-       // VEC_SetVal ((nm32s*) SpektrA, 0, 0);
-        //VEC_SetVal ((nm32s*) SpektrA, 1, 0);
-        //VEC_SetVal ((nm32s*) SpektrA, 255, 0);
-        //VEC_SetVal ((nm32s*) SpektrA, 256, 0);
-
-
-        //VEC_SetVal ((nm32s*) SpektrA, 12, 0);
-         //VEC_MaxPos ((nm32s31b*) SpektrA, len,(int) (&pok),(int32b) (&M) ,(void*) LTmp1, (void*) LTmp2, 1);
-
-
-        VEC_Sum ((nm32s*) SpektrA, len, (int64b*) &sum_SpeA);
-        //treshold_acq = sum_SpeA*2/len;
+      //   if (ill%2 == 0){
 
 
 
-          VEC_MaxPos ((nm32s31b*) SpektrA, len/2,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
-
-          if (ill<10000) {
-
-             VEC_AddV((nm32s*) Spektr_issled, (nm32s*) SpektrA, (nm32s*) Spektr_issled, len/2);
-
-
-
-             if (VEC_GetVal((nm32s*) Spektr_issled_Max,pok)<M) {VEC_SetVal((nm32s*) Spektr_issled_Max,pok,M);};
-             //VEC_SetVal ((nm32s*) MM, ill, M);
-             if(M>M1) M1=M;
-          };
-
-         treshold_acq = 25*VEC_GetVal((nm32s*) Spektr_issled,pok)/10000;
-         treshold_acq1 = 15*VEC_GetVal((nm32s*) Spektr_issled_Max,pok)/10;
-          //acq0 =acq;
-          //treshold_acq = 0;
-          //treshold_acq1 = 0;
-
-
-          if((M>((int) treshold_acq))&&(M>treshold_acq1)&&(ill>10000)) {acq=1; VEC_SetVal((nm32s*) Pok, i_acq, pok); i_acq++;} else acq =0;
-         // if((M>((int) treshold_acq))&&(ill>1000)) acq=1; else acq = 0;
-
-         *pok_arm = pok;
-         *acq_arm =acq;
-         //*acq0_arm =acq0;
-
-         t2=clock();
-
-
+     //}
 
 
 
@@ -391,10 +281,58 @@ int main()
 
     };
 
-    *stop_arm = 1;
-    //VEC_MaxPos (nm32s31b *pSrcVec, int nSize, int& nIndex, int32b &nMaxValue, void *pLTmpBuf,void *pGTmpBuf, int nSearchDir=1);
+    t1=clock();
+    //Сигнал
+        //VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
 
-  // M=0;
+    VEC_Cnv ((nm8s*) SIGI, (nm64s*) Signal1, len/2);
+    VEC_Cnv ((nm8s*) SIGQ, (nm64s*) Signal2, len/2);
+    //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
+
+    VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
+    VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
+    sum_Sig_0 = -sum_Sig_0/128;
+    sum_Sig_1 = -sum_Sig_1/128;
+
+    //VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
+    //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
+   //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
+
+
+
+   // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
+    //Вычисление БПФ
+
+
+
+    FFT_Fwd256Set6bit();
+    FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
+
+    FFT_Fwd256Set6bit();
+    FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
+
+    VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
+
+  //  VEC_Neg ((nm32s*) ((int) Spektr1+2*0), (nm32s*) SpektrEqv,len);
+    VEC_AddV((nm32s*) Spektr, (nm32s*) Spektr1, (nm32s*) SpektrEqv, len);
+
+
+   VEC_Abs ((nm32s*) SpektrEqv, (nm32s*) SpektrA, len);
+   //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
+   // VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
+
+   VEC_SetVal ((nm32s*) SpektrA, 0, 0);
+   VEC_SetVal ((nm32s*) SpektrA, 1, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 2, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 3, 0);
+   VEC_SetVal ((nm32s*) SpektrA, 255, 0);
+   VEC_SetVal ((nm32s*) SpektrA, 256, 0);
+   //VEC_SetVal ((nm32s*) SpektrA, 12, 0);
+    //VEC_MaxPos ((nm32s31b*) SpektrA, len,(int) (&pok),(int32b) (&M) ,(void*) LTmp1, (void*) LTmp2, 1);
+    VEC_MaxPos ((nm32s31b*) SpektrA, len/2,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
+    //VEC_MaxPos (nm32s31b *pSrcVec, int nSize, int& nIndex, int32b &nMaxValue, void *pLTmpBuf,void *pGTmpBuf, int nSearchDir=1);
+    t2=clock();
+   M=0;
   /* int Im0,Re0,Im1,Re1,Z0,Z1;
 
    int valS = 0;
@@ -428,10 +366,9 @@ int main()
 
    //if (((ImM/ReM)*(ImM1/ReM1))<0 && (ReM*ReM1>0)) pok = 128-pok;
 
-  //    t3=clock();
+    t3=clock();
 
-  //  int a = 0xDEADBEAF;
-  //  ncl_hostSync(a);
+
 
 
    nm32s *SignalI=NULL;
@@ -453,13 +390,13 @@ int main()
 
 
 
-   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/512;
-   nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = ill;
-   nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = M;
+   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/256;
+   nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = sum_Sig_0;
+   nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = sum_Sig_1;
    nm32s  *adresf520=reinterpret_cast<nm32s*>(g2+520); *adresf520 = (t2-t1)/82;
    nm32s  *adresf522=reinterpret_cast<nm32s*>(g2+522); *adresf522 = (t3-t1)/82;
-    nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = treshold_acq1;
-       nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = treshold_acq;
+    nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = norm_delI;
+       nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = norm_delQ;
    uint64b g3 = 0x42002+1000;
    for(int k=0; k<512; k++) {nm32s  *adresf0=reinterpret_cast<nm32s*>(g3+k); *adresf0 = VEC_GetVal((nm32s*) Signal1,k);};
 
@@ -471,13 +408,7 @@ int main()
    nm32s  *adrok=reinterpret_cast<nm32s*>(g4+4*k+3); *adrok = VEC_GetVal((nm32s*) Spektr1,2*k+1);};
 
     uint64b g6 = 0x42002+2700;
-    for(int k=0; k<512; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g6+k); *adresf1 = VEC_GetVal((nm32s*) Spektr_issled,k);};
-
-    uint64b g7 = 0x42002+2700+512;
-    for(int k=0; k<1000; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g7+k); *adresf1 = VEC_GetVal((nm32s*) Spektr_issled_Max,k);};
-
-    uint64b g8 = 0x42002+2700+1512;
-    for(int k=0; k<1000; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g8+k); *adresf1 = VEC_GetVal((nm32s*) Pok,k);};
+    for(int k=0; k<512; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g6+k); *adresf1 = VEC_GetVal((nm32s*) SpektrEqv,k);};
    //======================================
 
 
@@ -494,8 +425,8 @@ int main()
 
 
 
- // int a = 0xDEADBEAF;
-  ncl_hostSync(a);
+   int a = 0xDEADBEAF;
+   ncl_hostSync(a);
 
     return n;
 }

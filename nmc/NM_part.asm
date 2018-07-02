@@ -22,15 +22,16 @@ extern _void._.8.8operator._delete.1void._.0.2 : label;
 extern _free : label;
 extern _ncl_hostSync : label;
 extern _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2 : label;
-extern _void._.8.8VEC_Cnv.1char._.0.9._long._.0.9._int.2 : label;
+extern _void._.8.8VEC_Cnv.1char._.0.9._int._.0.9._int.2 : label;
 extern _void._.8.8VEC_Abs.1int._.0.9._int._.0.9._int.2 : label;
+extern _void._.8.8VEC_AddC.1long._.0.9._long._.0.9._long._.0.9._int.2 : label;
 extern _void._.8.8VEC_AddV.1int._.0.9._int._.0.9._int._.0.9._int.2 : label;
 extern _void._.8.8VEC_AddV.1long._.0.9._long._.0.9._long._.0.9._int.2 : label;
 extern _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2 : label;
 extern _void._.8.8VEC_MaxPos.1int._.0.9._int.9._int._.6.9._int._.6.9._void._.0.9._void._.0.9._int.2 : label;
 extern _FFT_Fwd256Set6bit : label;
 extern _FFT_Fwd256 : label;
-extern IDiv64 : label;
+extern IDiv32 : label;
 extern UDiv32 : label;
 
 	// Function declaration.
@@ -94,7 +95,7 @@ global __main : label;
 
 	push ar6, gr6;
 	ar6 = ar7;
-	ar7 += 100;
+	ar7 += 124;
 	ar5 = gr5;
 	push ar0,gr0;
 	push ar3,gr3;
@@ -137,1942 +138,2243 @@ global __main : label;
 //39:                VEC_SetVal( Map01, 2*im, noo*2); VEC_SetVal(Map01, 2*im+1, noo*2 +1);
 //40:               };*/
 //41:   
-//42:               nm32s *SIGI = (nm32s*) (0x40002);
+//42:   
+//43:               nm32s *SIGI = (nm32s*) (0x40002);
 
-	ar0 = 262146 set;                                  //<42,37>
-	[ar6 + 4] = ar0;                                  //<42,37>
+	ar0 = 262146 set;                                  //<43,37>
+	[ar6 + 4] = ar0;                                  //<43,37>
 
-//43:               nm32s *SIGQ = (nm32s*) (0x40002+4*BUF_SIZE);
+//44:               nm32s *SIGQ = (nm32s*) (0x40002+4*BUF_SIZE);
 
-	ar0 = 266146 set;                                  //<43,44>
-	[ar6 + 5] = ar0;                                  //<43,44>
+	ar0 = 266146 set;                                  //<44,44>
+	[ar6 + 5] = ar0;                                  //<44,44>
 
-//44:   
 //45:   
 //46:   
 //47:   
-//48:               nm32sc *Spektr = NULL;
-//49:               nm32sc *Spektr1 = NULL;
-//50:   
-//51:               nm64s *SpektrA = NULL;
-//52:               nm64s *SpektrEqv = NULL;
-//53:               nm64s *LTmp1 = NULL;
-//54:               nm64s *LTmp2 = NULL;
-//55:               nm32s *Signal1 = NULL;
-//56:                nm32s *Signal2 = NULL;
-//57:   
-//58:               VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
+//48:   
+//49:               nm32sc *Spektr = NULL;
+//50:               nm32sc *Spektr1 = NULL;
+//51:   
+//52:               nm64s *SpektrA = NULL;
+//53:               nm64s *SpektrEqv = NULL;
+//54:               nm64s *Spektr_issled = NULL;
+//55:                nm64s *Spektr_issled_Max = NULL;
+//56:               nm64s *LTmp1 = NULL;
+//57:               nm64s *LTmp2 = NULL;
+//58:               nm32s *Signal1 = NULL;
+//59:                nm32s *Signal2 = NULL;
+//60:   
+//61:               nm32s *MM = NULL;
+//62:               nm32s *Pok = NULL;
+//63:   
+//64:               VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
 
-	ar0 = ar7 set;                                  //<58,61>
-	gr6 = 0 set;                                  //<48,35>
-	[ar6 + 6] = gr6;                                  //<48,35>
-	[ar6 + 7] = gr6;                                  //<49,36>
-	[ar6 + 8] = gr6;                                  //<51,35>
-	[ar6 + 9] = gr6;                                  //<52,37>
-	[ar6 + 10] = gr6;                                  //<53,33>
-	[ar6 + 11] = gr6;                                  //<54,33>
-	[ar6 + 12] = gr6;                                  //<55,35>
-	[ar6 + 13] = gr6;                                  //<56,36>
-	gr6 = 1 set;                                  //<58,61>
-	[ar0++] = ar0;                                  //<58,61>
-	[ar0++] = gr6;                                  //<58,61>
-	ar4 = ar6 + 6;                                  //<58,61>
-	ar7 = ar7 + 4;                                  //<58,61>
-	[ar0++] = gr7;                                  //<58,61>
-	[ar0++] = ar4;                                  //<58,61>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<58,61>
-	ar7 = ar7 - 4;                                  //<58,61>
+	ar0 = ar7 set;                                  //<64,61>
+	gr6 = 0 set;                                  //<49,35>
+	[ar6 + 6] = gr6;                                  //<49,35>
+	[ar6 + 7] = gr6;                                  //<50,36>
+	[ar6 + 8] = gr6;                                  //<52,35>
+	[ar6 + 9] = gr6;                                  //<53,37>
+	[ar6 + 10] = gr6;                                  //<54,41>
+	[ar6 + 11] = gr6;                                  //<55,46>
+	[ar6 + 12] = gr6;                                  //<56,33>
+	[ar6 + 13] = gr6;                                  //<57,33>
+	[ar6 + 14] = gr6;                                  //<58,35>
+	[ar6 + 15] = gr6;                                  //<59,36>
+	[ar6 + 16] = gr6;                                  //<61,30>
+	[ar6 + 17] = gr6;                                  //<62,31>
+	gr6 = 1 set;                                  //<64,61>
+	[ar0++] = ar0;                                  //<64,61>
+	[ar0++] = gr6;                                  //<64,61>
+	ar4 = ar6 + 6;                                  //<64,61>
+	ar7 = ar7 + 4;                                  //<64,61>
+	[ar0++] = gr7;                                  //<64,61>
+	[ar0++] = ar4;                                  //<64,61>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<64,61>
+	ar7 = ar7 - 4;                                  //<64,61>
 
-//59:               VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
-
-	ar0 = ar7 set;                                  //<59,62>
-	ar4 = ar6 + 7;                                  //<59,62>
-	gr7 = 1 set;                                  //<59,62>
-	[ar0++] = ar0;                                  //<59,62>
-	[ar0++] = gr7;                                  //<59,62>
-	ar7 = ar7 + 4;                                  //<59,62>
-	gr7 = 256 set;                                  //<59,62>
-	[ar0++] = gr7;                                  //<59,62>
-	[ar0++] = ar4;                                  //<59,62>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<59,62>
-	ar7 = ar7 - 4;                                  //<59,62>
-
-//60:               VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
-
-	ar0 = ar7 set;                                  //<60,62>
-	ar4 = ar6 + 8;                                  //<60,62>
-	gr7 = 1 set;                                  //<60,62>
-	[ar0++] = ar0;                                  //<60,62>
-	[ar0++] = gr7;                                  //<60,62>
-	ar7 = ar7 + 4;                                  //<60,62>
-	gr7 = 256 set;                                  //<60,62>
-	[ar0++] = gr7;                                  //<60,62>
-	[ar0++] = ar4;                                  //<60,62>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<60,62>
-	ar7 = ar7 - 4;                                  //<60,62>
-
-//61:               VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
-
-	ar0 = ar7 set;                                  //<61,64>
-	gr7 = 1 set;                                  //<61,64>
-	[ar0++] = ar0;                                  //<61,64>
-	[ar0++] = gr7;                                  //<61,64>
-	ar4 = ar6 + 9;                                  //<61,64>
-	gr7 = 256 set;                                  //<61,64>
-	[ar0++] = gr7;                                  //<61,64>
-	[ar0++] = ar4;                                  //<61,64>
-	ar7 = ar7 + 4;                                  //<61,64>
-
-//62:               VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
-
-	ar4 = ar6 + 10;                                  //<62,52>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<61,64>
-	ar7 = ar7 - 4;                                  //<61,64>
-	ar0 = ar7 set;                                  //<62,52>
-	gr0 = false noflags;                                  //<62,52>
-	[ar0++] = ar0;                                  //<62,52>
-	[ar0++] = gr0;                                  //<62,52>
-	gr7 = 768 set;                                  //<62,52>
-	ar7 = ar7 + 4;                                  //<62,52>
-	[ar0++] = gr7;                                  //<62,52>
-	[ar0++] = ar4;                                  //<62,52>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<62,52>
-	ar7 = ar7 - 4;                                  //<62,52>
-
-//63:               VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
-
-	ar0 = ar7 set;                                  //<63,53>
-	ar4 = ar6 + 11;                                  //<63,53>
-	gr7 = 1 set;                                  //<63,53>
-	[ar0++] = ar0;                                  //<63,53>
-	[ar0++] = gr7;                                  //<63,53>
-	ar7 = ar7 + 4;                                  //<63,53>
-	gr7 = 768 set;                                  //<63,53>
-	[ar0++] = gr7;                                  //<63,53>
-	[ar0++] = ar4;                                  //<63,53>
-	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<63,53>
-	ar7 = ar7 - 4;                                  //<63,53>
-
-//64:               VEC_Malloc (&Signal1, len, MEM_LOCAL);
-
-	ar0 = ar7 set;                                  //<64,50>
-	gr0 = false noflags;                                  //<64,50>
-	[ar0++] = ar0;                                  //<64,50>
-	[ar0++] = gr0;                                  //<64,50>
-	ar4 = ar6 + 12;                                  //<64,50>
-	gr7 = 512 set;                                  //<64,50>
-	[ar0++] = gr7;                                  //<64,50>
-	[ar0++] = ar4;                                  //<64,50>
-	ar7 = ar7 + 4;                                  //<64,50>
-
-//65:                VEC_Malloc (&Signal2, len, MEM_LOCAL);
-
-	ar4 = ar6 + 13;                                  //<65,51>
-	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<64,50>
-	ar7 = ar7 - 4;                                  //<64,50>
-	ar0 = ar7 set;                                  //<65,51>
-	gr0 = false noflags;                                  //<65,51>
-	[ar0++] = ar0;                                  //<65,51>
-	[ar0++] = gr0;                                  //<65,51>
-	gr7 = 512 set;                                  //<65,51>
-	ar7 = ar7 + 4;                                  //<65,51>
-	[ar0++] = gr7;                                  //<65,51>
-	[ar0++] = ar4;                                  //<65,51>
-
+//65:   
 //66:   
-//67:               nm32s *Masko=NULL;
+//67:               VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
 
-	ar0 = 0 set;                                  //<67,31>
-	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<65,51>
-	ar7 = ar7 - 4;                                  //<65,51>
-	[ar6 + 14] = ar0;                                  //<67,31>
+	ar0 = ar7 set;                                  //<67,62>
+	ar4 = ar6 + 7;                                  //<67,62>
+	gr7 = 1 set;                                  //<67,62>
+	[ar0++] = ar0;                                  //<67,62>
+	[ar0++] = gr7;                                  //<67,62>
+	ar7 = ar7 + 4;                                  //<67,62>
+	gr7 = 256 set;                                  //<67,62>
+	[ar0++] = gr7;                                  //<67,62>
+	[ar0++] = ar4;                                  //<67,62>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<67,62>
+	ar7 = ar7 - 4;                                  //<67,62>
 
-//68:               VEC_Malloc (&Masko, len, MEM_GLOBAL);
+//68:               VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
 
-	ar0 = ar7 set;                                  //<68,49>
-	ar4 = ar6 + 14;                                  //<68,49>
-	gr7 = 1 set;                                  //<68,49>
-	[ar0++] = ar0;                                  //<68,49>
-	[ar0++] = gr7;                                  //<68,49>
-	ar7 = ar7 + 4;                                  //<68,49>
-	gr7 = 512 set;                                  //<68,49>
-	[ar0++] = gr7;                                  //<68,49>
-	[ar0++] = ar4;                                  //<68,49>
-	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<68,49>
-	ar7 = ar7 - 4;                                  //<68,49>
+	ar0 = ar7 set;                                  //<68,62>
+	ar4 = ar6 + 8;                                  //<68,62>
+	gr7 = 1 set;                                  //<68,62>
+	[ar0++] = ar0;                                  //<68,62>
+	[ar0++] = gr7;                                  //<68,62>
+	ar7 = ar7 + 4;                                  //<68,62>
+	gr7 = 256 set;                                  //<68,62>
+	[ar0++] = gr7;                                  //<68,62>
+	[ar0++] = ar4;                                  //<68,62>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<68,62>
+	ar7 = ar7 - 4;                                  //<68,62>
 
-//69:               for(int im=0; im<len/2; im++) {VEC_SetVal( Masko, 2*im+1, 0xFFFFFFFF);};
+//69:               VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
 
-	gr0 = false noflags;                                  //<69,24>
-	[ar6 + 15] = gr0;                                  //<69,24>
-	goto L2;                                  //<69,13>
+	ar0 = ar7 set;                                  //<69,64>
+	ar4 = ar6 + 9;                                  //<69,64>
+	gr7 = 1 set;                                  //<69,64>
+	[ar0++] = ar0;                                  //<69,64>
+	[ar0++] = gr7;                                  //<69,64>
+	ar7 = ar7 + 4;                                  //<69,64>
+	gr7 = 256 set;                                  //<69,64>
+	[ar0++] = gr7;                                  //<69,64>
+	[ar0++] = ar4;                                  //<69,64>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<69,64>
+	ar7 = ar7 - 4;                                  //<69,64>
+
+//70:               VEC_Malloc ((nm64s**)&Spektr_issled, len/2, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<70,68>
+	ar4 = ar6 + 10;                                  //<70,68>
+	gr7 = 1 set;                                  //<70,68>
+	[ar0++] = ar0;                                  //<70,68>
+	[ar0++] = gr7;                                  //<70,68>
+	ar7 = ar7 + 4;                                  //<70,68>
+	gr7 = 256 set;                                  //<70,68>
+	[ar0++] = gr7;                                  //<70,68>
+	[ar0++] = ar4;                                  //<70,68>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<70,68>
+	ar7 = ar7 - 4;                                  //<70,68>
+
+//71:               VEC_Malloc ((nm64s**)&Spektr_issled_Max, len/2, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<71,72>
+	gr7 = 1 set;                                  //<71,72>
+	[ar0++] = ar0;                                  //<71,72>
+	[ar0++] = gr7;                                  //<71,72>
+	ar4 = ar6 + 11;                                  //<71,72>
+	gr7 = 256 set;                                  //<71,72>
+	[ar0++] = gr7;                                  //<71,72>
+	[ar0++] = ar4;                                  //<71,72>
+	ar7 = ar7 + 4;                                  //<71,72>
+
+//72:               VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
+
+	ar4 = ar6 + 12;                                  //<72,52>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<71,72>
+	ar7 = ar7 - 4;                                  //<71,72>
+	ar0 = ar7 set;                                  //<72,52>
+	gr0 = false noflags;                                  //<72,52>
+	[ar0++] = ar0;                                  //<72,52>
+	[ar0++] = gr0;                                  //<72,52>
+	gr7 = 768 set;                                  //<72,52>
+	ar7 = ar7 + 4;                                  //<72,52>
+	[ar0++] = gr7;                                  //<72,52>
+	[ar0++] = ar4;                                  //<72,52>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<72,52>
+	ar7 = ar7 - 4;                                  //<72,52>
+
+//73:               VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<73,53>
+	ar4 = ar6 + 13;                                  //<73,53>
+	gr7 = 1 set;                                  //<73,53>
+	[ar0++] = ar0;                                  //<73,53>
+	[ar0++] = gr7;                                  //<73,53>
+	ar7 = ar7 + 4;                                  //<73,53>
+	gr7 = 768 set;                                  //<73,53>
+	[ar0++] = gr7;                                  //<73,53>
+	[ar0++] = ar4;                                  //<73,53>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<73,53>
+	ar7 = ar7 - 4;                                  //<73,53>
+
+//74:               VEC_Malloc (&Signal1, len, MEM_LOCAL);
+
+	ar0 = ar7 set;                                  //<74,50>
+	gr0 = false noflags;                                  //<74,50>
+	[ar0++] = ar0;                                  //<74,50>
+	[ar0++] = gr0;                                  //<74,50>
+	ar4 = ar6 + 14;                                  //<74,50>
+	gr7 = 512 set;                                  //<74,50>
+	[ar0++] = gr7;                                  //<74,50>
+	[ar0++] = ar4;                                  //<74,50>
+	ar7 = ar7 + 4;                                  //<74,50>
+
+//75:                VEC_Malloc (&Signal2, len, MEM_LOCAL);
+
+	ar4 = ar6 + 15;                                  //<75,51>
+	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<74,50>
+	ar7 = ar7 - 4;                                  //<74,50>
+	ar0 = ar7 set;                                  //<75,51>
+	gr0 = false noflags;                                  //<75,51>
+	[ar0++] = ar0;                                  //<75,51>
+	[ar0++] = gr0;                                  //<75,51>
+	gr7 = 512 set;                                  //<75,51>
+	ar7 = ar7 + 4;                                  //<75,51>
+	[ar0++] = gr7;                                  //<75,51>
+	[ar0++] = ar4;                                  //<75,51>
+	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<75,51>
+	ar7 = ar7 - 4;                                  //<75,51>
+
+//76:   
+//77:                VEC_Malloc ((nm64s**)&MM, len, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<77,56>
+	ar4 = ar6 + 16;                                  //<77,56>
+	gr7 = 1 set;                                  //<77,56>
+	[ar0++] = ar0;                                  //<77,56>
+	[ar0++] = gr7;                                  //<77,56>
+	ar7 = ar7 + 4;                                  //<77,56>
+	gr7 = 512 set;                                  //<77,56>
+	[ar0++] = gr7;                                  //<77,56>
+	[ar0++] = ar4;                                  //<77,56>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<77,56>
+	ar7 = ar7 - 4;                                  //<77,56>
+
+//78:                VEC_Malloc ((nm64s**)&Pok, len, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<78,57>
+	ar4 = ar6 + 17;                                  //<78,57>
+	gr7 = 1 set;                                  //<78,57>
+	[ar0++] = ar0;                                  //<78,57>
+	[ar0++] = gr7;                                  //<78,57>
+	ar7 = ar7 + 4;                                  //<78,57>
+	gr7 = 512 set;                                  //<78,57>
+	[ar0++] = gr7;                                  //<78,57>
+	[ar0++] = ar4;                                  //<78,57>
+
+//79:   
+//80:               nm32s *Masko=NULL;
+
+	ar0 = 0 set;                                  //<80,31>
+	call _void._.8.8VEC_Malloc.1long._.0.0.9._int.9._int.2;                                  //<78,57>
+	ar7 = ar7 - 4;                                  //<78,57>
+	[ar6 + 18] = ar0;                                  //<80,31>
+
+//81:               VEC_Malloc (&Masko, len, MEM_GLOBAL);
+
+	ar0 = ar7 set;                                  //<81,49>
+	ar4 = ar6 + 18;                                  //<81,49>
+	gr7 = 1 set;                                  //<81,49>
+	[ar0++] = ar0;                                  //<81,49>
+	[ar0++] = gr7;                                  //<81,49>
+	ar7 = ar7 + 4;                                  //<81,49>
+	gr7 = 512 set;                                  //<81,49>
+	[ar0++] = gr7;                                  //<81,49>
+	[ar0++] = ar4;                                  //<81,49>
+	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<81,49>
+	ar7 = ar7 - 4;                                  //<81,49>
+
+//82:               for(int im=0; im<len/2; im++) {VEC_SetVal( Masko, 2*im+1, 0xFFFFFFFF);};
+
+	gr0 = false noflags;                                  //<82,24>
+	[ar6 + 19] = gr0;                                  //<82,24>
+	goto L2;                                  //<82,13>
 <L3>
-	gr7 = [ar6+14];                                  //<69,71>
-	gr0 = [ar6+15];                                  //<69,71>
-	ar0 = ar7 set;                                  //<69,71>
-	gr0 = gr0 << 1;                                  //<69,71>
-	[ar0++] = ar0;                                  //<69,71>
-	gr6 = true noflags;                                  //<69,71>
-	[ar0++] = gr6;                                  //<69,71>
-	gr0 = gr0 + 1 noflags;                                  //<69,71>
-	[ar0++] = gr0;                                  //<69,71>
-	[ar0++] = gr7;                                  //<69,71>
-	ar7 = ar7 + 4;                                  //<69,71>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<69,71>
-	ar7 = ar7 - 4;                                  //<69,71>
-	gr0 = [ar6+15];                                  //<69,39>
-	gr0 = gr0 + 1 noflags;                                  //<69,39>
-	[ar6 + 15] = gr0;                                  //<69,39>
-	goto L2;                                  //<69,13>
+	gr7 = [ar6+18];                                  //<82,71>
+	gr0 = [ar6+19];                                  //<82,71>
+	ar0 = ar7 set;                                  //<82,71>
+	gr0 = gr0 << 1;                                  //<82,71>
+	[ar0++] = ar0;                                  //<82,71>
+	gr6 = true noflags;                                  //<82,71>
+	[ar0++] = gr6;                                  //<82,71>
+	gr0 = gr0 + 1 noflags;                                  //<82,71>
+	[ar0++] = gr0;                                  //<82,71>
+	[ar0++] = gr7;                                  //<82,71>
+	ar7 = ar7 + 4;                                  //<82,71>
+	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<82,71>
+	ar7 = ar7 - 4;                                  //<82,71>
+	gr0 = [ar6+19];                                  //<82,39>
+	gr0 = gr0 + 1 noflags;                                  //<82,39>
+	[ar6 + 19] = gr0;                                  //<82,39>
+	goto L2;                                  //<82,13>
 <L2>
-	gr0 = 256 set;                                  //<69,33>
-	gr7 = [ar6+15];                                  //<69,27>
-	gr7 - gr0;                                  //<69,29>
-	if v< goto L3;                                  //<69,29>
-	goto L4;                                  //<69,29>
+	gr0 = 256 set;                                  //<82,33>
+	gr7 = [ar6+19];                                  //<82,27>
+	gr7 - gr0;                                  //<82,29>
+	if v< goto L3;                                  //<82,29>
+	goto L4;                                  //<82,29>
 <L4>
 
-//70:   
-//71:               //Опорный спектр
-//72:               /*nm64s *Spektr_sub_Re=NULL;
-//73:               VEC_Malloc ((nm64s**) &Spektr_sub_Re, len, MEM_GLOBAL);
-//74:   
-//75:           nm64s *Spektr_sub_Im=NULL;
-//76:               VEC_Malloc ((nm64s**) &Spektr_sub_Im, len, MEM_GLOBAL);
-//77:   
-//78:               nm64s *Spektr_sub_Re_sh=NULL;
-//79:               VEC_Malloc ((nm64s**) &Spektr_sub_Re_sh, len, MEM_GLOBAL);
-//80:   
-//81:           nm64s *Spektr_sub_Im_sh=NULL;
-//82:               VEC_Malloc ((nm64s**) &Spektr_sub_Im_sh, len, MEM_GLOBAL);
-//83:            #include "Sub_spektr.cpp"
-//84:   
-//85:               //Опорный сигнал
-//86:               nm32s *Signal_sub_I=NULL;
-//87:               VEC_Malloc (&Signal_sub_I, 2000, MEM_GLOBAL);
-//88:   
-//89:               nm32s *Signal_sub_Q=NULL;
-//90:               VEC_Malloc (&Signal_sub_Q, 2000, MEM_GLOBAL);
-//91:   
-//92:   
-//93:               #include "Sub_signal.cpp"*/
-//94:               double freq_het =  0;
+//83:   
+//84:               //Опорный спектр
+//85:               /*nm64s *Spektr_sub_Re=NULL;
+//86:               VEC_Malloc ((nm64s**) &Spektr_sub_Re, len, MEM_GLOBAL);
+//87:   
+//88:           nm64s *Spektr_sub_Im=NULL;
+//89:               VEC_Malloc ((nm64s**) &Spektr_sub_Im, len, MEM_GLOBAL);
+//90:   
+//91:               nm64s *Spektr_sub_Re_sh=NULL;
+//92:               VEC_Malloc ((nm64s**) &Spektr_sub_Re_sh, len, MEM_GLOBAL);
+//93:   
+//94:           nm64s *Spektr_sub_Im_sh=NULL;
+//95:               VEC_Malloc ((nm64s**) &Spektr_sub_Im_sh, len, MEM_GLOBAL);
+//96:            #include "Sub_spektr.cpp"
+//97:   
+//98:               //Опорный сигнал
+//99:               nm32s *Signal_sub_I=NULL;
+//100:              VEC_Malloc (&Signal_sub_I, 2000, MEM_GLOBAL);
+//101:  
+//102:              nm32s *Signal_sub_Q=NULL;
+//103:              VEC_Malloc (&Signal_sub_Q, 2000, MEM_GLOBAL);
+//104:  
+//105:  
+//106:              #include "Sub_signal.cpp"*/
+//107:              double freq_het =  0;
 
-	ar0 = loword( double(0) ) set;                                  //<94,32>
-	gr7 = hiword( double(0) ) set;                                  //<94,32>
-	[ar6 + 16] = ar0;                                  //<94,32>
+	ar0 = loword( double(0) ) set;                                  //<107,32>
+	gr7 = hiword( double(0) ) set;                                  //<107,32>
+	[ar6 + 20] = ar0;                                  //<107,32>
 
-//95:               double phase_het = 1.5708;
+//108:              double phase_het = 1.5708;
 
-	ar0 = loword( double(1.5708) ) set;                                  //<95,32>
-	[ar6 + 17] = gr7;                                  //<94,32>
-	[ar6 + 18] = ar0;                                  //<95,32>
+	ar0 = loword( double(1.5708) ) set;                                  //<108,32>
+	[ar6 + 21] = gr7;                                  //<107,32>
+	[ar6 + 22] = ar0;                                  //<108,32>
 
-//96:   
-//97:               //int* adr_Signal_sub_I = VEC_Addr ((nm32s*) Signal_sub_I, 0);
-//98:               //int* adr_Signal_sub_Q = VEC_Addr ((nm32s*) Signal_sub_Q, 0);
-//99:   
-//100:      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//101:      ///==========================================================НАСТРОЙКА БПОС=============================================================================
-//102:               // const int BUF_SIZE = 3072;  //Размер буфера (64-разрядных слов)
-//103:  
-//104:              //const int K_pr = 10;         //Коэфициент прореживания
-//105:          const int N_E = 400;           //Время работы БПОC (в периодах)
-//106:              // Определение буферов для чётного и нечётного кадров.
-//107:          // Буферы будут располагаться в SMB0.
-//108:              //Для  АЦП 0
-//109:              uint64b *dst_even_I = reinterpret_cast<uint64b*>(0x40000);
-//110:              uint64b *dst_odd_I = reinterpret_cast<uint64b*>(0x40000 + 2*BUF_SIZE);
-//111:              //Для  АЦП 1
-//112:              uint64b *dst_even_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 4*BUF_SIZE);
-//113:              uint64b *dst_odd_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 6*BUF_SIZE);
-//114:      // Создание экземпляра класса для управления БПОС.
-//115:      dsppu::C_DSPPUControl DSPPU;
+//109:  
+//110:              //int* adr_Signal_sub_I = VEC_Addr ((nm32s*) Signal_sub_I, 0);
+//111:              //int* adr_Signal_sub_Q = VEC_Addr ((nm32s*) Signal_sub_Q, 0);
+//112:  
+//113:      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//114:      ///==========================================================НАСТРОЙКА БПОС=============================================================================
+//115:               // const int BUF_SIZE = 3072;  //Размер буфера (64-разрядных слов)
+//116:  
+//117:              //const int K_pr = 10;         //Коэфициент прореживания
+//118:          const int N_E = 400;           //Время работы БПОC (в периодах)
+//119:              // Определение буферов для чётного и нечётного кадров.
+//120:          // Буферы будут располагаться в SMB0.
+//121:              //Для  АЦП 0
+//122:              uint64b *dst_even_I = reinterpret_cast<uint64b*>(0x40000);
+//123:              uint64b *dst_odd_I = reinterpret_cast<uint64b*>(0x40000 + 2*BUF_SIZE);
+//124:              //Для  АЦП 1
+//125:              uint64b *dst_even_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 4*BUF_SIZE);
+//126:              uint64b *dst_odd_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 6*BUF_SIZE);
+//127:      // Создание экземпляра класса для управления БПОС.
+//128:      dsppu::C_DSPPUControl DSPPU;
 
-	ar0 = ar7 set;                                  //<115,5>
-	gr7 = hiword( double(1.5708) ) set;                                  //<95,32>
-	[ar6 + 19] = gr7;                                  //<95,32>
-	ar4 = ar6 + 24;
-	gr7 = 262144 set;                                  //<109,70>
-	[ar6 + 20] = gr7;                                  //<109,70>
-	gr7 = 264144 set;                                  //<110,82>
-	[ar6 + 21] = gr7;                                  //<110,82>
-	gr7 = 266144 set;                                  //<112,92>
-	[ar6 + 22] = gr7;                                  //<112,92>
-	gr7 = 268144 set;                                  //<113,91>
-	[ar6 + 23] = gr7;                                  //<113,91>
-	ar7 = ar7 + 2;                                  //<115,5>
-	[ar0++] = ar0;                                  //<115,5>
-	[ar0++] = ar4;                                  //<115,5>
-	call _dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2;                                  //<115,5>
-	ar7 = ar7 - 2;                                  //<115,5>
+	ar0 = ar7 set;                                  //<128,5>
+	gr7 = hiword( double(1.5708) ) set;                                  //<108,32>
+	[ar6 + 23] = gr7;                                  //<108,32>
+	ar4 = ar6 + 28;
+	gr7 = 262144 set;                                  //<122,70>
+	[ar6 + 24] = gr7;                                  //<122,70>
+	gr7 = 264144 set;                                  //<123,82>
+	[ar6 + 25] = gr7;                                  //<123,82>
+	gr7 = 266144 set;                                  //<125,92>
+	[ar6 + 26] = gr7;                                  //<125,92>
+	gr7 = 268144 set;                                  //<126,91>
+	[ar6 + 27] = gr7;                                  //<126,91>
+	ar7 = ar7 + 2;                                  //<128,5>
+	[ar0++] = ar0;                                  //<128,5>
+	[ar0++] = ar4;                                  //<128,5>
+	call _dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2;                                  //<128,5>
+	ar7 = ar7 - 2;                                  //<128,5>
 
-//116:      // Сброс БПОС. После сброса параметры БПОС придут
-//117:      // в состояние по умолчанию.
-//118:      DSPPU.Reset();
+//129:      // Сброс БПОС. После сброса параметры БПОС придут
+//130:      // в состояние по умолчанию.
+//131:      DSPPU.Reset();
 
-	ar0 = ar7 set;                                  //<118,11>
-	ar4 = ar6 + 24;                                  //<118,11>
-	[ar0++] = ar0;                                  //<118,11>
-	[ar0++] = ar4;                                  //<118,11>
-	ar7 = ar7 + 2;                                  //<118,11>
-	call _void._dsppu.8.8C_DSPPUControl.8.8Reset.1.2;                                  //<118,11>
-	ar7 = ar7 - 2;                                  //<118,11>
+	ar0 = ar7 set;                                  //<131,11>
+	ar4 = ar6 + 28;                                  //<131,11>
+	[ar0++] = ar0;                                  //<131,11>
+	[ar0++] = ar4;                                  //<131,11>
+	ar7 = ar7 + 2;                                  //<131,11>
+	call _void._dsppu.8.8C_DSPPUControl.8.8Reset.1.2;                                  //<131,11>
+	ar7 = ar7 - 2;                                  //<131,11>
 
-//119:      // Установка максимального размера кадра.
-//120:      //dsppu::C_AddrGenerator::SetMaxBufferSize(BUF_SIZE * 4);
-//121:      // Получение экземпляра класса для работы с
-//122:      // устройством входа. Устройство настраивается
-//123:      // на работу с АЦП для нулевого источника.
-//124:      dsppu::C_InputUnit &input_unit = dsppu::C_InputUnit::Inst();
+//132:      // Установка максимального размера кадра.
+//133:      //dsppu::C_AddrGenerator::SetMaxBufferSize(BUF_SIZE * 4);
+//134:      // Получение экземпляра класса для работы с
+//135:      // устройством входа. Устройство настраивается
+//136:      // на работу с АЦП для нулевого источника.
+//137:      dsppu::C_InputUnit &input_unit = dsppu::C_InputUnit::Inst();
 
-	call _class._dsppu.8.8C_InputUnit._.6dsppu.8.8C_InputUnit.8.8Inst.1.2;                                  //<124,63>
+	call _class._dsppu.8.8C_InputUnit._.6dsppu.8.8C_InputUnit.8.8Inst.1.2;                                  //<137,63>
 
-//125:      dsppu::C_InputUnit::S_Settings iu_settings;
-//126:      input_unit.GetSettings(iu_settings);
+//138:      dsppu::C_InputUnit::S_Settings iu_settings;
+//139:      input_unit.GetSettings(iu_settings);
 
-	ar0 = ar7 set;                                  //<126,28>
-	[ar6 + 25] = ar5;                                  //<124,63>
-	ar4 = ar6 + 26;                                  //<126,28>
-	gr7 = [ar6+25];                                  //<126,28>
-	[ar0++] = ar4;                                  //<126,28>
-	[ar0++] = gr7;                                  //<126,28>
-	ar7 = ar7 + 2;                                  //<126,28>
-	call _void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._.6.2._const;                                  //<126,28>
+	ar0 = ar7 set;                                  //<139,28>
+	[ar6 + 29] = ar5;                                  //<137,63>
+	ar4 = ar6 + 30;                                  //<139,28>
+	gr7 = [ar6+29];                                  //<139,28>
+	[ar0++] = ar4;                                  //<139,28>
+	[ar0++] = gr7;                                  //<139,28>
+	ar7 = ar7 + 2;                                  //<139,28>
+	call _void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._.6.2._const;                                  //<139,28>
 
-//127:     //iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
-//128:     // iu_settings.source_2 = dsppu::C_InputUnit::S_Settings::ADC;
-//129:  
-//130:     // input_unit.SetOffset(iu_settings.source_3, -2);
-//131:     // input_unit.SetOffset(iu_settings.source_2, 2);
-//132:  
-//133:      iu_settings.source_2= dsppu::C_InputUnit::S_Settings::ADC;
-
-	gr0 = [ar6+26];                                  //<133,59>
-	gr7 = 4294967247 set;                                  //<133,59>
-	gr0 = gr0 and gr7 noflags;                                  //<133,59>
-	gr7 = 3 set;                                  //<133,59>
-	gr7 = gr7 << 30;                                  //<133,59>
-	gr7 = gr7 >> 26;                                  //<133,59>
-	gr0 = gr0 or gr7 noflags;                                  //<133,59>
-	[ar6 + 26] = gr0;                                  //<133,59>
-
-//134:      iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
-
-	gr7 = 4294967103 set;                                  //<134,60>
-	gr0 = [ar6+26];                                  //<134,60>
-	gr0 = gr0 and gr7 noflags;                                  //<134,60>
-	gr7 = 3 set;                                  //<134,60>
-	gr7 = gr7 << 30;                                  //<134,60>
-	gr7 = gr7 >> 24;                                  //<134,60>
-	ar7 = ar7 - 2;                                  //<126,28>
-
-//135:  
-//136:      //input_unit.SetOffset(iu_settings.source_0, 0);
-//137:     // input_unit.SetOffset(iu_settings.source_1, 128);
-//138:  
-//139:  
-//140:  
-//141:      input_unit.SetSettings(iu_settings);
-
-	ar4 = ar6 + 26;                                  //<141,28>
-	ar0 = ar7 set;                                  //<141,28>
-	gr0 = gr0 or gr7 noflags;                                  //<134,60>
-	[ar6 + 26] = gr0;                                  //<134,60>
-	gr7 = [ar6+25];                                  //<141,28>
-	[ar0++] = ar4;                                  //<141,28>
-	[ar0++] = gr7;                                  //<141,28>
-	ar7 = ar7 + 2;                                  //<141,28>
-	call _void._dsppu.8.8C_InputUnitBase.8.8SetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._const._.6.2;                                  //<141,28>
-	ar7 = ar7 - 2;                                  //<141,28>
-
+//140:     //iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
+//141:     // iu_settings.source_2 = dsppu::C_InputUnit::S_Settings::ADC;
 //142:  
-//143:  
-//144:      // Получение экземпляра класса для настройки канала.
-//145:      // Используется первый канал из кластера
-//146:      // каналов без фильтров.
-//147:      dsppu::C_Channel &channel_I = dsppu::C_Clusters::Inst().cluster[0].channel[0];
+//143:     // input_unit.SetOffset(iu_settings.source_3, -2);
+//144:     // input_unit.SetOffset(iu_settings.source_2, 2);
+//145:  
+//146:      iu_settings.source_2= dsppu::C_InputUnit::S_Settings::ADC;
 
-	call _class._dsppu.8.8C_Clusters._.6dsppu.8.8C_Clusters.8.8Inst.1.2;                                  //<147,59>
-	ar0 = ar5 set;                                  //<147,61>
-	ar0 = ar0 + 2078;                                  //<147,61>
-	ar0 = ar0 + 2;                                  //<147,72>
-	[ar6 + 27] = ar0;                                  //<147,80>
+	gr0 = [ar6+30];                                  //<146,59>
+	gr7 = 4294967247 set;                                  //<146,59>
+	gr0 = gr0 and gr7 noflags;                                  //<146,59>
+	gr7 = 3 set;                                  //<146,59>
+	gr7 = gr7 << 30;                                  //<146,59>
+	gr7 = gr7 >> 26;                                  //<146,59>
+	gr0 = gr0 or gr7 noflags;                                  //<146,59>
+	[ar6 + 30] = gr0;                                  //<146,59>
 
-//148:      dsppu::C_Channel &channel_Q = dsppu::C_Clusters::Inst().cluster[0].channel[2];
+//147:      iu_settings.source_3 = dsppu::C_InputUnit::S_Settings::ADC;
 
-	call _class._dsppu.8.8C_Clusters._.6dsppu.8.8C_Clusters.8.8Inst.1.2;                                  //<148,59>
-	ar0 = ar5 set;                                  //<148,61>
-	ar0 = ar0 + 2078;                                  //<148,61>
-	ar0 = ar0 + 2;                                  //<148,72>
-	ar0 = ar0 + 60;                                  //<148,80>
-	[ar6 + 28] = ar0;                                  //<148,80>
+	gr7 = 4294967103 set;                                  //<147,60>
+	gr0 = [ar6+30];                                  //<147,60>
+	gr0 = gr0 and gr7 noflags;                                  //<147,60>
+	gr7 = 3 set;                                  //<147,60>
+	gr7 = gr7 << 30;                                  //<147,60>
+	gr7 = gr7 >> 24;                                  //<147,60>
+	ar7 = ar7 - 2;                                  //<139,28>
 
-//149:      // Разрешить запуск и останов канала.
-//150:      channel_I.EnableStart(true);
+//148:  
+//149:      //input_unit.SetOffset(iu_settings.source_0, 0);
+//150:     // input_unit.SetOffset(iu_settings.source_1, 128);
+//151:  
+//152:  
+//153:  
+//154:      input_unit.SetSettings(iu_settings);
 
-	ar0 = ar7 set;                                  //<150,27>
-	gr7 = [ar6+27];                                  //<150,27>
-	gr6 = 1 set;                                  //<150,27>
-	[ar0++] = gr6;                                  //<150,27>
-	[ar0++] = gr7;                                  //<150,27>
-	ar7 = ar7 + 2;                                  //<150,27>
-	call _void._dsppu.8.8C_Channel.8.8EnableStart.1unsigned._int.2;                                  //<150,27>
-	ar7 = ar7 - 2;                                  //<150,27>
+	ar4 = ar6 + 30;                                  //<154,28>
+	ar0 = ar7 set;                                  //<154,28>
+	gr0 = gr0 or gr7 noflags;                                  //<147,60>
+	[ar6 + 30] = gr0;                                  //<147,60>
+	gr7 = [ar6+29];                                  //<154,28>
+	[ar0++] = ar4;                                  //<154,28>
+	[ar0++] = gr7;                                  //<154,28>
+	ar7 = ar7 + 2;                                  //<154,28>
+	call _void._dsppu.8.8C_InputUnitBase.8.8SetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._const._.6.2;                                  //<154,28>
+	ar7 = ar7 - 2;                                  //<154,28>
 
-//151:      channel_I.EnableStop(true);
-
-	ar0 = ar7 set;                                  //<151,26>
-	gr7 = [ar6+27];                                  //<151,26>
-	gr6 = 1 set;                                  //<151,26>
-	[ar0++] = gr6;                                  //<151,26>
-	[ar0++] = gr7;                                  //<151,26>
-	ar7 = ar7 + 2;                                  //<151,26>
-	call _void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2;                                  //<151,26>
-	ar7 = ar7 - 2;                                  //<151,26>
-
-//152:      channel_Q.EnableStart(true);
-
-	ar0 = ar7 set;                                  //<152,27>
-	gr7 = [ar6+28];                                  //<152,27>
-	gr6 = 1 set;                                  //<152,27>
-	[ar0++] = gr6;                                  //<152,27>
-	[ar0++] = gr7;                                  //<152,27>
-	ar7 = ar7 + 2;                                  //<152,27>
-	call _void._dsppu.8.8C_Channel.8.8EnableStart.1unsigned._int.2;                                  //<152,27>
-	ar7 = ar7 - 2;                                  //<152,27>
-
-//153:      channel_Q.EnableStop(true);
-
-	ar0 = ar7 set;                                  //<153,26>
-	gr7 = [ar6+28];                                  //<153,26>
-	gr6 = 1 set;                                  //<153,26>
-	[ar0++] = gr6;                                  //<153,26>
-	[ar0++] = gr7;                                  //<153,26>
-	ar7 = ar7 + 2;                                  //<153,26>
-	call _void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2;                                  //<153,26>
-	ar7 = ar7 - 2;                                  //<153,26>
-
-//154:  
 //155:  
 //156:  
-//157:      //==============================================================================
-//158:      // Настройка гетеродина канала -// Постоянные значения sin=0, cos=1.
-//159:      dsppu::C_BaseChannel::S_Settings channel_settings;
-//160:      channel_I.GetSettings(channel_settings);
+//157:      // Получение экземпляра класса для настройки канала.
+//158:      // Используется первый канал из кластера
+//159:      // каналов без фильтров.
+//160:      dsppu::C_Channel &channel_I = dsppu::C_Clusters::Inst().cluster[0].channel[0];
 
-	ar0 = ar7 set;                                  //<160,27>
-	gr7 = [ar6+27];                                  //<160,27>
-	ar4 = ar6 + 29;                                  //<160,27>
-	[ar0++] = ar4;                                  //<160,27>
-	[ar0++] = gr7;                                  //<160,27>
-	ar7 = ar7 + 2;                                  //<160,27>
-	call _void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const;                                  //<160,27>
+	call _class._dsppu.8.8C_Clusters._.6dsppu.8.8C_Clusters.8.8Inst.1.2;                                  //<160,59>
+	ar0 = ar5 set;                                  //<160,61>
+	ar0 = ar0 + 2078;                                  //<160,61>
+	ar0 = ar0 + 2;                                  //<160,72>
+	[ar6 + 31] = ar0;                                  //<160,80>
 
-//161:      channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
+//161:      dsppu::C_Channel &channel_Q = dsppu::C_Clusters::Inst().cluster[0].channel[2];
 
-	gr0 = [ar6+29];                                  //<161,69>
-	gr7 = 4294966847 set;                                  //<161,69>
-	gr0 = gr0 and gr7 noflags;                                  //<161,69>
-	[ar6 + 29] = gr0;                                  //<161,69>
+	call _class._dsppu.8.8C_Clusters._.6dsppu.8.8C_Clusters.8.8Inst.1.2;                                  //<161,59>
+	ar0 = ar5 set;                                  //<161,61>
+	ar0 = ar0 + 2078;                                  //<161,61>
+	ar0 = ar0 + 2;                                  //<161,72>
+	ar0 = ar0 + 60;                                  //<161,80>
+	[ar6 + 32] = ar0;                                  //<161,80>
 
-//162:      channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_3;
+//162:      // Разрешить запуск и останов канала.
+//163:      channel_I.EnableStart(true);
 
-	gr7 = 4294967292 set;                                  //<162,66>
-	gr0 = [ar6+29];                                  //<162,66>
-	gr0 = gr0 and gr7 noflags;                                  //<162,66>
-	gr7 = 3 set;                                  //<162,66>
-	gr7 = gr7 << 30;                                  //<162,66>
-	gr7 = gr7 >> 30;                                  //<162,66>
-	ar7 = ar7 - 2;                                  //<160,27>
-
-//163:      channel_I.SetSettings(channel_settings);
-
-	ar4 = ar6 + 29;                                  //<163,27>
 	ar0 = ar7 set;                                  //<163,27>
-	gr0 = gr0 or gr7 noflags;                                  //<162,66>
-	[ar6 + 29] = gr0;                                  //<162,66>
-	gr7 = [ar6+27];                                  //<163,27>
-	[ar0++] = ar4;                                  //<163,27>
+	gr7 = [ar6+31];                                  //<163,27>
+	gr6 = 1 set;                                  //<163,27>
+	[ar0++] = gr6;                                  //<163,27>
 	[ar0++] = gr7;                                  //<163,27>
 	ar7 = ar7 + 2;                                  //<163,27>
-	call _void._dsppu.8.8C_Channel.8.8SetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._const._.6.2;                                  //<163,27>
+	call _void._dsppu.8.8C_Channel.8.8EnableStart.1unsigned._int.2;                                  //<163,27>
 	ar7 = ar7 - 2;                                  //<163,27>
 
-//164:  
-//165:  
-//166:  
-//167:      dsppu::C_BaseChannel::S_Settings channel_settings1;
-//168:      channel_Q.GetSettings(channel_settings1);
+//164:      channel_I.EnableStop(true);
 
-	ar0 = ar7 set;                                  //<168,27>
-	gr7 = [ar6+28];                                  //<168,27>
-	ar4 = ar6 + 30;                                  //<168,27>
-	[ar0++] = ar4;                                  //<168,27>
-	[ar0++] = gr7;                                  //<168,27>
-	ar7 = ar7 + 2;                                  //<168,27>
-	call _void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const;                                  //<168,27>
+	ar0 = ar7 set;                                  //<164,26>
+	gr7 = [ar6+31];                                  //<164,26>
+	gr6 = 1 set;                                  //<164,26>
+	[ar0++] = gr6;                                  //<164,26>
+	[ar0++] = gr7;                                  //<164,26>
+	ar7 = ar7 + 2;                                  //<164,26>
+	call _void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2;                                  //<164,26>
+	ar7 = ar7 - 2;                                  //<164,26>
 
-//169:      channel_settings1.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
+//165:      channel_Q.EnableStart(true);
 
-	gr0 = [ar6+30];                                  //<169,70>
-	gr7 = 4294966847 set;                                  //<169,70>
-	gr0 = gr0 and gr7 noflags;                                  //<169,70>
-	[ar6 + 30] = gr0;                                  //<169,70>
+	ar0 = ar7 set;                                  //<165,27>
+	gr7 = [ar6+32];                                  //<165,27>
+	gr6 = 1 set;                                  //<165,27>
+	[ar0++] = gr6;                                  //<165,27>
+	[ar0++] = gr7;                                  //<165,27>
+	ar7 = ar7 + 2;                                  //<165,27>
+	call _void._dsppu.8.8C_Channel.8.8EnableStart.1unsigned._int.2;                                  //<165,27>
+	ar7 = ar7 - 2;                                  //<165,27>
 
-//170:      channel_settings1.data_source = dsppu::C_Channel::S_Settings::INP_2;
+//166:      channel_Q.EnableStop(true);
 
-	gr7 = 4294967292 set;                                  //<170,67>
-	gr0 = [ar6+30];                                  //<170,67>
-	gr0 = gr0 and gr7 noflags;                                  //<170,67>
-	gr7 = 2 set;                                  //<170,67>
-	gr7 = gr7 << 30;                                  //<170,67>
-	gr7 = gr7 >> 30;                                  //<170,67>
-	ar7 = ar7 - 2;                                  //<168,27>
+	ar0 = ar7 set;                                  //<166,26>
+	gr7 = [ar6+32];                                  //<166,26>
+	gr6 = 1 set;                                  //<166,26>
+	[ar0++] = gr6;                                  //<166,26>
+	[ar0++] = gr7;                                  //<166,26>
+	ar7 = ar7 + 2;                                  //<166,26>
+	call _void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2;                                  //<166,26>
+	ar7 = ar7 - 2;                                  //<166,26>
 
-//171:      channel_Q.SetSettings(channel_settings1);
+//167:  
+//168:  
+//169:  
+//170:      //==============================================================================
+//171:      // Настройка гетеродина канала -// Постоянные значения sin=0, cos=1.
+//172:      dsppu::C_BaseChannel::S_Settings channel_settings;
+//173:      channel_I.GetSettings(channel_settings);
 
-	ar4 = ar6 + 30;                                  //<171,27>
-	ar0 = ar7 set;                                  //<171,27>
-	gr0 = gr0 or gr7 noflags;                                  //<170,67>
-	[ar6 + 30] = gr0;                                  //<170,67>
-	gr7 = [ar6+28];                                  //<171,27>
-	[ar0++] = ar4;                                  //<171,27>
-	[ar0++] = gr7;                                  //<171,27>
-	ar7 = ar7 + 2;                                  //<171,27>
-	call _void._dsppu.8.8C_Channel.8.8SetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._const._.6.2;                                  //<171,27>
-	ar7 = ar7 - 2;                                  //<171,27>
+	ar0 = ar7 set;                                  //<173,27>
+	gr7 = [ar6+31];                                  //<173,27>
+	ar4 = ar6 + 33;                                  //<173,27>
+	[ar0++] = ar4;                                  //<173,27>
+	[ar0++] = gr7;                                  //<173,27>
+	ar7 = ar7 + 2;                                  //<173,27>
+	call _void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const;                                  //<173,27>
 
-//172:  
-//173:  
-//174:  
-//175:      //Цифровой гетеродин
-//176:      channel_I.heterodyne.SetFreq(freq_het);
+//174:      channel_settings.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
 
-	ar4 = [ar6+27];                                  //<176,34>
-	ar0 = ar7 set;                                  //<176,34>
-	gr7 = [ar6+16];                                  //<176,34>
-	gr6 = [ar6+17];                                  //<176,34>
-	[ar0++] = gr7;                                  //<176,34>
-	[ar0++] = gr6;                                  //<176,34>
-	ar4 = ar4 + 6;                                  //<176,34>
-	ar7 = ar7 + 4;                                  //<176,34>
-	[ar0++] = ar0;                                  //<176,34>
-	[ar0++] = ar4;                                  //<176,34>
-	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetFreq.1double.2;                                  //<176,34>
+	gr0 = [ar6+33];                                  //<174,69>
+	gr7 = 4294966847 set;                                  //<174,69>
+	gr0 = gr0 and gr7 noflags;                                  //<174,69>
+	[ar6 + 33] = gr0;                                  //<174,69>
 
-//177:      channel_Q.heterodyne.SetFreq(freq_het);
+//175:      channel_settings.data_source = dsppu::C_Channel::S_Settings::INP_3;
 
-	ar0 = [ar6+28];                                  //<177,34>
-	ar4 = ar0 set;                                  //<177,34>
-	ar7 = ar7 - 4;                                  //<176,34>
-	ar4 = ar4 + 6;                                  //<177,34>
-	ar0 = ar7 set;                                  //<177,34>
-	gr7 = [ar6+16];                                  //<177,34>
-	gr6 = [ar6+17];                                  //<177,34>
-	[ar0++] = gr7;                                  //<177,34>
-	[ar0++] = gr6;                                  //<177,34>
-	[ar0++] = ar0;                                  //<177,34>
-	[ar0++] = ar4;                                  //<177,34>
-	ar7 = ar7 + 4;                                  //<177,34>
-	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetFreq.1double.2;                                  //<177,34>
-	ar7 = ar7 - 4;                                  //<177,34>
+	gr7 = 4294967292 set;                                  //<175,66>
+	gr0 = [ar6+33];                                  //<175,66>
+	gr0 = gr0 and gr7 noflags;                                  //<175,66>
+	gr7 = 3 set;                                  //<175,66>
+	gr7 = gr7 << 30;                                  //<175,66>
+	gr7 = gr7 >> 30;                                  //<175,66>
+	ar7 = ar7 - 2;                                  //<173,27>
 
-//178:      channel_I.heterodyne.SetPhase(phase_het);
+//176:      channel_I.SetSettings(channel_settings);
 
-	ar4 = [ar6+27];                                  //<178,35>
-	ar0 = ar7 set;                                  //<178,35>
-	gr7 = [ar6+18];                                  //<178,35>
-	gr6 = [ar6+19];                                  //<178,35>
-	[ar0++] = gr7;                                  //<178,35>
-	[ar0++] = gr6;                                  //<178,35>
-	ar4 = ar4 + 6;                                  //<178,35>
-	ar7 = ar7 + 4;                                  //<178,35>
-	[ar0++] = ar0;                                  //<178,35>
-	[ar0++] = ar4;                                  //<178,35>
-	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetPhase.1double.2;                                  //<178,35>
+	ar4 = ar6 + 33;                                  //<176,27>
+	ar0 = ar7 set;                                  //<176,27>
+	gr0 = gr0 or gr7 noflags;                                  //<175,66>
+	[ar6 + 33] = gr0;                                  //<175,66>
+	gr7 = [ar6+31];                                  //<176,27>
+	[ar0++] = ar4;                                  //<176,27>
+	[ar0++] = gr7;                                  //<176,27>
+	ar7 = ar7 + 2;                                  //<176,27>
+	call _void._dsppu.8.8C_Channel.8.8SetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._const._.6.2;                                  //<176,27>
+	ar7 = ar7 - 2;                                  //<176,27>
 
-//179:      channel_Q.heterodyne.SetPhase(phase_het);
+//177:  
+//178:  
+//179:  
+//180:      dsppu::C_BaseChannel::S_Settings channel_settings1;
+//181:      channel_Q.GetSettings(channel_settings1);
 
-	ar0 = [ar6+28];                                  //<179,35>
-	ar4 = ar0 set;                                  //<179,35>
-	ar7 = ar7 - 4;                                  //<178,35>
-	ar4 = ar4 + 6;                                  //<179,35>
-	ar0 = ar7 set;                                  //<179,35>
-	gr7 = [ar6+18];                                  //<179,35>
-	gr6 = [ar6+19];                                  //<179,35>
-	[ar0++] = gr7;                                  //<179,35>
-	[ar0++] = gr6;                                  //<179,35>
-	[ar0++] = ar0;                                  //<179,35>
-	[ar0++] = ar4;                                  //<179,35>
-	ar7 = ar7 + 4;                                  //<179,35>
-	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetPhase.1double.2;                                  //<179,35>
-	ar7 = ar7 - 4;                                  //<179,35>
+	ar0 = ar7 set;                                  //<181,27>
+	gr7 = [ar6+32];                                  //<181,27>
+	ar4 = ar6 + 34;                                  //<181,27>
+	[ar0++] = ar4;                                  //<181,27>
+	[ar0++] = gr7;                                  //<181,27>
+	ar7 = ar7 + 2;                                  //<181,27>
+	call _void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const;                                  //<181,27>
 
-//180:      //==============================================================================
-//181:      //Прореживание
-//182:      dsppu::C_Accumulator::S_Settings acc_settings;
-//183:      channel_I.accumulator.GetSettings(acc_settings);//для первого канала
+//182:      channel_settings1.het_trans_type = dsppu::C_Channel::S_Settings::TAB4;
 
-	ar4 = [ar6+27];                                  //<183,39>
-	ar3 = ar6 set;                                  //<183,39>
-	ar0 = ar7 set;                                  //<183,39>
-	ar4 = ar4 + 18;                                  //<183,39>
-	ar3 = ar3 + 31;                                  //<183,39>
-	[ar0++] = ar3;                                  //<183,39>
-	[ar0++] = ar4;                                  //<183,39>
-	ar7 = ar7 + 2;                                  //<183,39>
-	call _void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const;                                  //<183,39>
+	gr0 = [ar6+34];                                  //<182,70>
+	gr7 = 4294966847 set;                                  //<182,70>
+	gr0 = gr0 and gr7 noflags;                                  //<182,70>
+	[ar6 + 34] = gr0;                                  //<182,70>
 
-//184:      acc_settings.factor = 0;//в 10 раза прорежено (+1 к .factor )
+//183:      channel_settings1.data_source = dsppu::C_Channel::S_Settings::INP_2;
 
-	gr0 = [ar6+31];                                  //<184,27>
-	gr7 = 4294963200 set;                                  //<184,27>
-	gr0 = gr0 and gr7 noflags;                                  //<184,27>
-	[ar6 + 31] = gr0;                                  //<184,27>
+	gr7 = 4294967292 set;                                  //<183,67>
+	gr0 = [ar6+34];                                  //<183,67>
+	gr0 = gr0 and gr7 noflags;                                  //<183,67>
+	gr7 = 2 set;                                  //<183,67>
+	gr7 = gr7 << 30;                                  //<183,67>
+	gr7 = gr7 >> 30;                                  //<183,67>
+	ar7 = ar7 - 2;                                  //<181,27>
 
-//185:      acc_settings.mode = dsppu::C_Accumulator::S_Settings::ACCUMULATION;
+//184:      channel_Q.SetSettings(channel_settings1);
 
-	gr7 = 4294959103 set;                                  //<185,59>
-	gr0 = [ar6+31];                                  //<185,59>
-	gr0 = gr0 and gr7 noflags;                                  //<185,59>
-	ar7 = ar7 - 2;                                  //<183,39>
-	gr7 = 1 set;                                  //<185,59>
-	gr7 = gr7 << 31;                                  //<185,59>
-	gr7 = gr7 >> 18;                                  //<185,59>
-	gr0 = gr0 or gr7 noflags;                                  //<185,59>
-	[ar6 + 31] = gr0;                                  //<185,59>
+	ar4 = ar6 + 34;                                  //<184,27>
+	ar0 = ar7 set;                                  //<184,27>
+	gr0 = gr0 or gr7 noflags;                                  //<183,67>
+	[ar6 + 34] = gr0;                                  //<183,67>
+	gr7 = [ar6+32];                                  //<184,27>
+	[ar0++] = ar4;                                  //<184,27>
+	[ar0++] = gr7;                                  //<184,27>
+	ar7 = ar7 + 2;                                  //<184,27>
+	call _void._dsppu.8.8C_Channel.8.8SetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._const._.6.2;                                  //<184,27>
+	ar7 = ar7 - 2;                                  //<184,27>
 
-//186:      channel_I.accumulator.SetSettings(acc_settings);
-
-	ar4 = [ar6+27];                                  //<186,39>
-	ar3 = ar6 set;                                  //<186,39>
-	ar0 = ar7 set;                                  //<186,39>
-	ar4 = ar4 + 18;                                  //<186,39>
-	ar3 = ar3 + 31;                                  //<186,39>
-	[ar0++] = ar3;                                  //<186,39>
-	[ar0++] = ar4;                                  //<186,39>
-	ar7 = ar7 + 2;                                  //<186,39>
-	call _void._dsppu.8.8C_Accumulator.8.8SetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._const._.6.2;                                  //<186,39>
-	ar7 = ar7 - 2;                                  //<186,39>
-
+//185:  
+//186:  
 //187:  
-//188:      dsppu::C_Accumulator::S_Settings acc_settings1;
-//189:      channel_Q.accumulator.GetSettings(acc_settings1);//для второго канала
+//188:      //Цифровой гетеродин
+//189:      channel_I.heterodyne.SetFreq(freq_het);
 
-	ar4 = [ar6+28];                                  //<189,39>
-	ar3 = ar6 set;                                  //<189,39>
-	ar0 = ar7 set;                                  //<189,39>
-	ar4 = ar4 + 18;                                  //<189,39>
-	ar3 = ar3 + 32;                                  //<189,39>
-	[ar0++] = ar3;                                  //<189,39>
-	[ar0++] = ar4;                                  //<189,39>
-	ar7 = ar7 + 2;                                  //<189,39>
-	call _void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const;                                  //<189,39>
+	ar4 = [ar6+31];                                  //<189,34>
+	ar0 = ar7 set;                                  //<189,34>
+	gr7 = [ar6+20];                                  //<189,34>
+	gr6 = [ar6+21];                                  //<189,34>
+	[ar0++] = gr7;                                  //<189,34>
+	[ar0++] = gr6;                                  //<189,34>
+	ar4 = ar4 + 6;                                  //<189,34>
+	ar7 = ar7 + 4;                                  //<189,34>
+	[ar0++] = ar0;                                  //<189,34>
+	[ar0++] = ar4;                                  //<189,34>
+	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetFreq.1double.2;                                  //<189,34>
 
-//190:      acc_settings1.factor = 0;//в 10 раза прорежено (+1 к .factor )
+//190:      channel_Q.heterodyne.SetFreq(freq_het);
 
-	gr0 = [ar6+32];                                  //<190,28>
-	gr7 = 4294963200 set;                                  //<190,28>
-	gr0 = gr0 and gr7 noflags;                                  //<190,28>
-	[ar6 + 32] = gr0;                                  //<190,28>
+	ar0 = [ar6+32];                                  //<190,34>
+	ar4 = ar0 set;                                  //<190,34>
+	ar7 = ar7 - 4;                                  //<189,34>
+	ar4 = ar4 + 6;                                  //<190,34>
+	ar0 = ar7 set;                                  //<190,34>
+	gr7 = [ar6+20];                                  //<190,34>
+	gr6 = [ar6+21];                                  //<190,34>
+	[ar0++] = gr7;                                  //<190,34>
+	[ar0++] = gr6;                                  //<190,34>
+	[ar0++] = ar0;                                  //<190,34>
+	[ar0++] = ar4;                                  //<190,34>
+	ar7 = ar7 + 4;                                  //<190,34>
+	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetFreq.1double.2;                                  //<190,34>
+	ar7 = ar7 - 4;                                  //<190,34>
 
-//191:      acc_settings1.mode = dsppu::C_Accumulator::S_Settings::ACCUMULATION;
+//191:      channel_I.heterodyne.SetPhase(phase_het);
 
-	gr7 = 4294959103 set;                                  //<191,60>
-	gr0 = [ar6+32];                                  //<191,60>
-	gr0 = gr0 and gr7 noflags;                                  //<191,60>
-	ar7 = ar7 - 2;                                  //<189,39>
-	gr7 = 1 set;                                  //<191,60>
-	gr7 = gr7 << 31;                                  //<191,60>
-	gr7 = gr7 >> 18;                                  //<191,60>
-	gr0 = gr0 or gr7 noflags;                                  //<191,60>
-	[ar6 + 32] = gr0;                                  //<191,60>
+	ar4 = [ar6+31];                                  //<191,35>
+	ar0 = ar7 set;                                  //<191,35>
+	gr7 = [ar6+22];                                  //<191,35>
+	gr6 = [ar6+23];                                  //<191,35>
+	[ar0++] = gr7;                                  //<191,35>
+	[ar0++] = gr6;                                  //<191,35>
+	ar4 = ar4 + 6;                                  //<191,35>
+	ar7 = ar7 + 4;                                  //<191,35>
+	[ar0++] = ar0;                                  //<191,35>
+	[ar0++] = ar4;                                  //<191,35>
+	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetPhase.1double.2;                                  //<191,35>
 
-//192:      channel_Q.accumulator.SetSettings(acc_settings1);
+//192:      channel_Q.heterodyne.SetPhase(phase_het);
 
-	ar4 = [ar6+28];                                  //<192,39>
-	ar3 = ar6 set;                                  //<192,39>
-	ar0 = ar7 set;                                  //<192,39>
-	ar4 = ar4 + 18;                                  //<192,39>
-	ar3 = ar3 + 32;                                  //<192,39>
-	[ar0++] = ar3;                                  //<192,39>
-	[ar0++] = ar4;                                  //<192,39>
-	ar7 = ar7 + 2;                                  //<192,39>
-	call _void._dsppu.8.8C_Accumulator.8.8SetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._const._.6.2;                                  //<192,39>
-	ar7 = ar7 - 2;                                  //<192,39>
+	ar0 = [ar6+32];                                  //<192,35>
+	ar4 = ar0 set;                                  //<192,35>
+	ar7 = ar7 - 4;                                  //<191,35>
+	ar4 = ar4 + 6;                                  //<192,35>
+	ar0 = ar7 set;                                  //<192,35>
+	gr7 = [ar6+22];                                  //<192,35>
+	gr6 = [ar6+23];                                  //<192,35>
+	[ar0++] = gr7;                                  //<192,35>
+	[ar0++] = gr6;                                  //<192,35>
+	[ar0++] = ar0;                                  //<192,35>
+	[ar0++] = ar4;                                  //<192,35>
+	ar7 = ar7 + 4;                                  //<192,35>
+	call _unsigned._int._dsppu.8.8C_Heterodyne.8.8SetPhase.1double.2;                                  //<192,35>
+	ar7 = ar7 - 4;                                  //<192,35>
 
-//193:  
-//194:      // Настройка нормализатора после гетеродина.
-//195:      // Включение автоматической нормализации.
-//196:      /* dsppu::C_Normalizer::S_Settings norm_settings;
-//197:      channel_I.normalizer.GetSettings(norm_settings);
-//198:      norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
-//199:      norm_settings.enable_auto_norm_repeat = true;
-//200:      channel_I.normalizer.SetSettings(norm_settings);
-//201:  
-//202:      dsppu::C_Normalizer::S_Settings norm_settings1;
-//203:      channel_Q.normalizer.GetSettings(norm_settings1);
-//204:      norm_settings1.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
-//205:      norm_settings1.enable_auto_norm_repeat = true;
-//206:      channel_Q.normalizer.SetSettings(norm_settings1); */
-//207:  
-//208:      // Выбираем первые 8 бит из действительной и мнимой частей
-//209:      dsppu::C_Normalizer::S_Settings norm_settings;
+//193:      //==============================================================================
+//194:      //Прореживание
+//195:      dsppu::C_Accumulator::S_Settings acc_settings;
+//196:      channel_I.accumulator.GetSettings(acc_settings);//для первого канала
+
+	ar4 = [ar6+31];                                  //<196,39>
+	ar3 = ar6 set;                                  //<196,39>
+	ar0 = ar7 set;                                  //<196,39>
+	ar4 = ar4 + 18;                                  //<196,39>
+	ar3 = ar3 + 35;                                  //<196,39>
+	[ar0++] = ar3;                                  //<196,39>
+	[ar0++] = ar4;                                  //<196,39>
+	ar7 = ar7 + 2;                                  //<196,39>
+	call _void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const;                                  //<196,39>
+
+//197:      acc_settings.factor = 0;//в 10 раза прорежено (+1 к .factor )
+
+	gr0 = [ar6+35];                                  //<197,27>
+	gr7 = 4294963200 set;                                  //<197,27>
+	gr0 = gr0 and gr7 noflags;                                  //<197,27>
+	[ar6 + 35] = gr0;                                  //<197,27>
+
+//198:      acc_settings.mode = dsppu::C_Accumulator::S_Settings::ACCUMULATION;
+
+	gr7 = 4294959103 set;                                  //<198,59>
+	gr0 = [ar6+35];                                  //<198,59>
+	gr0 = gr0 and gr7 noflags;                                  //<198,59>
+	ar7 = ar7 - 2;                                  //<196,39>
+	gr7 = 1 set;                                  //<198,59>
+	gr7 = gr7 << 31;                                  //<198,59>
+	gr7 = gr7 >> 18;                                  //<198,59>
+	gr0 = gr0 or gr7 noflags;                                  //<198,59>
+	[ar6 + 35] = gr0;                                  //<198,59>
+
+//199:      channel_I.accumulator.SetSettings(acc_settings);
+
+	ar4 = [ar6+31];                                  //<199,39>
+	ar3 = ar6 set;                                  //<199,39>
+	ar0 = ar7 set;                                  //<199,39>
+	ar4 = ar4 + 18;                                  //<199,39>
+	ar3 = ar3 + 35;                                  //<199,39>
+	[ar0++] = ar3;                                  //<199,39>
+	[ar0++] = ar4;                                  //<199,39>
+	ar7 = ar7 + 2;                                  //<199,39>
+	call _void._dsppu.8.8C_Accumulator.8.8SetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._const._.6.2;                                  //<199,39>
+	ar7 = ar7 - 2;                                  //<199,39>
+
+//200:  
+//201:      dsppu::C_Accumulator::S_Settings acc_settings1;
+//202:      channel_Q.accumulator.GetSettings(acc_settings1);//для второго канала
+
+	ar4 = [ar6+32];                                  //<202,39>
+	ar3 = ar6 set;                                  //<202,39>
+	ar0 = ar7 set;                                  //<202,39>
+	ar4 = ar4 + 18;                                  //<202,39>
+	ar3 = ar3 + 36;                                  //<202,39>
+	[ar0++] = ar3;                                  //<202,39>
+	[ar0++] = ar4;                                  //<202,39>
+	ar7 = ar7 + 2;                                  //<202,39>
+	call _void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const;                                  //<202,39>
+
+//203:      acc_settings1.factor = 0;//в 10 раза прорежено (+1 к .factor )
+
+	gr0 = [ar6+36];                                  //<203,28>
+	gr7 = 4294963200 set;                                  //<203,28>
+	gr0 = gr0 and gr7 noflags;                                  //<203,28>
+	[ar6 + 36] = gr0;                                  //<203,28>
+
+//204:      acc_settings1.mode = dsppu::C_Accumulator::S_Settings::ACCUMULATION;
+
+	gr7 = 4294959103 set;                                  //<204,60>
+	gr0 = [ar6+36];                                  //<204,60>
+	gr0 = gr0 and gr7 noflags;                                  //<204,60>
+	ar7 = ar7 - 2;                                  //<202,39>
+	gr7 = 1 set;                                  //<204,60>
+	gr7 = gr7 << 31;                                  //<204,60>
+	gr7 = gr7 >> 18;                                  //<204,60>
+	gr0 = gr0 or gr7 noflags;                                  //<204,60>
+	[ar6 + 36] = gr0;                                  //<204,60>
+
+//205:      channel_Q.accumulator.SetSettings(acc_settings1);
+
+	ar4 = [ar6+32];                                  //<205,39>
+	ar3 = ar6 set;                                  //<205,39>
+	ar0 = ar7 set;                                  //<205,39>
+	ar4 = ar4 + 18;                                  //<205,39>
+	ar3 = ar3 + 36;                                  //<205,39>
+	[ar0++] = ar3;                                  //<205,39>
+	[ar0++] = ar4;                                  //<205,39>
+	ar7 = ar7 + 2;                                  //<205,39>
+	call _void._dsppu.8.8C_Accumulator.8.8SetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._const._.6.2;                                  //<205,39>
+	ar7 = ar7 - 2;                                  //<205,39>
+
+//206:  
+//207:      // Настройка нормализатора после гетеродина.
+//208:      // Включение автоматической нормализации.
+//209:      /* dsppu::C_Normalizer::S_Settings norm_settings;
 //210:      channel_I.normalizer.GetSettings(norm_settings);
+//211:      norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
+//212:      norm_settings.enable_auto_norm_repeat = true;
+//213:      channel_I.normalizer.SetSettings(norm_settings);
+//214:  
+//215:      dsppu::C_Normalizer::S_Settings norm_settings1;
+//216:      channel_Q.normalizer.GetSettings(norm_settings1);
+//217:      norm_settings1.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
+//218:      norm_settings1.enable_auto_norm_repeat = true;
+//219:      channel_Q.normalizer.SetSettings(norm_settings1); */
+//220:  
+//221:      // Выбираем первые 8 бит из действительной и мнимой частей
+//222:      dsppu::C_Normalizer::S_Settings norm_settings;
+//223:      channel_I.normalizer.GetSettings(norm_settings);
 
-	ar4 = [ar6+27];                                  //<210,38>
-	ar3 = ar6 set;                                  //<210,38>
-	ar0 = ar7 set;                                  //<210,38>
-	ar4 = ar4 + 20;                                  //<210,38>
-	ar3 = ar3 + 33;                                  //<210,38>
-	[ar0++] = ar3;                                  //<210,38>
-	[ar0++] = ar4;                                  //<210,38>
-	ar7 = ar7 + 2;                                  //<210,38>
-	call _void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const;                                  //<210,38>
+	ar4 = [ar6+31];                                  //<223,38>
+	ar3 = ar6 set;                                  //<223,38>
+	ar0 = ar7 set;                                  //<223,38>
+	ar4 = ar4 + 20;                                  //<223,38>
+	ar3 = ar3 + 37;                                  //<223,38>
+	[ar0++] = ar3;                                  //<223,38>
+	[ar0++] = ar4;                                  //<223,38>
+	ar7 = ar7 + 2;                                  //<223,38>
+	call _void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const;                                  //<223,38>
 
-//211:      //norm_settings.norm_from_bit = 13; //13 9
-//212:      norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
+//224:      norm_settings.norm_from_bit = 7; //13 9
 
-	gr0 = [ar6+33];                                  //<212,70>
-	gr7 = 4294966527 set;                                  //<212,70>
-	gr0 = gr0 and gr7 noflags;                                  //<212,70>
-	[ar6 + 33] = gr0;                                  //<212,70>
+	gr0 = [ar6+37];                                  //<224,35>
+	gr7 = 4294967264 set;                                  //<224,35>
+	gr0 = gr0 and gr7 noflags;                                  //<224,35>
+	ar7 = ar7 - 2;                                  //<223,38>
+	gr7 = 7 set;                                  //<224,35>
+	gr7 = gr7 << 27;                                  //<224,35>
+	gr7 = gr7 >> 27;                                  //<224,35>
+	gr0 = gr0 or gr7 noflags;                                  //<224,35>
+	[ar6 + 37] = gr0;                                  //<224,35>
 
-//213:      norm_settings.enable_auto_norm_repeat = true;
+//225:      //norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
+//226:      //norm_settings.enable_auto_norm_repeat = true;
+//227:      channel_I.normalizer.SetSettings(norm_settings);
 
-	gr7 = 4294966271 set;                                  //<213,45>
-	gr0 = [ar6+33];                                  //<213,45>
-	gr0 = gr0 and gr7 noflags;                                  //<213,45>
-	ar7 = ar7 - 2;                                  //<210,38>
-	gr7 = 1 set;                                  //<213,45>
-	gr7 = gr7 << 31;                                  //<213,45>
-	gr7 = gr7 >> 21;                                  //<213,45>
-	gr0 = gr0 or gr7 noflags;                                  //<213,45>
-	[ar6 + 33] = gr0;                                  //<213,45>
+	ar4 = [ar6+31];                                  //<227,38>
+	ar3 = ar6 set;                                  //<227,38>
+	ar0 = ar7 set;                                  //<227,38>
+	ar4 = ar4 + 20;                                  //<227,38>
+	ar3 = ar3 + 37;                                  //<227,38>
+	[ar0++] = ar3;                                  //<227,38>
+	[ar0++] = ar4;                                  //<227,38>
+	ar7 = ar7 + 2;                                  //<227,38>
+	call _void._dsppu.8.8C_Normalizer.8.8SetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._const._.6.2;                                  //<227,38>
+	ar7 = ar7 - 2;                                  //<227,38>
 
-//214:      channel_I.normalizer.SetSettings(norm_settings);
+//228:  
+//229:      dsppu::C_Normalizer::S_Settings norm_settings1;
+//230:      channel_Q.normalizer.GetSettings(norm_settings1);
 
-	ar4 = [ar6+27];                                  //<214,38>
-	ar3 = ar6 set;                                  //<214,38>
-	ar0 = ar7 set;                                  //<214,38>
-	ar4 = ar4 + 20;                                  //<214,38>
-	ar3 = ar3 + 33;                                  //<214,38>
-	[ar0++] = ar3;                                  //<214,38>
-	[ar0++] = ar4;                                  //<214,38>
-	ar7 = ar7 + 2;                                  //<214,38>
-	call _void._dsppu.8.8C_Normalizer.8.8SetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._const._.6.2;                                  //<214,38>
-	ar7 = ar7 - 2;                                  //<214,38>
+	ar4 = [ar6+32];                                  //<230,38>
+	ar3 = ar6 set;                                  //<230,38>
+	ar0 = ar7 set;                                  //<230,38>
+	ar4 = ar4 + 20;                                  //<230,38>
+	ar3 = ar3 + 38;                                  //<230,38>
+	[ar0++] = ar3;                                  //<230,38>
+	[ar0++] = ar4;                                  //<230,38>
+	ar7 = ar7 + 2;                                  //<230,38>
+	call _void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const;                                  //<230,38>
 
-//215:  
-//216:      dsppu::C_Normalizer::S_Settings norm_settings1;
-//217:      channel_Q.normalizer.GetSettings(norm_settings1);
+//231:      norm_settings1.norm_from_bit = 7;  //13 9
 
-	ar4 = [ar6+28];                                  //<217,38>
-	ar3 = ar6 set;                                  //<217,38>
-	ar0 = ar7 set;                                  //<217,38>
-	ar4 = ar4 + 20;                                  //<217,38>
-	ar3 = ar3 + 34;                                  //<217,38>
-	[ar0++] = ar3;                                  //<217,38>
-	[ar0++] = ar4;                                  //<217,38>
-	ar7 = ar7 + 2;                                  //<217,38>
-	call _void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const;                                  //<217,38>
+	gr0 = [ar6+38];                                  //<231,36>
+	gr7 = 4294967264 set;                                  //<231,36>
+	gr0 = gr0 and gr7 noflags;                                  //<231,36>
+	ar7 = ar7 - 2;                                  //<230,38>
+	gr7 = 7 set;                                  //<231,36>
+	gr7 = gr7 << 27;                                  //<231,36>
+	gr7 = gr7 >> 27;                                  //<231,36>
+	gr0 = gr0 or gr7 noflags;                                  //<231,36>
+	[ar6 + 38] = gr0;                                  //<231,36>
 
-//218:      //norm_settings1.norm_from_bit = 13;  //13 9
-//219:      norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
+//232:      //norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
+//233:      //norm_settings1.enable_auto_norm_repeat = true;
+//234:      channel_Q.normalizer.SetSettings(norm_settings1);
 
-	gr0 = [ar6+34];                                  //<219,72>
-	gr7 = 4294966527 set;                                  //<219,72>
-	gr0 = gr0 and gr7 noflags;                                  //<219,72>
-	[ar6 + 34] = gr0;                                  //<219,72>
+	ar4 = [ar6+32];                                  //<234,38>
+	ar3 = ar6 set;                                  //<234,38>
+	ar0 = ar7 set;                                  //<234,38>
+	ar4 = ar4 + 20;                                  //<234,38>
+	ar3 = ar3 + 38;                                  //<234,38>
+	[ar0++] = ar3;                                  //<234,38>
+	[ar0++] = ar4;                                  //<234,38>
+	ar7 = ar7 + 2;                                  //<234,38>
+	call _void._dsppu.8.8C_Normalizer.8.8SetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._const._.6.2;                                  //<234,38>
+	ar7 = ar7 - 2;                                  //<234,38>
 
-//220:      norm_settings1.enable_auto_norm_repeat = true;
+//235:  
+//236:      // Настройка устройства паковки канала -
+//237:      // включение упаковщика. Записывать данные
+//238:      // в формате: 8 бит действительная часть и
+//239:      // 8 бит мнимая часть отсчёта.
+//240:      dsppu::C_Packer::S_Settings packer_settings;
+//241:      channel_I.packer.GetSettings(packer_settings);
 
-	gr7 = 4294966271 set;                                  //<220,46>
-	gr0 = [ar6+34];                                  //<220,46>
-	gr0 = gr0 and gr7 noflags;                                  //<220,46>
-	ar7 = ar7 - 2;                                  //<217,38>
-	gr7 = 1 set;                                  //<220,46>
-	gr7 = gr7 << 31;                                  //<220,46>
-	gr7 = gr7 >> 21;                                  //<220,46>
-	gr0 = gr0 or gr7 noflags;                                  //<220,46>
-	[ar6 + 34] = gr0;                                  //<220,46>
+	ar4 = [ar6+31];                                  //<241,34>
+	ar3 = ar6 set;                                  //<241,34>
+	ar0 = ar7 set;                                  //<241,34>
+	ar4 = ar4 + 23;                                  //<241,34>
+	ar3 = ar3 + 39;                                  //<241,34>
+	[ar0++] = ar3;                                  //<241,34>
+	[ar0++] = ar4;                                  //<241,34>
+	ar7 = ar7 + 2;                                  //<241,34>
+	call _void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const;                                  //<241,34>
 
-//221:      channel_Q.normalizer.SetSettings(norm_settings1);
+//242:      packer_settings.mode = dsppu::C_Packer::S_Settings::PACK_8;
 
-	ar4 = [ar6+28];                                  //<221,38>
-	ar3 = ar6 set;                                  //<221,38>
-	ar0 = ar7 set;                                  //<221,38>
-	ar4 = ar4 + 20;                                  //<221,38>
-	ar3 = ar3 + 34;                                  //<221,38>
-	[ar0++] = ar3;                                  //<221,38>
-	[ar0++] = ar4;                                  //<221,38>
-	ar7 = ar7 + 2;                                  //<221,38>
-	call _void._dsppu.8.8C_Normalizer.8.8SetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._const._.6.2;                                  //<221,38>
-	ar7 = ar7 - 2;                                  //<221,38>
+	gr0 = [ar6+39];                                  //<242,57>
+	gr7 = 4294967292 set;                                  //<242,57>
+	gr0 = gr0 and gr7 noflags;                                  //<242,57>
+	ar7 = ar7 - 2;                                  //<241,34>
+	gr7 = 3 set;                                  //<242,57>
+	gr7 = gr7 << 30;                                  //<242,57>
+	gr7 = gr7 >> 30;                                  //<242,57>
+	gr0 = gr0 or gr7 noflags;                                  //<242,57>
+	[ar6 + 39] = gr0;                                  //<242,57>
 
-//222:  
-//223:      // Настройка устройства паковки канала -
-//224:      // включение упаковщика. Записывать данные
-//225:      // в формате: 8 бит действительная часть и
-//226:      // 8 бит мнимая часть отсчёта.
-//227:      dsppu::C_Packer::S_Settings packer_settings;
-//228:      channel_I.packer.GetSettings(packer_settings);
+//243:      channel_I.packer.SetSettings(packer_settings);
 
-	ar4 = [ar6+27];                                  //<228,34>
-	ar3 = ar6 set;                                  //<228,34>
-	ar0 = ar7 set;                                  //<228,34>
-	ar4 = ar4 + 23;                                  //<228,34>
-	ar3 = ar3 + 35;                                  //<228,34>
-	[ar0++] = ar3;                                  //<228,34>
-	[ar0++] = ar4;                                  //<228,34>
-	ar7 = ar7 + 2;                                  //<228,34>
-	call _void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const;                                  //<228,34>
+	ar4 = [ar6+31];                                  //<243,34>
+	ar3 = ar6 set;                                  //<243,34>
+	ar0 = ar7 set;                                  //<243,34>
+	ar4 = ar4 + 23;                                  //<243,34>
+	ar3 = ar3 + 39;                                  //<243,34>
+	[ar0++] = ar3;                                  //<243,34>
+	[ar0++] = ar4;                                  //<243,34>
+	ar7 = ar7 + 2;                                  //<243,34>
+	call _void._dsppu.8.8C_Packer.8.8SetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._const._.6.2;                                  //<243,34>
+	ar7 = ar7 - 2;                                  //<243,34>
 
-//229:      packer_settings.mode = dsppu::C_Packer::S_Settings::PACK_8;
+//244:  
+//245:      dsppu::C_Packer::S_Settings packer_settings1;
+//246:      channel_Q.packer.GetSettings(packer_settings1);
 
-	gr0 = [ar6+35];                                  //<229,57>
-	gr7 = 4294967292 set;                                  //<229,57>
-	gr0 = gr0 and gr7 noflags;                                  //<229,57>
-	ar7 = ar7 - 2;                                  //<228,34>
-	gr7 = 3 set;                                  //<229,57>
-	gr7 = gr7 << 30;                                  //<229,57>
-	gr7 = gr7 >> 30;                                  //<229,57>
-	gr0 = gr0 or gr7 noflags;                                  //<229,57>
-	[ar6 + 35] = gr0;                                  //<229,57>
+	ar4 = [ar6+32];                                  //<246,34>
+	ar3 = ar6 set;                                  //<246,34>
+	ar0 = ar7 set;                                  //<246,34>
+	ar4 = ar4 + 23;                                  //<246,34>
+	ar3 = ar3 + 40;                                  //<246,34>
+	[ar0++] = ar3;                                  //<246,34>
+	[ar0++] = ar4;                                  //<246,34>
+	ar7 = ar7 + 2;                                  //<246,34>
+	call _void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const;                                  //<246,34>
 
-//230:      channel_I.packer.SetSettings(packer_settings);
+//247:      packer_settings1.mode = dsppu::C_Packer::S_Settings::PACK_8;
 
-	ar4 = [ar6+27];                                  //<230,34>
-	ar3 = ar6 set;                                  //<230,34>
-	ar0 = ar7 set;                                  //<230,34>
-	ar4 = ar4 + 23;                                  //<230,34>
-	ar3 = ar3 + 35;                                  //<230,34>
-	[ar0++] = ar3;                                  //<230,34>
-	[ar0++] = ar4;                                  //<230,34>
-	ar7 = ar7 + 2;                                  //<230,34>
-	call _void._dsppu.8.8C_Packer.8.8SetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._const._.6.2;                                  //<230,34>
-	ar7 = ar7 - 2;                                  //<230,34>
+	gr0 = [ar6+40];                                  //<247,58>
+	gr7 = 4294967292 set;                                  //<247,58>
+	gr0 = gr0 and gr7 noflags;                                  //<247,58>
+	gr7 = 3 set;                                  //<247,58>
+	gr7 = gr7 << 30;                                  //<247,58>
+	gr7 = gr7 >> 30;                                  //<247,58>
+	gr0 = gr0 or gr7 noflags;                                  //<247,58>
+	ar7 = ar7 - 2;                                  //<246,34>
+	[ar6 + 40] = gr0;                                  //<247,58>
 
-//231:  
-//232:      dsppu::C_Packer::S_Settings packer_settings1;
-//233:      channel_Q.packer.GetSettings(packer_settings1);
+//248:      channel_Q.packer.SetSettings(packer_settings1);
 
-	ar4 = [ar6+28];                                  //<233,34>
-	ar3 = ar6 set;                                  //<233,34>
-	ar0 = ar7 set;                                  //<233,34>
-	ar4 = ar4 + 23;                                  //<233,34>
-	ar3 = ar3 + 36;                                  //<233,34>
-	[ar0++] = ar3;                                  //<233,34>
-	[ar0++] = ar4;                                  //<233,34>
-	ar7 = ar7 + 2;                                  //<233,34>
-	call _void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const;                                  //<233,34>
+	ar4 = [ar6+32];                                  //<248,34>
+	ar4 = ar4 + 23;                                  //<248,34>
+	ar3 = ar6 set;                                  //<248,34>
+	ar0 = ar7 set;                                  //<248,34>
+	ar3 = ar3 + 40;                                  //<248,34>
+	ar7 = ar7 + 2;                                  //<248,34>
+	[ar0++] = ar3;                                  //<248,34>
+	[ar0++] = ar4;                                  //<248,34>
+	call _void._dsppu.8.8C_Packer.8.8SetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._const._.6.2;                                  //<248,34>
+	ar7 = ar7 - 2;                                  //<248,34>
 
-//234:      packer_settings1.mode = dsppu::C_Packer::S_Settings::PACK_8;
+//249:  
+//250:              int ag_nI = -1;
+//251:              int ag_nQ = -1;
+//252:      // Передача адресов буферов.
+//253:      channel_I.addr_generator.SetAddresses(reinterpret_cast<dsppu::PTR>(dst_even_I), reinterpret_cast<dsppu::PTR>(dst_odd_I));
 
-	gr0 = [ar6+36];                                  //<234,58>
-	gr7 = 4294967292 set;                                  //<234,58>
-	gr0 = gr0 and gr7 noflags;                                  //<234,58>
-	gr7 = 3 set;                                  //<234,58>
-	gr7 = gr7 << 30;                                  //<234,58>
-	gr7 = gr7 >> 30;                                  //<234,58>
-	gr0 = gr0 or gr7 noflags;                                  //<234,58>
-	ar7 = ar7 - 2;                                  //<233,34>
-	[ar6 + 36] = gr0;                                  //<234,58>
+	ar4 = ar7 set;                                  //<253,124>
+	gr0 = true noflags;                                  //<250,25>
+	[ar6 + 41] = gr0;                                  //<250,25>
+	[ar6 + 42] = gr0;                                  //<251,25>
+	ar0 = [ar6+24];                                  //<253,124>
+	ar3 = [ar6+31];                                  //<253,124>
+	gr7 = [ar6+25];                                  //<253,124>
+	[ar4++] = ar4;                                  //<253,124>
+	[ar4++] = gr7;                                  //<253,124>
+	ar3 = ar3 + 26;                                  //<253,124>
+	ar7 = ar7 + 4;                                  //<253,124>
+	[ar4++] = ar0;                                  //<253,124>
+	[ar4++] = ar3;                                  //<253,124>
+	call _void._dsppu.8.8C_AddrGenerator.8.8SetAddresses.1unsigned._int.9._unsigned._int.2;                                  //<253,124>
+	ar7 = ar7 - 4;                                  //<253,124>
 
-//235:      channel_Q.packer.SetSettings(packer_settings1);
+//254:      channel_I.addr_generator.SetMaxBufferSize(2*BUF_SIZE);
 
-	ar4 = [ar6+28];                                  //<235,34>
-	ar4 = ar4 + 23;                                  //<235,34>
-	ar3 = ar6 set;                                  //<235,34>
-	ar0 = ar7 set;                                  //<235,34>
-	ar3 = ar3 + 36;                                  //<235,34>
-	ar7 = ar7 + 2;                                  //<235,34>
-	[ar0++] = ar3;                                  //<235,34>
-	[ar0++] = ar4;                                  //<235,34>
-	call _void._dsppu.8.8C_Packer.8.8SetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._const._.6.2;                                  //<235,34>
-	ar7 = ar7 - 2;                                  //<235,34>
+	ar0 = ar7 set;                                  //<254,49>
+	gr7 = 2000 set;                                  //<254,49>
+	ar7 = ar7 + 2;                                  //<254,49>
+	[ar0++] = ar0;                                  //<254,49>
+	[ar0++] = gr7;                                  //<254,49>
+	call _void._dsppu.8.8C_AddrGenerator.8.8SetMaxBufferSize.1unsigned._int.2;                                  //<254,49>
+	ar7 = ar7 - 2;                                  //<254,49>
 
-//236:  
-//237:              int ag_nI = -1;
-//238:              int ag_nQ = -1;
-//239:      // Передача адресов буферов.
-//240:      channel_I.addr_generator.SetAddresses(reinterpret_cast<dsppu::PTR>(dst_even_I), reinterpret_cast<dsppu::PTR>(dst_odd_I));
+//255:      ag_nI = channel_I.addr_generator.GetNumber();
 
-	ar4 = ar7 set;                                  //<240,124>
-	gr0 = true noflags;                                  //<237,25>
-	[ar6 + 37] = gr0;                                  //<237,25>
-	[ar6 + 38] = gr0;                                  //<238,25>
-	ar0 = [ar6+20];                                  //<240,124>
-	ar3 = [ar6+27];                                  //<240,124>
-	gr7 = [ar6+21];                                  //<240,124>
-	[ar4++] = ar4;                                  //<240,124>
-	[ar4++] = gr7;                                  //<240,124>
-	ar3 = ar3 + 26;                                  //<240,124>
-	ar7 = ar7 + 4;                                  //<240,124>
-	[ar4++] = ar0;                                  //<240,124>
-	[ar4++] = ar3;                                  //<240,124>
-	call _void._dsppu.8.8C_AddrGenerator.8.8SetAddresses.1unsigned._int.9._unsigned._int.2;                                  //<240,124>
-	ar7 = ar7 - 4;                                  //<240,124>
+	ar0 = ar7 set;                                  //<255,38>
+	ar4 = [ar6+31];                                  //<255,38>
+	ar4 = ar4 + 26;                                  //<255,38>
+	ar7 = ar7 + 2;                                  //<255,38>
+	[ar0++] = ar0;                                  //<255,38>
+	[ar0++] = ar4;                                  //<255,38>
+	call _unsigned._int._dsppu.8.8C_AddrGenerator.8.8GetNumber.1.2._const;                                  //<255,38>
+	ar7 = ar7 - 2;                                  //<255,38>
 
-//241:      channel_I.addr_generator.SetMaxBufferSize(2*BUF_SIZE);
+//256:  
+//257:      channel_Q.addr_generator.SetAddresses(reinterpret_cast<dsppu::PTR>(dst_even_Q), reinterpret_cast<dsppu::PTR>(dst_odd_Q));
 
-	ar0 = ar7 set;                                  //<241,49>
-	gr7 = 2000 set;                                  //<241,49>
-	ar7 = ar7 + 2;                                  //<241,49>
-	[ar0++] = ar0;                                  //<241,49>
-	[ar0++] = gr7;                                  //<241,49>
-	call _void._dsppu.8.8C_AddrGenerator.8.8SetMaxBufferSize.1unsigned._int.2;                                  //<241,49>
-	ar7 = ar7 - 2;                                  //<241,49>
+	ar4 = ar7 set;                                  //<257,124>
+	[ar6 + 41] = gr7;                                  //<255,38>
+	ar0 = [ar6+26];                                  //<257,124>
+	ar3 = [ar6+32];                                  //<257,124>
+	gr7 = [ar6+27];                                  //<257,124>
+	[ar4++] = ar4;                                  //<257,124>
+	[ar4++] = gr7;                                  //<257,124>
+	ar3 = ar3 + 26;                                  //<257,124>
+	ar7 = ar7 + 4;                                  //<257,124>
+	[ar4++] = ar0;                                  //<257,124>
+	[ar4++] = ar3;                                  //<257,124>
+	call _void._dsppu.8.8C_AddrGenerator.8.8SetAddresses.1unsigned._int.9._unsigned._int.2;                                  //<257,124>
+	ar7 = ar7 - 4;                                  //<257,124>
 
-//242:      ag_nI = channel_I.addr_generator.GetNumber();
+//258:      channel_Q.addr_generator.SetMaxBufferSize(2*BUF_SIZE);
 
-	ar0 = ar7 set;                                  //<242,38>
-	ar4 = [ar6+27];                                  //<242,38>
-	ar4 = ar4 + 26;                                  //<242,38>
-	ar7 = ar7 + 2;                                  //<242,38>
-	[ar0++] = ar0;                                  //<242,38>
-	[ar0++] = ar4;                                  //<242,38>
-	call _unsigned._int._dsppu.8.8C_AddrGenerator.8.8GetNumber.1.2._const;                                  //<242,38>
-	ar7 = ar7 - 2;                                  //<242,38>
+	ar0 = ar7 set;                                  //<258,49>
+	gr7 = 2000 set;                                  //<258,49>
+	ar7 = ar7 + 2;                                  //<258,49>
+	[ar0++] = ar0;                                  //<258,49>
+	[ar0++] = gr7;                                  //<258,49>
+	call _void._dsppu.8.8C_AddrGenerator.8.8SetMaxBufferSize.1unsigned._int.2;                                  //<258,49>
+	ar7 = ar7 - 2;                                  //<258,49>
 
-//243:  
-//244:      channel_Q.addr_generator.SetAddresses(reinterpret_cast<dsppu::PTR>(dst_even_Q), reinterpret_cast<dsppu::PTR>(dst_odd_Q));
+//259:      ag_nQ = channel_Q.addr_generator.GetNumber();
 
-	ar4 = ar7 set;                                  //<244,124>
-	[ar6 + 37] = gr7;                                  //<242,38>
-	ar0 = [ar6+22];                                  //<244,124>
-	ar3 = [ar6+28];                                  //<244,124>
-	gr7 = [ar6+23];                                  //<244,124>
-	[ar4++] = ar4;                                  //<244,124>
-	[ar4++] = gr7;                                  //<244,124>
-	ar3 = ar3 + 26;                                  //<244,124>
-	ar7 = ar7 + 4;                                  //<244,124>
-	[ar4++] = ar0;                                  //<244,124>
-	[ar4++] = ar3;                                  //<244,124>
-	call _void._dsppu.8.8C_AddrGenerator.8.8SetAddresses.1unsigned._int.9._unsigned._int.2;                                  //<244,124>
-	ar7 = ar7 - 4;                                  //<244,124>
+	ar0 = ar7 set;                                  //<259,38>
+	ar4 = [ar6+32];                                  //<259,38>
+	ar4 = ar4 + 26;                                  //<259,38>
+	ar7 = ar7 + 2;                                  //<259,38>
+	[ar0++] = ar0;                                  //<259,38>
+	[ar0++] = ar4;                                  //<259,38>
+	call _unsigned._int._dsppu.8.8C_AddrGenerator.8.8GetNumber.1.2._const;                                  //<259,38>
+	ar7 = ar7 - 2;                                  //<259,38>
+	[ar6 + 42] = gr7;                                  //<259,38>
 
-//245:      channel_Q.addr_generator.SetMaxBufferSize(2*BUF_SIZE);
+//260:  
+//261:      // Установка интервала накопления - 25 мкс. - 0 50 мкс - 1 и т.д.
+//262:      // С данными настройками БПОС в кадре
+//263:      // будет находится 4096 комплексных отсчётов.
+//264:      dsppu::C_IntervalTimer::Inst().SetInterval(9);
 
-	ar0 = ar7 set;                                  //<245,49>
-	gr7 = 2000 set;                                  //<245,49>
-	ar7 = ar7 + 2;                                  //<245,49>
-	[ar0++] = ar0;                                  //<245,49>
-	[ar0++] = gr7;                                  //<245,49>
-	call _void._dsppu.8.8C_AddrGenerator.8.8SetMaxBufferSize.1unsigned._int.2;                                  //<245,49>
-	ar7 = ar7 - 2;                                  //<245,49>
+	call _class._dsppu.8.8C_IntervalTimer._.6dsppu.8.8C_IntervalTimer.8.8Inst.1.2;                                  //<264,48>
+	ar0 = ar7 set;                                  //<264,48>
+	gr7 = 9 set;                                  //<264,48>
+	[ar0++] = gr7;                                  //<264,48>
+	[ar0++] = ar5;                                  //<264,48>
+	ar7 = ar7 + 2;                                  //<264,48>
+	call _unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.2;                                  //<264,48>
+	ar7 = ar7 - 2;                                  //<264,48>
 
-//246:      ag_nQ = channel_Q.addr_generator.GetNumber();
+//265:  
+//266:      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//267:      // Запуск БПОС.
+//268:      //DSPPU.Start(dsppu::C_DSPPUControl::AUTO_NORM_H);
+//269:       DSPPU.Start();
 
-	ar0 = ar7 set;                                  //<246,38>
-	ar4 = [ar6+28];                                  //<246,38>
-	ar4 = ar4 + 26;                                  //<246,38>
-	ar7 = ar7 + 2;                                  //<246,38>
-	[ar0++] = ar0;                                  //<246,38>
-	[ar0++] = ar4;                                  //<246,38>
-	call _unsigned._int._dsppu.8.8C_AddrGenerator.8.8GetNumber.1.2._const;                                  //<246,38>
-	ar7 = ar7 - 2;                                  //<246,38>
-	[ar6 + 38] = gr7;                                  //<246,38>
+	ar0 = ar7 set;                                  //<269,12>
+	gr0 = false noflags;                                  //<269,12>
+	ar4 = ar6 + 28;                                  //<269,12>
+	ar7 = ar7 + 2;                                  //<269,12>
+	[ar0++] = gr0;                                  //<269,12>
+	[ar0++] = ar4;                                  //<269,12>
 
-//247:  
-//248:      // Установка интервала накопления - 25 мкс. - 0 50 мкс - 1 и т.д.
-//249:      // С данными настройками БПОС в кадре
-//250:      // будет находится 4096 комплексных отсчётов.
-//251:      dsppu::C_IntervalTimer::Inst().SetInterval(0);
+//270:  
+//271:       dsppu::C_DSPPUControl::S_StackMonitor sm;
+//272:       dsppu::C_Normalizer::S_State snI;
+//273:       dsppu::C_Normalizer::S_State snQ;
+//274:  
+//275:  
+//276:       nm32s  *pok_arm=reinterpret_cast<nm32s*>(0x41ff0); *pok_arm = 0;
 
-	call _class._dsppu.8.8C_IntervalTimer._.6dsppu.8.8C_IntervalTimer.8.8Inst.1.2;                                  //<251,48>
-	ar0 = ar7 set;                                  //<251,48>
-	gr0 = false noflags;                                  //<251,48>
-	[ar0++] = gr0;                                  //<251,48>
-	[ar0++] = ar5;                                  //<251,48>
-	ar7 = ar7 + 2;                                  //<251,48>
-	call _unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.2;                                  //<251,48>
-	ar7 = ar7 - 2;                                  //<251,48>
+	ar0 = 270320 set;                                  //<276,55>
+	call _unsigned._int._dsppu.8.8C_DSPPUControl.8.8Start.1enum._dsppu.8.8C_DSPPUControl.8.8START_MODE.2;                                  //<269,12>
+	[ar6 + 46] = ar0;                                  //<276,55>
+	ar0 = [ar6+46];                                  //<276,68>
+	[ar0] = gr0;                                  //<276,68>
 
-//252:  
-//253:      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//254:      // Запуск БПОС.
-//255:      //DSPPU.Start(dsppu::C_DSPPUControl::AUTO_NORM_H);
-//256:       DSPPU.Start();
+//277:       nm32s  *acq0_arm=reinterpret_cast<nm32s*>(0x41ff2); *acq0_arm= 0;
 
-	ar0 = ar7 set;                                  //<256,12>
-	gr0 = false noflags;                                  //<256,12>
-	ar4 = ar6 + 24;                                  //<256,12>
-	ar7 = ar7 + 2;                                  //<256,12>
-	[ar0++] = gr0;                                  //<256,12>
-	[ar0++] = ar4;                                  //<256,12>
-	call _unsigned._int._dsppu.8.8C_DSPPUControl.8.8Start.1enum._dsppu.8.8C_DSPPUControl.8.8START_MODE.2;                                  //<256,12>
-	ar7 = ar7 - 2;                                  //<256,12>
+	ar0 = 270322 set;                                  //<277,56>
+	[ar6 + 47] = ar0;                                  //<277,56>
+	ar0 = [ar6+47];                                  //<277,69>
+	[ar0] = gr0;                                  //<277,69>
+	ar7 = ar7 - 2;                                  //<269,12>
 
-//257:  
-//258:       dsppu::C_DSPPUControl::S_StackMonitor sm;
-//259:       dsppu::C_Normalizer::S_State snI;
-//260:       dsppu::C_Normalizer::S_State snQ;
-//261:  
-//262:  
-//263:      clock_t t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
-//264:      int64b sum_Sig_0, sum_Sig_1;//, mea_Sig0,  mea_Sig1;
-//265:      int ill=0;
+//278:       nm32s  *acq_arm=reinterpret_cast<nm32s*>(0x41ff4); *acq_arm = 0;
 
-	[ar6 + 58] = gr0;                                  //<265,13>
+	ar0 = 270324 set;                                  //<278,55>
+	[ar6 + 48] = ar0;                                  //<278,55>
+	ar0 = [ar6+48];                                  //<278,68>
+	[ar0] = gr0;                                  //<278,68>
 
-//266:      int pok=0;
+//279:       nm32s  *stop_arm=reinterpret_cast<nm32s*>(0x41ff6); *stop_arm = 0;
+//280:  
+//281:       int a = 0xDEADBEAF;
 
-	[ar6 + 59] = gr0;                                  //<266,13>
+	gr7 = -559038801 set;                                  //<281,14>
+	ar0 = 270326 set;                                  //<279,56>
+	[ar6 + 49] = ar0;                                  //<279,56>
+	ar0 = [ar6+49];                                  //<279,70>
+	[ar0] = gr0;                                  //<279,70>
 
-//267:      int32b M=0;
+//282:       ncl_hostSync(a);
 
-	[ar6 + 60] = gr0;                                  //<267,14>
+	ar0 = ar7 set;                                  //<282,19>
+	[ar6 + 50] = gr7;                                  //<281,14>
+	gr7 = [ar6+50];                                  //<282,19>
+	[ar0++] = ar0;                                  //<282,19>
+	[ar0++] = gr7;                                  //<282,19>
+	ar7 = ar7 + 2;                                  //<282,19>
+	call _ncl_hostSync;                                  //<282,19>
+	ar7 = ar7 - 2;                                  //<282,19>
 
-//268:  
-//269:      while (ill<99) {
+//283:  
+//284:      clock_t t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+//285:      int64b sum_Sig_0, sum_Sig_1, sum_SpeA , treshold_acq, treshold_acq1;//, mea_Sig0,  mea_Sig1;
+//286:      int ill=0, i_acq=0;
 
-	goto L6;                                  //<269,5>
+	[ar6 + 72] = gr0;                                  //<286,13>
+	[ar6 + 73] = gr0;                                  //<286,22>
+
+//287:      int pok=0;
+
+	[ar6 + 74] = gr0;                                  //<287,13>
+
+//288:      int32b M = 0, M1 = 0;
+
+	[ar6 + 75] = gr0;                                  //<288,16>
+	[ar6 + 76] = gr0;                                  //<288,24>
+
+//289:      int acq=0,acq0=0;
+
+	[ar6 + 77] = gr0;                                  //<289,13>
+	[ar6 + 78] = gr0;                                  //<289,20>
+
+//290:  
+//291:      while (ill<200000 && acq<10) {
+
+	goto L6;                                  //<291,5>
 <L6>
-<L10>
-	gr0 = 99 set;                                  //<269,16>
-	gr7 = [ar6+58];                                  //<269,12>
-	gr7 - gr0;                                  //<269,15>
-	if v< goto L7;                                  //<269,15>
-	goto L8;                                  //<269,15>
+<L11>
+	gr0 = 200000 set;                                  //<291,16>
+	gr7 = [ar6+72];                                  //<291,12>
+	gr7 - gr0;                                  //<291,15>
+	if v< goto L9;                                  //<291,15>
+	goto L8;                                  //<291,15>
+<L9>
+	gr0 = 10 set;                                  //<291,30>
+	gr7 = [ar6+77];                                  //<291,26>
+	gr7 - gr0;                                  //<291,29>
+	if v< goto L7;                                  //<291,29>
+	goto L8;                                  //<291,29>
 <L7>
 
-//270:       if ((DSPPU.GetStackMonitor(sm))&(sm.ag_number==ag_nI)) {
+//292:       if ((DSPPU.GetStackMonitor(sm))&(sm.ag_number==ag_nI)) {
 
-	gr0 = [ar6+37];                                  //<270,53>
-	gr7 = [ar6+39];                                  //<270,42>
-	gr7 = gr7 << 18;                                  //<270,42>
-	gr7 = gr7 >> 26;                                  //<270,42>
-	gr7 - gr0;                                  //<270,51>
-	if =0 goto L11;                                  //<270,51>
-	goto L12;                                  //<270,51>
-<L11>
-	gr0 = 1 set;                                  //<270,51>
-	goto L13;                                  //<270,51>
+	gr0 = [ar6+41];                                  //<292,53>
+	gr7 = [ar6+43];                                  //<292,42>
+	gr7 = gr7 << 18;                                  //<292,42>
+	gr7 = gr7 >> 26;                                  //<292,42>
+	gr7 - gr0;                                  //<292,51>
+	if =0 goto L12;                                  //<292,51>
+	goto L13;                                  //<292,51>
 <L12>
-	gr0 = false noflags;                                  //<270,51>
-	goto L13;                                  //<270,51>
+	gr0 = 1 set;                                  //<292,51>
+	goto L14;                                  //<292,51>
 <L13>
-	ar4 = ar6 + 24;                                  //<270,11>
-	ar0 = ar7 set;                                  //<270,32>
-	ar3 = ar6 set;                                  //<270,33>
-	ar3 = ar3 + 39;                                  //<270,33>
-	ar7 = ar7 + 2;                                  //<270,32>
-	[ar0++] = ar3;                                  //<270,32>
-	[ar0++] = ar4;                                  //<270,32>
-	call _unsigned._int._dsppu.8.8C_DSPPUControl.8.8GetStackMonitor.1class._dsppu.8.8C_DSPPUControl.8.8S_StackMonitor._.6.2;                                  //<270,32>
-	ar7 = ar7 - 2;                                  //<270,32>
-	gr0 = gr7 and gr0 noflags;                                  //<270,37>
-	gr7 = false noflags;                                  //<270,37>
-	gr0 - gr7;                                  //<270,37>
-	if <>0 goto L9;                                  //<270,37>
-	goto L6;                                  //<270,37>
-<L9>
+	gr0 = false noflags;                                  //<292,51>
+	goto L14;                                  //<292,51>
+<L14>
+	ar4 = ar6 + 28;                                  //<292,11>
+	ar0 = ar7 set;                                  //<292,32>
+	ar3 = ar6 set;                                  //<292,33>
+	ar3 = ar3 + 43;                                  //<292,33>
+	ar7 = ar7 + 2;                                  //<292,32>
+	[ar0++] = ar3;                                  //<292,32>
+	[ar0++] = ar4;                                  //<292,32>
+	call _unsigned._int._dsppu.8.8C_DSPPUControl.8.8GetStackMonitor.1class._dsppu.8.8C_DSPPUControl.8.8S_StackMonitor._.6.2;                                  //<292,32>
+	ar7 = ar7 - 2;                                  //<292,32>
+	gr0 = gr7 and gr0 noflags;                                  //<292,37>
+	gr7 = false noflags;                                  //<292,37>
+	gr0 - gr7;                                  //<292,37>
+	if <>0 goto L10;                                  //<292,37>
+	goto L6;                                  //<292,37>
+<L10>
 
-//271:        //   if (ill%2 == 0){
-//272:  
-//273:  
-//274:  
-//275:       //}
-//276:  
-//277:  
-//278:  
-//279:  
-//280:           ill++;};
+//293:  
+//294:  
+//295:           t1=clock();
 
-	gr0 = [ar6+58];                                  //<280,13>
-	gr0 = gr0 + 1 noflags;                                  //<280,13>
-	[ar6 + 58] = gr0;                                  //<280,13>
-	goto L6;                                  //<280,16>
-<L8>
+	call _clock;                                  //<295,13>
+	[ar6 + 52] = gr7;                                  //<295,13>
 
-//281:  
-//282:      };
-//283:  
-//284:      t1=clock();
+//296:           //Сигнал
+//297:               //VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
+//298:         if(ill%2==0){
 
-	call _clock;                                  //<284,8>
+	gr0 = [ar6+72];                                  //<298,11>
+	gr7 = 1 set;                                  //<298,14>
+	gr7 = gr0 and gr7 noflags;                                  //<298,14>
+	gr7;                                  //<298,16>
+	if =0 goto L15;                                  //<298,16>
+	goto L16;                                  //<298,16>
+<L15>
 
-//285:      //Сигнал
-//286:          //VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
-//287:  
-//288:      VEC_Cnv ((nm8s*) SIGI, (nm64s*) Signal1, len/2);
+//299:           VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
 
-	ar0 = ar7 set;                                  //<288,50>
-	[ar6 + 43] = gr7;                                  //<284,8>
-	gr7 = [ar6+4];                                  //<288,50>
-	gr6 = [ar6+12];                                  //<288,50>
-	gr5 = 256 set;                                  //<288,50>
-	[ar0++] = ar0;                                  //<288,50>
-	[ar0++] = gr5;                                  //<288,50>
-	[ar0++] = gr6;                                  //<288,50>
-	[ar0++] = gr7;                                  //<288,50>
-	ar7 = ar7 + 4;                                  //<288,50>
-	call _void._.8.8VEC_Cnv.1char._.0.9._long._.0.9._int.2;                                  //<288,50>
-	ar7 = ar7 - 4;                                  //<288,50>
+	ar0 = ar7 set;                                  //<299,51>
+	gr7 = [ar6+4];                                  //<299,51>
+	gr6 = [ar6+14];                                  //<299,51>
+	gr5 = 512 set;                                  //<299,51>
+	[ar0++] = ar0;                                  //<299,51>
+	[ar0++] = gr5;                                  //<299,51>
+	[ar0++] = gr6;                                  //<299,51>
+	[ar0++] = gr7;                                  //<299,51>
+	ar7 = ar7 + 4;                                  //<299,51>
+	call _void._.8.8VEC_Cnv.1char._.0.9._int._.0.9._int.2;                                  //<299,51>
+	ar7 = ar7 - 4;                                  //<299,51>
 
-//289:      VEC_Cnv ((nm8s*) SIGQ, (nm64s*) Signal2, len/2);
+//300:           //VEC_Cnv ((nm8s*) SIGQ, (nm32s*) Signal2, len/2);
+//301:         }
 
-	ar0 = ar7 set;                                  //<289,50>
-	gr7 = [ar6+5];                                  //<289,50>
-	gr6 = [ar6+13];                                  //<289,50>
-	gr5 = 256 set;                                  //<289,50>
-	ar7 = ar7 + 4;                                  //<289,50>
-	[ar0++] = ar0;                                  //<289,50>
-	[ar0++] = gr5;                                  //<289,50>
-	[ar0++] = gr6;                                  //<289,50>
-	[ar0++] = gr7;                                  //<289,50>
-	call _void._.8.8VEC_Cnv.1char._.0.9._long._.0.9._int.2;                                  //<289,50>
-	ar7 = ar7 - 4;                                  //<289,50>
+	goto L17;                                  //<301,8>
+<L16>
 
-//290:      //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
-//291:  
-//292:      VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
+//302:         else {
+//303:             VEC_Cnv ((nm8s*) ((int) SIGI+2*BUF_SIZE), (nm32s*) Signal1, len);
 
-	ar0 = ar7 set;                                  //<292,48>
-	gr7 = [ar6+12];                                  //<292,48>
-	ar4 = ar6 + 54;                                  //<292,48>
-	[ar0++] = ar0;                                  //<292,48>
-	[ar0++] = ar4;                                  //<292,48>
-	gr6 = 512 set;                                  //<292,48>
-	ar7 = ar7 + 4;                                  //<292,48>
-	[ar0++] = gr6;                                  //<292,48>
-	[ar0++] = gr7;                                  //<292,48>
-	call _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2;                                  //<292,48>
-	ar7 = ar7 - 4;                                  //<292,48>
+	gr0 = [ar6+4];                                  //<303,72>
+	gr7 = 2000 set;                                  //<303,72>
+	ar0 = ar7 set;                                  //<303,72>
+	gr0 = gr0 + gr7 noflags;                                  //<303,72>
+	gr6 = 512 set;                                  //<303,72>
+	gr7 = [ar6+14];                                  //<303,72>
+	[ar0++] = ar0;                                  //<303,72>
+	[ar0++] = gr6;                                  //<303,72>
+	[ar0++] = gr7;                                  //<303,72>
+	[ar0++] = gr0;                                  //<303,72>
+	ar7 = ar7 + 4;                                  //<303,72>
+	call _void._.8.8VEC_Cnv.1char._.0.9._int._.0.9._int.2;                                  //<303,72>
+	ar7 = ar7 - 4;                                  //<303,72>
 
-//293:      VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
+//304:             //VEC_Cnv ((nm8s*) ((int) SIGQ+2*BUF_SIZE), (nm64s*) Signal2, len/2);
+//305:         };
 
-	ar0 = ar7 set;                                  //<293,48>
-	gr7 = [ar6+13];                                  //<293,48>
-	ar4 = ar6 + 56;                                  //<293,48>
-	[ar0++] = ar0;                                  //<293,48>
-	[ar0++] = ar4;                                  //<293,48>
-	gr6 = 512 set;                                  //<293,48>
-	ar7 = ar7 + 4;                                  //<293,48>
-	[ar0++] = gr6;                                  //<293,48>
-	[ar0++] = gr7;                                  //<293,48>
-	call _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2;                                  //<293,48>
+	goto L17;                                  //<305,8>
+<L17>
 
-//294:      sum_Sig_0 = -sum_Sig_0/128;
-
-	gr0 = [ar6+54];                                  //<294,28>
-	gr7 = false noflags;                                  //<294,28>
-	gr0 = - gr0;                                  //<294,28>
-	ar7 = ar7 - 4;                                  //<293,48>
-	gr6 = [ar6+55];                                  //<294,28>
-	ar0 = ar7 set;                                  //<294,28>
-	gr7 = gr7 - gr6 -1 + carry noflags;                                  //<294,28>
-	[ar0++] = gr0;                                  //<294,28>
-	[ar0++] = gr7;                                  //<294,28>
-	gr6 = hiword( 128l ) set;                                  //<294,28>
-	gr7 = loword( 128l ) set;                                  //<294,28>
-	[ar0++] = gr7;                                  //<294,28>
-	[ar0++] = gr6;                                  //<294,28>
-	ar7 = ar7 + 4;                                  //<294,28>
-	call IDiv64;                                  //<294,28>
-	ar0 = ar7 set;                                  //<294,28>
-	gr7 = [--ar0];                                  //<294,28>
-	gr6 = [--ar0];                                  //<294,28>
-	[ar6 + 54] = gr6;                                  //<294,28>
-	[ar6 + 55] = gr7;                                  //<294,28>
-
-//295:      sum_Sig_1 = -sum_Sig_1/128;
-
-	gr0 = [ar6+56];                                  //<295,28>
-	gr7 = false noflags;                                  //<295,28>
-	gr0 = - gr0;                                  //<295,28>
-	ar7 = ar7 - 4;                                  //<294,28>
-	gr6 = [ar6+57];                                  //<295,28>
-	ar0 = ar7 set;                                  //<295,28>
-	gr7 = gr7 - gr6 -1 + carry noflags;                                  //<295,28>
-	[ar0++] = gr0;                                  //<295,28>
-	[ar0++] = gr7;                                  //<295,28>
-	gr6 = hiword( 128l ) set;                                  //<295,28>
-	gr7 = loword( 128l ) set;                                  //<295,28>
-	[ar0++] = gr7;                                  //<295,28>
-	[ar0++] = gr6;                                  //<295,28>
-	ar7 = ar7 + 4;                                  //<295,28>
-	call IDiv64;                                  //<295,28>
-	ar0 = ar7 set;                                  //<295,28>
-	gr7 = [--ar0];                                  //<295,28>
-	gr6 = [--ar0];                                  //<295,28>
-	ar7 = ar7 - 4;                                  //<295,28>
-	[ar6 + 56] = gr6;                                  //<295,28>
-	[ar6 + 57] = gr7;                                  //<295,28>
-
-//296:  
-//297:      //VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
-//298:      //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
-//299:     //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
-//300:  
-//301:  
-//302:  
-//303:     // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
-//304:      //Вычисление БПФ
-//305:  
-//306:  
+//306:           //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
 //307:  
-//308:      FFT_Fwd256Set6bit();
+//308:         //  VEC_Sum ((nm32s*) Signal1, len, (int64b*) &sum_Sig_0);
+//309:         //  VEC_Sum ((nm32s*) Signal2, len, (int64b*) &sum_Sig_1);
+//310:         //  sum_Sig_0 = -sum_Sig_0/128;
+//311:         //  sum_Sig_1 = -sum_Sig_1/128;
+//312:  
+//313:          VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len);
 
-	call _FFT_Fwd256Set6bit;                                  //<308,5>
+	ar0 = ar7 set;                                  //<313,75>
+	gr7 = [ar6+14];                                  //<313,75>
+	ar4 = ar6 + 62;                                  //<313,75>
+	gr5 = [ar6+14];                                  //<313,75>
+	gr4 = 512 set;                                  //<313,75>
+	[ar0++] = gr4;                                  //<313,75>
+	[ar0++] = gr5;                                  //<313,75>
+	[ar0++] = ar4;                                  //<313,75>
+	[ar0++] = gr7;                                  //<313,75>
+	ar7 = ar7 + 4;                                  //<313,75>
+	call _void._.8.8VEC_AddC.1long._.0.9._long._.0.9._long._.0.9._int.2;                                  //<313,75>
+	ar7 = ar7 - 4;                                  //<313,75>
 
-//309:      FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
+//314:          //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
+//315:          //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
+//316:          // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
+//317:         t3=clock();
 
-	gr0 = [ar6+12];                                  //<309,87>
-	gr6 = 2 set;                                  //<309,87>
-	ar0 = ar7 set;                                  //<309,87>
-	gr0 = gr0 + gr6 noflags;                                  //<309,87>
-	gr7 = [ar6+6];                                  //<309,87>
-	gr5 = [ar6+11];                                  //<309,87>
-	gr4 = 8 set;                                  //<309,87>
-	gr6 = [ar6+10];                                  //<309,87>
-	[ar0++] = ar0;                                  //<309,87>
-	[ar0++] = gr4;                                  //<309,87>
-	[ar0++] = gr5;                                  //<309,87>
-	[ar0++] = gr6;                                  //<309,87>
-	[ar0++] = gr7;                                  //<309,87>
-	[ar0++] = gr0;                                  //<309,87>
-	ar7 = ar7 + 6;                                  //<309,87>
-	call _FFT_Fwd256;                                  //<309,87>
-	ar7 = ar7 - 6;                                  //<309,87>
-
-//310:  
-//311:      FFT_Fwd256Set6bit();
-
-	call _FFT_Fwd256Set6bit;                                  //<311,5>
-
-//312:      FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
-
-	ar4 = ar7 set;                                  //<312,86>
-	ar0 = [ar6+13];                                  //<312,86>
-	gr6 = [ar6+7];                                  //<312,86>
-	gr5 = [ar6+10];                                  //<312,86>
-	gr4 = [ar6+11];                                  //<312,86>
-	gr3 = 8 set;                                  //<312,86>
-	[ar4++] = ar4;                                  //<312,86>
-	[ar4++] = gr3;                                  //<312,86>
-	[ar4++] = gr4;                                  //<312,86>
-	[ar4++] = gr5;                                  //<312,86>
-	[ar4++] = gr6;                                  //<312,86>
-	[ar4++] = ar0;                                  //<312,86>
-	ar7 = ar7 + 6;                                  //<312,86>
-	call _FFT_Fwd256;                                  //<312,86>
-	ar7 = ar7 - 6;                                  //<312,86>
-
-//313:  
-//314:      VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
-
-	ar4 = ar7 set;                                  //<314,92>
-	ar0 = [ar6+12];                                  //<314,92>
-	gr7 = [ar6+13];                                  //<314,92>
-	gr5 = [ar6+12];                                  //<314,92>
-	gr4 = 256 set;                                  //<314,92>
-	[ar4++] = gr4;                                  //<314,92>
-	[ar4++] = gr5;                                  //<314,92>
-	ar0 = ar0 + 2;                                  //<314,92>
-	ar7 = ar7 + 4;                                  //<314,92>
-	[ar4++] = gr7;                                  //<314,92>
-	[ar4++] = ar0;                                  //<314,92>
-	call _void._.8.8VEC_AddV.1long._.0.9._long._.0.9._long._.0.9._int.2;                                  //<314,92>
-	ar7 = ar7 - 4;                                  //<314,92>
-
-//315:  
-//316:    //  VEC_Neg ((nm32s*) ((int) Spektr1+2*0), (nm32s*) SpektrEqv,len);
-//317:      VEC_AddV((nm32s*) Spektr, (nm32s*) Spektr1, (nm32s*) SpektrEqv, len);
-
-	ar0 = ar7 set;                                  //<317,69>
-	gr7 = [ar6+6];                                  //<317,69>
-	gr6 = [ar6+7];                                  //<317,69>
-	gr5 = [ar6+9];                                  //<317,69>
-	gr4 = 512 set;                                  //<317,69>
-	[ar0++] = gr4;                                  //<317,69>
-	[ar0++] = gr5;                                  //<317,69>
-	[ar0++] = gr6;                                  //<317,69>
-	[ar0++] = gr7;                                  //<317,69>
-	ar7 = ar7 + 4;                                  //<317,69>
-	call _void._.8.8VEC_AddV.1int._.0.9._int._.0.9._int._.0.9._int.2;                                  //<317,69>
-	ar7 = ar7 - 4;                                  //<317,69>
+	call _clock;                                  //<317,11>
+	[ar6 + 54] = gr7;                                  //<317,11>
 
 //318:  
 //319:  
-//320:     VEC_Abs ((nm32s*) SpektrEqv, (nm32s*) SpektrA, len);
+//320:           //Вычисление БПФ
+//321:  
+//322:  
+//323:           FFT_Fwd256Set6bit();
 
-	gr7 = [ar6+9];                                  //<320,51>
-	ar0 = ar7 set;                                  //<320,51>
-	gr6 = [ar6+8];                                  //<320,51>
-	gr5 = 512 set;                                  //<320,51>
-	[ar0++] = ar0;                                  //<320,51>
-	[ar0++] = gr5;                                  //<320,51>
-	[ar0++] = gr6;                                  //<320,51>
-	[ar0++] = gr7;                                  //<320,51>
-	ar7 = ar7 + 4;                                  //<320,51>
-	call _void._.8.8VEC_Abs.1int._.0.9._int._.0.9._int.2;                                  //<320,51>
-	ar7 = ar7 - 4;                                  //<320,51>
+	call _FFT_Fwd256Set6bit;                                  //<323,10>
 
-//321:     //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
-//322:     // VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
-//323:  
-//324:     VEC_SetVal ((nm32s*) SpektrA, 0, 0);
+//324:           FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
 
-	ar0 = ar7 set;                                  //<324,37>
-	gr0 = false noflags;                                  //<324,37>
-	gr7 = [ar6+8];                                  //<324,37>
-	ar7 = ar7 + 4;                                  //<324,37>
-	[ar0++] = ar0;                                  //<324,37>
-	[ar0++] = gr0;                                  //<324,37>
-	[ar0++] = gr0;                                  //<324,37>
-	[ar0++] = gr7;                                  //<324,37>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<324,37>
-	ar7 = ar7 - 4;                                  //<324,37>
+	gr0 = [ar6+14];                                  //<324,92>
+	gr7 = 2 set;                                  //<324,92>
+	ar0 = ar7 set;                                  //<324,92>
+	gr0 = gr0 + gr7 noflags;                                  //<324,92>
+	gr6 = [ar6+12];                                  //<324,92>
+	gr5 = [ar6+13];                                  //<324,92>
+	gr4 = 8 set;                                  //<324,92>
+	gr7 = [ar6+6];                                  //<324,92>
+	[ar0++] = ar0;                                  //<324,92>
+	[ar0++] = gr4;                                  //<324,92>
+	[ar0++] = gr5;                                  //<324,92>
+	[ar0++] = gr6;                                  //<324,92>
+	[ar0++] = gr7;                                  //<324,92>
+	[ar0++] = gr0;                                  //<324,92>
+	ar7 = ar7 + 6;                                  //<324,92>
+	call _FFT_Fwd256;                                  //<324,92>
+	ar7 = ar7 - 6;                                  //<324,92>
 
-//325:     VEC_SetVal ((nm32s*) SpektrA, 1, 0);
+//325:  
+//326:           //FFT_Fwd256Set6bit();
+//327:           //FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
+//328:  
+//329:           VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
 
-	ar0 = ar7 set;                                  //<325,37>
-	gr0 = false noflags;                                  //<325,37>
-	gr7 = [ar6+8];                                  //<325,37>
-	gr5 = 1 set;                                  //<325,37>
-	[ar0++] = ar0;                                  //<325,37>
-	[ar0++] = gr0;                                  //<325,37>
-	[ar0++] = gr5;                                  //<325,37>
-	[ar0++] = gr7;                                  //<325,37>
-	ar7 = ar7 + 4;                                  //<325,37>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<325,37>
-	ar7 = ar7 - 4;                                  //<325,37>
+	ar4 = ar7 set;                                  //<329,97>
+	ar0 = [ar6+14];                                  //<329,97>
+	gr7 = [ar6+15];                                  //<329,97>
+	gr5 = [ar6+14];                                  //<329,97>
+	gr4 = 256 set;                                  //<329,97>
+	[ar4++] = gr4;                                  //<329,97>
+	[ar4++] = gr5;                                  //<329,97>
+	ar0 = ar0 + 2;                                  //<329,97>
+	ar7 = ar7 + 4;                                  //<329,97>
+	[ar4++] = gr7;                                  //<329,97>
+	[ar4++] = ar0;                                  //<329,97>
+	call _void._.8.8VEC_AddV.1long._.0.9._long._.0.9._long._.0.9._int.2;                                  //<329,97>
+	ar7 = ar7 - 4;                                  //<329,97>
 
-//326:     //VEC_SetVal ((nm32s*) SpektrA, 2, 0);
-//327:     //VEC_SetVal ((nm32s*) SpektrA, 3, 0);
-//328:     VEC_SetVal ((nm32s*) SpektrA, 255, 0);
+//330:  
+//331:         //  VEC_Neg ((nm32s*) ((int) Spektr1+2*0), (nm32s*) SpektrEqv,len);
+//332:           VEC_AddV((nm32s*) Spektr, (nm32s*) Spektr1, (nm32s*) SpektrEqv, len);
 
-	gr7 = [ar6+8];                                  //<328,39>
-	ar0 = ar7 set;                                  //<328,39>
-	gr0 = false noflags;                                  //<328,39>
-	[ar0++] = ar0;                                  //<328,39>
-	[ar0++] = gr0;                                  //<328,39>
-	gr6 = 255 set;                                  //<328,39>
-	ar7 = ar7 + 4;                                  //<328,39>
-	[ar0++] = gr6;                                  //<328,39>
-	[ar0++] = gr7;                                  //<328,39>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<328,39>
-	ar7 = ar7 - 4;                                  //<328,39>
+	ar0 = ar7 set;                                  //<332,74>
+	gr7 = [ar6+6];                                  //<332,74>
+	gr6 = [ar6+7];                                  //<332,74>
+	gr5 = [ar6+9];                                  //<332,74>
+	gr4 = 512 set;                                  //<332,74>
+	[ar0++] = gr4;                                  //<332,74>
+	[ar0++] = gr5;                                  //<332,74>
+	ar7 = ar7 + 4;                                  //<332,74>
+	[ar0++] = gr6;                                  //<332,74>
+	[ar0++] = gr7;                                  //<332,74>
+	call _void._.8.8VEC_AddV.1int._.0.9._int._.0.9._int._.0.9._int.2;                                  //<332,74>
 
-//329:     VEC_SetVal ((nm32s*) SpektrA, 256, 0);
+//333:  
+//334:  
+//335:          //VEC_Abs ((nm32s*) ((int) SpektrEqv+20), (nm32s*) ((int) SpektrA+20), len/2-40);
+//336:  
+//337:          VEC_Abs ((nm32s*) ((int) Spektr+4), (nm32s*) ((int) SpektrA+4), len/2-4);
 
-	ar0 = ar7 set;                                  //<329,39>
-	gr0 = false noflags;                                  //<329,39>
-	gr7 = [ar6+8];                                  //<329,39>
-	gr5 = 256 set;                                  //<329,39>
-	[ar0++] = ar0;                                  //<329,39>
-	[ar0++] = gr0;                                  //<329,39>
-	[ar0++] = gr5;                                  //<329,39>
-	[ar0++] = gr7;                                  //<329,39>
-	ar7 = ar7 + 4;                                  //<329,39>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<329,39>
-	ar7 = ar7 - 4;                                  //<329,39>
+	gr0 = [ar6+6];                                  //<337,79>
+	ar7 = ar7 - 4;                                  //<332,74>
+	gr7 = 4 set;                                  //<337,79>
+	gr0 = gr0 + gr7 noflags;                                  //<337,79>
+	gr6 = 4 set;                                  //<337,79>
+	gr7 = [ar6+8];                                  //<337,79>
+	ar0 = ar7 set;                                  //<337,79>
+	gr7 = gr7 + gr6 noflags;                                  //<337,79>
+	gr6 = 252 set;                                  //<337,79>
+	[ar0++] = ar0;                                  //<337,79>
+	[ar0++] = gr6;                                  //<337,79>
+	[ar0++] = gr7;                                  //<337,79>
+	[ar0++] = gr0;                                  //<337,79>
+	ar7 = ar7 + 4;                                  //<337,79>
+	call _void._.8.8VEC_Abs.1int._.0.9._int._.0.9._int.2;                                  //<337,79>
+	ar7 = ar7 - 4;                                  //<337,79>
 
-//330:     //VEC_SetVal ((nm32s*) SpektrA, 12, 0);
-//331:      //VEC_MaxPos ((nm32s31b*) SpektrA, len,(int) (&pok),(int32b) (&M) ,(void*) LTmp1, (void*) LTmp2, 1);
-//332:      VEC_MaxPos ((nm32s31b*) SpektrA, len/2,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
+//338:          //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
+//339:           //VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
+//340:  
+//341:         // VEC_SetVal ((nm32s*) SpektrA, 0, 0);
+//342:          //VEC_SetVal ((nm32s*) SpektrA, 1, 0);
+//343:          //VEC_SetVal ((nm32s*) SpektrA, 255, 0);
+//344:          //VEC_SetVal ((nm32s*) SpektrA, 256, 0);
+//345:  
+//346:  
+//347:          //VEC_SetVal ((nm32s*) SpektrA, 12, 0);
+//348:           //VEC_MaxPos ((nm32s31b*) SpektrA, len,(int) (&pok),(int32b) (&M) ,(void*) LTmp1, (void*) LTmp2, 1);
+//349:  
+//350:  
+//351:          VEC_Sum ((nm32s*) SpektrA, len, (int64b*) &sum_SpeA);
 
-	gr7 = [ar6+8];                                  //<332,86>
-	ar0 = ar7 set;                                  //<332,86>
-	ar3 = ar6 set;                                  //<332,86>
-	gr4 = 256 set;                                  //<332,86>
-	gr5 = [ar6+10];                                  //<332,86>
-	gr6 = [ar6+11];                                  //<332,86>
-	gr3 = 1 set;                                  //<332,86>
-	[ar0++] = ar0;                                  //<332,86>
-	[ar0++] = gr3;                                  //<332,86>
-	[ar0++] = gr6;                                  //<332,86>
-	[ar0++] = gr5;                                  //<332,86>
-	ar4 = ar6 + 59;                                  //<332,86>
-	ar3 = ar3 + 60;                                  //<332,86>
-	[ar0++] = ar3;                                  //<332,86>
-	[ar0++] = ar4;                                  //<332,86>
-	[ar0++] = gr4;                                  //<332,86>
-	[ar0++] = gr7;                                  //<332,86>
-	ar7 = ar7 + 8;                                  //<332,86>
-	call _void._.8.8VEC_MaxPos.1int._.0.9._int.9._int._.6.9._int._.6.9._void._.0.9._void._.0.9._int.2;                                  //<332,86>
-	ar7 = ar7 - 8;                                  //<332,86>
+	gr7 = [ar6+8];                                  //<351,52>
+	ar0 = ar7 set;                                  //<351,52>
+	gr5 = 512 set;                                  //<351,52>
+	ar4 = ar6 + 66;                                  //<351,52>
+	[ar0++] = ar0;                                  //<351,52>
+	[ar0++] = ar4;                                  //<351,52>
+	[ar0++] = gr5;                                  //<351,52>
+	[ar0++] = gr7;                                  //<351,52>
+	ar7 = ar7 + 4;                                  //<351,52>
+	call _void._.8.8VEC_Sum.1int._.0.9._int.9._long._.0.2;                                  //<351,52>
+	ar7 = ar7 - 4;                                  //<351,52>
 
-//333:      //VEC_MaxPos (nm32s31b *pSrcVec, int nSize, int& nIndex, int32b &nMaxValue, void *pLTmpBuf,void *pGTmpBuf, int nSearchDir=1);
-//334:      t2=clock();
+//352:          //treshold_acq = sum_SpeA*2/len;
+//353:  
+//354:  
+//355:  
+//356:            VEC_MaxPos ((nm32s31b*) SpektrA, len/2,(pok), (M) ,(void*) LTmp1, (void*) LTmp2, 1);
 
-	call _clock;                                  //<334,8>
-	[ar6 + 44] = gr7;                                  //<334,8>
+	ar0 = ar7 set;                                  //<356,92>
+	ar3 = ar6 set;                                  //<356,92>
+	gr7 = [ar6+8];                                  //<356,92>
+	gr5 = [ar6+12];                                  //<356,92>
+	gr6 = [ar6+13];                                  //<356,92>
+	gr3 = 1 set;                                  //<356,92>
+	[ar0++] = ar0;                                  //<356,92>
+	[ar0++] = gr3;                                  //<356,92>
+	[ar0++] = gr6;                                  //<356,92>
+	[ar0++] = gr5;                                  //<356,92>
+	ar4 = ar6 + 74;                                  //<356,92>
+	ar3 = ar3 + 75;                                  //<356,92>
+	[ar0++] = ar3;                                  //<356,92>
+	[ar0++] = ar4;                                  //<356,92>
+	gr4 = 256 set;                                  //<356,92>
+	ar7 = ar7 + 8;                                  //<356,92>
+	[ar0++] = gr4;                                  //<356,92>
+	[ar0++] = gr7;                                  //<356,92>
 
-//335:     M=0;
+//357:  
+//358:            if (ill<10000) {
 
-	gr0 = false noflags;                                  //<335,6>
-	[ar6 + 60] = gr0;                                  //<335,6>
-
-//336:    /* int Im0,Re0,Im1,Re1,Z0,Z1;
-//337:  
-//338:     int valS = 0;
-//339:     for (int jk=0; jk<120; jk++){
-//340:         valS = VEC_GetVal((nm32s*) SpektrA,2*jk)+ VEC_GetVal((nm32s*) SpektrA,2*jk+1);
-//341:         if(valS>M) {pok = jk; M=valS;};
-//342:  
-//343:         Im0=VEC_GetVal((nm32s*) Spektr,2*jk);
-//344:         Re0=VEC_GetVal((nm32s*) Spektr,2*jk+1);
-//345:         Im1=VEC_GetVal((nm32s*) Spektr1,2*jk);
-//346:         Re1=VEC_GetVal((nm32s*) Spektr1,2*jk+1);
-//347:  
-//348:         Z0=(int) sqrt((double) (Im0*Im0+Re0*Re0));
-//349:         Z1=(int) sqrt((double) (Im1*Im1+Re1*Re1));
-//350:         if(jk>3){
-//351:          VEC_SetVal ((nm32s*) SpektrEqv, 2*jk, Re0-Re1*Z0/Z1);
-//352:          VEC_SetVal ((nm32s*) SpektrEqv, 2*jk+1, Im0-Im1*Z0/Z1);
-//353:          };
-//354:     };
-//355:     */
-//356:     int ImM0,ReM0, ImM1,ReM1;
-//357:     //ImM0 = VEC_GetVal((nm32s*) Spektr,2*pok+1);
-//358:     //ReM0 = VEC_GetVal((nm32s*) Spektr,2*pok);
-//359:     //ImM1 = VEC_GetVal((nm32s*) Spektr1,2*pok+1);
-//360:     //ReM1 = VEC_GetVal((nm32s*) Spektr1,2*pok);
-//361:  
-//362:     //AM0 = (int) sqrt(ImM0*ImM0+ReM0*ReM0);
-//363:    // AM1 = (int) (ImM1*ImM1+ReM1*ReM1);
-//364:  
-//365:  
-//366:  
-//367:     //if (((ImM/ReM)*(ImM1/ReM1))<0 && (ReM*ReM1>0)) pok = 128-pok;
-//368:  
-//369:      t3=clock();
-
-	call _clock;                                  //<369,8>
-
-//370:  
-//371:  
-//372:  
-//373:  
-//374:     nm32s *SignalI=NULL;
-//375:     VEC_Malloc (&SignalI, 2048, MEM_LOCAL);
-
-	ar0 = ar7 set;                                  //<375,42>
-	[ar6 + 45] = gr7;                                  //<369,8>
-	gr6 = 0 set;                                  //<374,24>
-	ar4 = ar6 + 65;                                  //<375,42>
-	[ar6 + 65] = gr6;                                  //<374,24>
-	[ar0++] = ar0;                                  //<375,42>
-	[ar0++] = gr0;                                  //<375,42>
-	gr7 = 2048 set;                                  //<375,42>
-	ar7 = ar7 + 4;                                  //<375,42>
-	[ar0++] = gr7;                                  //<375,42>
-	[ar0++] = ar4;                                  //<375,42>
-	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<375,42>
-	ar7 = ar7 - 4;                                  //<375,42>
-
-//376:     int nom;
-//377:     for(nom=0; nom<2048; nom++) {VEC_SetVal ((nm32s*) SignalI, nom, (uint32b) nom);};
-
-	gr0 = false noflags;                                  //<377,12>
-	[ar6 + 66] = gr0;                                  //<377,12>
-	goto L14;                                  //<377,4>
-<L15>
-	ar4 = ar7 set;                                  //<377,78>
-	ar0 = [ar6+66];                                  //<377,78>
-	gr6 = [ar6+65];                                  //<377,78>
-	gr5 = [ar6+66];                                  //<377,78>
-	[ar4++] = ar4;                                  //<377,78>
-	[ar4++] = ar0;                                  //<377,78>
-	[ar4++] = gr5;                                  //<377,78>
-	[ar4++] = gr6;                                  //<377,78>
-	ar7 = ar7 + 4;                                  //<377,78>
-	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<377,78>
-	ar7 = ar7 - 4;                                  //<377,78>
-	gr0 = [ar6+66];                                  //<377,28>
-	gr0 = gr0 + 1 noflags;                                  //<377,28>
-	[ar6 + 66] = gr0;                                  //<377,28>
-	goto L14;                                  //<377,4>
-<L14>
-	gr0 = 2048 set;                                  //<377,19>
-	gr7 = [ar6+66];                                  //<377,15>
-	gr7 - gr0;                                  //<377,18>
-	if v< goto L15;                                  //<377,18>
-	goto L16;                                  //<377,18>
-<L16>
-
-//378:  
-//379:     int norm_delI, norm_delQ;
-//380:      //channel_I.normalizer.GetSettings(norm_settings);
-//381:      norm_delI = norm_settings.norm_from_bit;
-
-	gr0 = [ar6+33];                                  //<381,45>
-	gr0 = gr0 << 27;                                  //<381,45>
-	gr0 = gr0 >> 27;                                  //<381,45>
-	[ar6 + 67] = gr0;                                  //<381,45>
-
-//382:  
-//383:      //channel_Q.normalizer.GetSettings(norm_settings1);
-//384:      norm_delQ = norm_settings1.norm_from_bit;
-
-	gr0 = [ar6+34];                                  //<384,46>
-	gr0 = gr0 << 27;                                  //<384,46>
-	gr0 = gr0 >> 27;                                  //<384,46>
-
-//385:     //===========In memory==================
-//386:  
-//387:     uint64b g2 = 0x42002;
-
-	ar0 = loword( 270338l ) set;                                  //<387,17>
-	gr7 = hiword( 270338l ) set;                                  //<387,17>
-	[ar6 + 68] = gr0;                                  //<384,46>
-	[ar6 + 70] = ar0;                                  //<387,17>
-
-//388:     for(long int k=0; k<512; k++) {nm32s  *adresf=reinterpret_cast<nm32s*>(g2+k); *adresf = VEC_GetVal((nm32s*) SpektrA,k);};
-
-	ar0 = loword( 0l ) set;                                  //<388,19>
-	[ar6 + 71] = gr7;                                  //<387,17>
-	gr7 = hiword( 0l ) set;                                  //<388,19>
-	[ar6 + 72] = ar0;                                  //<388,19>
-	[ar6 + 73] = gr7;                                  //<388,19>
-	goto L18;                                  //<388,4>
-<L19>
-	gr0 = [ar6+72];                                  //<388,78>
-	gr7 = [ar6+70];                                  //<388,75>
-	ar4 = ar7 set;                                  //<388,121>
-	gr0 = gr7 + gr0;                                  //<388,77>
-	[ar6 + 74] = gr0;                                  //<388,80>
-	ar0 = [ar6+72];                                  //<388,121>
-	gr4 = [ar6+74];                                  //<388,121>
-	gr6 = [ar6+8];                                  //<388,121>
-	[ar4++] = ar0;                                  //<388,121>
-	[ar4++] = gr6;                                  //<388,121>
-	ar7 = ar7 + 2;                                  //<388,121>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<388,121>
-	[gr4] = gr7;                                  //<388,121>
-	ar7 = ar7 - 2;                                  //<388,121>
-	gr0 = [ar6+72];                                  //<388,30>
-	gr7 = [ar6+73];                                  //<388,30>
-	gr6 = loword( 1l ) set;                                  //<388,30>
-	gr5 = hiword( 1l ) set;                                  //<388,30>
-	gr0 = gr0 + gr6;                                  //<388,30>
-	gr7 = gr7 + gr5 + carry;                                  //<388,30>
-	[ar6 + 72] = gr0;                                  //<388,30>
-	[ar6 + 73] = gr7;                                  //<388,30>
-	goto L18;                                  //<388,4>
+	gr0 = 10000 set;                                  //<358,19>
+	call _void._.8.8VEC_MaxPos.1int._.0.9._int.9._int._.6.9._int._.6.9._void._.0.9._void._.0.9._int.2;                                  //<356,92>
+	ar7 = ar7 - 8;                                  //<356,92>
+	gr7 = [ar6+72];                                  //<358,15>
+	gr7 - gr0;                                  //<358,18>
+	if v< goto L18;                                  //<358,18>
+	goto L19;                                  //<358,18>
 <L18>
-	gr0 = loword( 512l ) set;                                  //<388,24>
-	gr7 = hiword( 512l ) set;                                  //<388,24>
-	gr6 = [ar6+72];                                  //<388,22>
-	gr5 = [ar6+73];                                  //<388,22>
-	gr6 - gr0;                                  //<388,23>
-	gr5 - gr7 - 1 + carry;                                  //<388,23>
-	if v< goto L19;                                  //<388,23>
-	goto L20;                                  //<388,23>
+
+//359:  
+//360:               VEC_AddV((nm32s*) Spektr_issled, (nm32s*) SpektrA, (nm32s*) Spektr_issled, len/2);
+
+	ar0 = ar7 set;                                  //<360,93>
+	gr7 = [ar6+10];                                  //<360,93>
+	gr6 = [ar6+8];                                  //<360,93>
+	gr5 = [ar6+10];                                  //<360,93>
+	gr4 = 256 set;                                  //<360,93>
+	[ar0++] = gr4;                                  //<360,93>
+	[ar0++] = gr5;                                  //<360,93>
+	[ar0++] = gr6;                                  //<360,93>
+	[ar0++] = gr7;                                  //<360,93>
+	ar7 = ar7 + 4;                                  //<360,93>
+	call _void._.8.8VEC_AddV.1int._.0.9._int._.0.9._int._.0.9._int.2;                                  //<360,93>
+	ar7 = ar7 - 4;                                  //<360,93>
+
+//361:  
+//362:  
+//363:  
+//364:               if (VEC_GetVal((nm32s*) Spektr_issled_Max,pok)<M) {VEC_SetVal((nm32s*) Spektr_issled_Max,pok,M);};
+
+	gr0 = [ar6+75];                                  //<364,61>
+	ar0 = ar7 set;                                  //<364,28>
+	gr7 = [ar6+11];                                  //<364,38>
+	gr6 = [ar6+74];                                  //<364,56>
+	[ar0++] = gr6;                                  //<364,28>
+	[ar0++] = gr7;                                  //<364,28>
+	ar7 = ar7 + 2;                                  //<364,28>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<364,28>
+	ar7 = ar7 - 2;                                  //<364,28>
+	gr7 - gr0;                                  //<364,60>
+	if v< goto L20;                                  //<364,60>
+	goto L21;                                  //<364,60>
 <L20>
+	ar0 = ar7 set;                                  //<364,107>
+	gr7 = [ar6+11];                                  //<364,107>
+	gr6 = [ar6+74];                                  //<364,107>
+	gr5 = [ar6+75];                                  //<364,107>
+	[ar0++] = ar0;                                  //<364,107>
+	[ar0++] = gr5;                                  //<364,107>
+	[ar0++] = gr6;                                  //<364,107>
+	[ar0++] = gr7;                                  //<364,107>
+	ar7 = ar7 + 4;                                  //<364,107>
+	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<364,107>
+	ar7 = ar7 - 4;                                  //<364,107>
+	goto L21;                                  //<364,110>
+<L21>
 
-//389:  
-//390:  
-//391:  
-//392:  
-//393:     nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/256;
+//365:               //VEC_SetVal ((nm32s*) MM, ill, M);
+//366:               if(M>M1) M1=M;
 
-	gr0 = [ar6+70];                                  //<393,45>
-	gr7 = loword( 514l ) set;                                  //<393,47>
-	gr0 = gr0 + gr7;                                  //<393,47>
-	[ar6 + 75] = gr0;                                  //<393,52>
-	gr0 = [ar6+59];                                  //<393,77>
-	ar0 = [ar6+75];                                  //<393,77>
-	gr7 = gr0 << 2;                                  //<393,77>
-	gr7 = gr0 + gr7 noflags;                                  //<393,77>
-	gr7 = gr7 << 14;                                  //<393,77>
-	gr0 = gr7 A>> 31;                                  //<393,77>
-	gr0 = gr0 >> 24;                                  //<393,77>
-	gr0 = gr7 + gr0 noflags;                                  //<393,77>
-	gr0 = gr0 A>> 8;                                  //<393,77>
-	[ar0] = gr0;                                  //<393,77>
-
-//394:     nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = sum_Sig_0;
-
-	gr7 = loword( 516l ) set;                                  //<394,49>
-	gr0 = [ar6+70];                                  //<394,47>
-	gr0 = gr0 + gr7;                                  //<394,49>
-	[ar6 + 76] = gr0;                                  //<394,54>
-	gr7 = [ar6+76];                                  //<394,69>
-	ar0 = [ar6+54];                                  //<394,69>
-	[gr7] = ar0;                                  //<394,69>
-
-//395:     nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = sum_Sig_1;
-
-	gr0 = [ar6+70];                                  //<395,47>
-	gr7 = loword( 518l ) set;                                  //<395,49>
-	gr0 = gr0 + gr7;                                  //<395,49>
-	[ar6 + 77] = gr0;                                  //<395,54>
-	gr7 = [ar6+77];                                  //<395,69>
-	ar0 = [ar6+56];                                  //<395,69>
-	[gr7] = ar0;                                  //<395,69>
-
-//396:     nm32s  *adresf520=reinterpret_cast<nm32s*>(g2+520); *adresf520 = (t2-t1)/82;
-
-	gr0 = [ar6+70];                                  //<396,47>
-	gr7 = loword( 520l ) set;                                  //<396,49>
-	gr0 = gr0 + gr7;                                  //<396,49>
-	[ar6 + 78] = gr0;                                  //<396,54>
-	ar0 = [ar6+78];                                  //<396,77>
-	gr0 = [ar6+43];                                  //<396,77>
-	gr7 = [ar6+44];                                  //<396,77>
-	gr0 = gr7 - gr0 noflags;                                  //<396,77>
-	gr6 = 82 set;                                  //<396,77>
-	delayed call UDiv32;	
-push gr0;	
-push gr6;                                  //<396,77>
-	[ar0] = gr7;                                  //<396,77>
-
-//397:     nm32s  *adresf522=reinterpret_cast<nm32s*>(g2+522); *adresf522 = (t3-t1)/82;
-
-	gr0 = [ar6+70];                                  //<397,47>
-	gr7 = loword( 522l ) set;                                  //<397,49>
-	gr0 = gr0 + gr7;                                  //<397,49>
-	[ar6 + 79] = gr0;                                  //<397,54>
-	ar0 = [ar6+79];                                  //<397,77>
-	gr0 = [ar6+43];                                  //<397,77>
-	gr7 = [ar6+45];                                  //<397,77>
-	gr0 = gr7 - gr0 noflags;                                  //<397,77>
-	gr6 = 82 set;                                  //<397,77>
-	delayed call UDiv32;	
-push gr0;	
-push gr6;                                  //<397,77>
-	[ar0] = gr7;                                  //<397,77>
-
-//398:      nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = norm_delI;
-
-	gr0 = [ar6+70];                                  //<398,48>
-	gr7 = loword( 523l ) set;                                  //<398,50>
-	gr0 = gr0 + gr7;                                  //<398,50>
-	[ar6 + 80] = gr0;                                  //<398,55>
-	ar0 = [ar6+80];                                  //<398,70>
-	gr7 = [ar6+67];                                  //<398,70>
-	[ar0] = gr7;                                  //<398,70>
-
-//399:         nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = norm_delQ;
-
-	gr0 = [ar6+70];                                  //<399,51>
-	gr7 = loword( 524l ) set;                                  //<399,53>
-	gr0 = gr0 + gr7;                                  //<399,53>
-	[ar6 + 81] = gr0;                                  //<399,58>
-	ar0 = [ar6+81];                                  //<399,73>
-	gr7 = [ar6+68];                                  //<399,73>
-	[ar0] = gr7;                                  //<399,73>
-
-//400:     uint64b g3 = 0x42002+1000;
-
-	ar0 = loword( 271338l ) set;                                  //<400,24>
-	gr7 = hiword( 271338l ) set;                                  //<400,24>
-	[ar6 + 82] = ar0;                                  //<400,24>
-	[ar6 + 83] = gr7;                                  //<400,24>
-
-//401:     for(int k=0; k<512; k++) {nm32s  *adresf0=reinterpret_cast<nm32s*>(g3+k); *adresf0 = VEC_GetVal((nm32s*) Signal1,k);};
-
-	gr0 = false noflags;                                  //<401,14>
-	[ar6 + 84] = gr0;                                  //<401,14>
-	goto L22;                                  //<401,4>
-<L23>
-	gr0 = [ar6+84];                                  //<401,74>
-	gr7 = [ar6+82];                                  //<401,71>
-	ar0 = ar7 set;                                  //<401,118>
-	gr0 = gr7 + gr0;                                  //<401,73>
-	[ar6 + 85] = gr0;                                  //<401,76>
-	gr5 = [ar6+85];                                  //<401,118>
-	gr7 = [ar6+12];                                  //<401,118>
-	gr6 = [ar6+84];                                  //<401,118>
-	[ar0++] = gr6;                                  //<401,118>
-	[ar0++] = gr7;                                  //<401,118>
-	ar7 = ar7 + 2;                                  //<401,118>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<401,118>
-	[gr5] = gr7;                                  //<401,118>
-	ar7 = ar7 - 2;                                  //<401,118>
-	gr0 = [ar6+84];                                  //<401,25>
-	gr0 = gr0 + 1 noflags;                                  //<401,25>
-	[ar6 + 84] = gr0;                                  //<401,25>
-	goto L22;                                  //<401,4>
+	gr0 = [ar6+76];                                  //<366,19>
+	gr7 = [ar6+75];                                  //<366,17>
+	gr7 - gr0;                                  //<366,19>
+	if v> goto L22;                                  //<366,19>
+	goto L19;                                  //<366,19>
 <L22>
-	gr0 = 512 set;                                  //<401,19>
-	gr7 = [ar6+84];                                  //<401,17>
-	gr7 - gr0;                                  //<401,18>
-	if v< goto L23;                                  //<401,18>
-	goto L24;                                  //<401,18>
-<L24>
+	ar0 = [ar6+75];                                  //<366,26>
+	[ar6 + 76] = ar0;                                  //<366,26>
+	goto L19;                                  //<366,28>
+<L19>
+<L23>
 
-//402:  
-//403:     uint64b g4 = 0x42002+1600;
+//367:            };
+//368:  
+//369:           treshold_acq = 25*VEC_GetVal((nm32s*) Spektr_issled,pok)/10000;
 
-	ar0 = loword( 271938l ) set;                                  //<403,24>
-	gr7 = hiword( 271938l ) set;                                  //<403,24>
-	[ar6 + 86] = ar0;                                  //<403,24>
+	ar0 = ar7 set;                                  //<369,67>
+	gr7 = [ar6+10];                                  //<369,67>
+	gr6 = [ar6+74];                                  //<369,67>
+	[ar0++] = gr6;                                  //<369,67>
+	[ar0++] = gr7;                                  //<369,67>
+	ar7 = ar7 + 2;                                  //<369,67>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<369,67>
+	ar7 = ar7 - 2;                                  //<369,67>
+	gr0 = gr7 << 2;                                  //<369,67>
+	gr0 = gr0 - gr7 noflags;                                  //<369,67>
+	gr0 = gr0 << 3;                                  //<369,67>
+	gr0 = gr7 + gr0 noflags;                                  //<369,67>
+	ar0 = 10000 set;                                  //<369,67>
+	delayed call IDiv32;	
+push gr0;	
+push ar0;                                  //<369,67>
 
-//404:     for(long int k=0; k<256; k++) {
+//370:           treshold_acq1 = 15*VEC_GetVal((nm32s*) Spektr_issled_Max,pok)/10;
 
-	ar0 = loword( 0l ) set;                                  //<404,19>
-	[ar6 + 87] = gr7;                                  //<403,24>
-	gr7 = hiword( 0l ) set;                                  //<404,19>
-	[ar6 + 88] = ar0;                                  //<404,19>
-	[ar6 + 89] = gr7;                                  //<404,19>
-	goto L26;                                  //<404,4>
+	ar0 = ar7 set;                                  //<370,72>
+	gr0 = gr7 A>> 31;                                  //<369,67>
+	[ar6 + 68] = gr7;                                  //<369,67>
+	[ar6 + 69] = gr0;                                  //<369,67>
+	gr7 = [ar6+11];                                  //<370,72>
+	gr6 = [ar6+74];                                  //<370,72>
+	[ar0++] = gr6;                                  //<370,72>
+	[ar0++] = gr7;                                  //<370,72>
+	ar7 = ar7 + 2;                                  //<370,72>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<370,72>
+	ar7 = ar7 - 2;                                  //<370,72>
+	gr0 = gr7 << 4;                                  //<370,72>
+	gr0 = gr0 - gr7 noflags;                                  //<370,72>
+	ar0 = 10 set;                                  //<370,72>
+	delayed call IDiv32;	
+push gr0;	
+push ar0;                                  //<370,72>
+	gr0 = gr7 A>> 31;                                  //<370,72>
+	[ar6 + 70] = gr7;                                  //<370,72>
+	[ar6 + 71] = gr0;                                  //<370,72>
+
+//371:            //acq0 =acq;
+//372:            //treshold_acq = 0;
+//373:            //treshold_acq1 = 0;
+//374:  
+//375:  
+//376:            if((M>((int) treshold_acq))&&(M>treshold_acq1)&&(ill>10000)) {acq=1; VEC_SetVal((nm32s*) Pok, i_acq, pok); i_acq++;} else acq =0;
+
+	gr0 = [ar6+68];                                  //<376,24>
+	gr7 = [ar6+75];                                  //<376,15>
+	gr7 - gr0;                                  //<376,17>
+	if v> goto L27;                                  //<376,17>
+	goto L25;                                  //<376,17>
 <L27>
-
-//405:     nm32s  *adresf=reinterpret_cast<nm32s*>(g4+4*k); *adresf = VEC_GetVal((nm32s*) Spektr,2*k);
-
-	gr0 = [ar6+88];                                  //<405,49>
-	gr7 = [ar6+86];                                  //<405,44>
-	gr0 = gr0 << 2;                                  //<405,48>
-	gr0 = gr7 + gr0;                                  //<405,46>
-	[ar6 + 90] = gr0;                                  //<405,51>
-	gr0 = [ar6+88];                                  //<405,92>
-	ar0 = ar7 set;                                  //<405,92>
-	gr0 = gr0 << 1;                                  //<405,92>
-	gr5 = [ar6+90];                                  //<405,92>
-	gr7 = [ar6+6];                                  //<405,92>
-	[ar0++] = gr0;                                  //<405,92>
-	[ar0++] = gr7;                                  //<405,92>
-	ar7 = ar7 + 2;                                  //<405,92>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<405,92>
-	[gr5] = gr7;                                  //<405,92>
-
-//406:     nm32s  *ad=reinterpret_cast<nm32s*>(g4+4*k+1); *ad = VEC_GetVal((nm32s*) Spektr,2*k+1);
-
-	gr0 = [ar6+88];                                  //<406,45>
-	gr0 = gr0 << 2;                                  //<406,44>
-	gr7 = [ar6+86];                                  //<406,40>
-	gr6 = loword( 1l ) set;                                  //<406,46>
-	gr0 = gr7 + gr0;                                  //<406,42>
-	gr0 = gr0 + gr6;                                  //<406,46>
-	[ar6 + 91] = gr0;                                  //<406,49>
-	gr0 = [ar6+88];                                  //<406,88>
-	gr0 = gr0 << 1;                                  //<406,88>
-	ar7 = ar7 - 2;                                  //<405,92>
-	gr7 = loword( 1l ) set;                                  //<406,88>
-	ar0 = ar7 set;                                  //<406,88>
-	gr0 = gr0 + gr7;                                  //<406,88>
-	gr5 = [ar6+91];                                  //<406,88>
-	gr7 = [ar6+6];                                  //<406,88>
-	[ar0++] = gr0;                                  //<406,88>
-	[ar0++] = gr7;                                  //<406,88>
-	ar7 = ar7 + 2;                                  //<406,88>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<406,88>
-	[gr5] = gr7;                                  //<406,88>
-
-//407:     nm32s  *adro=reinterpret_cast<nm32s*>(g4+4*k+2); *adro = VEC_GetVal((nm32s*) Spektr1,2*k);
-
-	gr0 = [ar6+88];                                  //<407,47>
-	gr7 = [ar6+86];                                  //<407,42>
-	gr0 = gr0 << 2;                                  //<407,46>
-	gr0 = gr7 + gr0;                                  //<407,44>
-	ar7 = ar7 - 2;                                  //<406,88>
-	gr7 = loword( 2l ) set;                                  //<407,48>
-	gr0 = gr0 + gr7;                                  //<407,48>
-	[ar6 + 92] = gr0;                                  //<407,51>
-	gr0 = [ar6+88];                                  //<407,91>
-	ar0 = ar7 set;                                  //<407,91>
-	gr0 = gr0 << 1;                                  //<407,91>
-	gr5 = [ar6+92];                                  //<407,91>
-	gr7 = [ar6+7];                                  //<407,91>
-	[ar0++] = gr0;                                  //<407,91>
-	[ar0++] = gr7;                                  //<407,91>
-	ar7 = ar7 + 2;                                  //<407,91>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<407,91>
-	[gr5] = gr7;                                  //<407,91>
-
-//408:     nm32s  *adrok=reinterpret_cast<nm32s*>(g4+4*k+3); *adrok = VEC_GetVal((nm32s*) Spektr1,2*k+1);};
-
-	gr0 = [ar6+88];                                  //<408,48>
-	gr0 = gr0 << 2;                                  //<408,47>
-	gr7 = [ar6+86];                                  //<408,43>
-	gr6 = loword( 3l ) set;                                  //<408,49>
-	gr0 = gr7 + gr0;                                  //<408,45>
-	gr0 = gr0 + gr6;                                  //<408,49>
-	[ar6 + 93] = gr0;                                  //<408,52>
-	gr0 = [ar6+88];                                  //<408,95>
-	gr0 = gr0 << 1;                                  //<408,95>
-	ar7 = ar7 - 2;                                  //<407,91>
-	gr7 = loword( 1l ) set;                                  //<408,95>
-	ar0 = ar7 set;                                  //<408,95>
-	gr0 = gr0 + gr7;                                  //<408,95>
-	gr5 = [ar6+93];                                  //<408,95>
-	gr7 = [ar6+7];                                  //<408,95>
-	[ar0++] = gr0;                                  //<408,95>
-	[ar0++] = gr7;                                  //<408,95>
-	ar7 = ar7 + 2;                                  //<408,95>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<408,95>
-	[gr5] = gr7;                                  //<408,95>
-	ar7 = ar7 - 2;                                  //<408,95>
-	gr0 = [ar6+88];                                  //<404,30>
-	gr7 = [ar6+89];                                  //<404,30>
-	gr6 = loword( 1l ) set;                                  //<404,30>
-	gr5 = hiword( 1l ) set;                                  //<404,30>
-	gr0 = gr0 + gr6;                                  //<404,30>
-	gr7 = gr7 + gr5 + carry;                                  //<404,30>
-	[ar6 + 88] = gr0;                                  //<404,30>
-	[ar6 + 89] = gr7;                                  //<404,30>
-	goto L26;                                  //<404,4>
+	gr0 = [ar6+75];                                  //<376,41>
+	gr7 = gr0 A>> 31;                                  //<376,41>
+	gr6 = [ar6+70];                                  //<376,43>
+	gr5 = [ar6+71];                                  //<376,43>
+	gr6 - gr0;                                  //<376,43>
+	gr5 - gr7 - 1 + carry;                                  //<376,43>
+	if v< goto L26;                                  //<376,43>
+	goto L25;                                  //<376,43>
 <L26>
-	gr0 = loword( 256l ) set;                                  //<404,24>
-	gr7 = hiword( 256l ) set;                                  //<404,24>
-	gr6 = [ar6+88];                                  //<404,22>
-	gr5 = [ar6+89];                                  //<404,22>
-	gr6 - gr0;                                  //<404,23>
-	gr5 - gr7 - 1 + carry;                                  //<404,23>
-	if v< goto L27;                                  //<404,23>
-	goto L28;                                  //<404,23>
+	gr0 = 10000 set;                                  //<376,64>
+	gr7 = [ar6+72];                                  //<376,60>
+	gr7 - gr0;                                  //<376,64>
+	if v> goto L24;                                  //<376,64>
+	goto L25;                                  //<376,64>
+<L24>
+	ar0 = 1 set;                                  //<376,77>
+	[ar6 + 77] = ar0;                                  //<376,77>
+	ar0 = ar7 set;                                  //<376,112>
+	gr7 = [ar6+17];                                  //<376,112>
+	gr6 = [ar6+73];                                  //<376,112>
+	gr5 = [ar6+74];                                  //<376,112>
+	[ar0++] = ar0;                                  //<376,112>
+	[ar0++] = gr5;                                  //<376,112>
+	[ar0++] = gr6;                                  //<376,112>
+	[ar0++] = gr7;                                  //<376,112>
+	ar7 = ar7 + 4;                                  //<376,112>
+	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<376,112>
+	ar7 = ar7 - 4;                                  //<376,112>
+	gr0 = [ar6+73];                                  //<376,123>
+	gr0 = gr0 + 1 noflags;                                  //<376,123>
+	[ar6 + 73] = gr0;                                  //<376,123>
+	goto L28;                                  //<376,126>
+<L25>
+	gr0 = false noflags;                                  //<376,138>
+	[ar6 + 77] = gr0;                                  //<376,138>
+	goto L28;                                  //<376,140>
 <L28>
 
+//377:           // if((M>((int) treshold_acq))&&(ill>1000)) acq=1; else acq = 0;
+//378:  
+//379:           *pok_arm = pok;
+
+	ar0 = [ar6+46];                                  //<379,21>
+	gr7 = [ar6+74];                                  //<379,21>
+	[ar0] = gr7;                                  //<379,21>
+
+//380:           *acq_arm =acq;
+
+	ar0 = [ar6+48];                                  //<380,20>
+	gr7 = [ar6+77];                                  //<380,20>
+	[ar0] = gr7;                                  //<380,20>
+
+//381:           //*acq0_arm =acq0;
+//382:  
+//383:           t2=clock();
+
+	call _clock;                                  //<383,13>
+	[ar6 + 53] = gr7;                                  //<383,13>
+
+//384:  
+//385:  
+//386:  
+//387:  
+//388:  
+//389:  
+//390:           ill++;};
+
+	gr0 = [ar6+72];                                  //<390,13>
+	gr0 = gr0 + 1 noflags;                                  //<390,13>
+	[ar6 + 72] = gr0;                                  //<390,13>
+	goto L6;                                  //<390,16>
+<L8>
+
+//391:  
+//392:      };
+//393:  
+//394:      *stop_arm = 1;
+
+	ar0 = [ar6+49];                                  //<394,17>
+	gr7 = 1 set;                                  //<394,17>
+	[ar0] = gr7;                                  //<394,17>
+
+//395:      //VEC_MaxPos (nm32s31b *pSrcVec, int nSize, int& nIndex, int32b &nMaxValue, void *pLTmpBuf,void *pGTmpBuf, int nSearchDir=1);
+//396:  
+//397:    // M=0;
+//398:    /* int Im0,Re0,Im1,Re1,Z0,Z1;
+//399:  
+//400:     int valS = 0;
+//401:     for (int jk=0; jk<120; jk++){
+//402:         valS = VEC_GetVal((nm32s*) SpektrA,2*jk)+ VEC_GetVal((nm32s*) SpektrA,2*jk+1);
+//403:         if(valS>M) {pok = jk; M=valS;};
+//404:  
+//405:         Im0=VEC_GetVal((nm32s*) Spektr,2*jk);
+//406:         Re0=VEC_GetVal((nm32s*) Spektr,2*jk+1);
+//407:         Im1=VEC_GetVal((nm32s*) Spektr1,2*jk);
+//408:         Re1=VEC_GetVal((nm32s*) Spektr1,2*jk+1);
 //409:  
-//410:      uint64b g6 = 0x42002+2700;
-
-	ar0 = loword( 273038l ) set;                                  //<410,25>
-	gr7 = hiword( 273038l ) set;                                  //<410,25>
-	[ar6 + 94] = ar0;                                  //<410,25>
-	[ar6 + 95] = gr7;                                  //<410,25>
-
-//411:      for(int k=0; k<512; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g6+k); *adresf1 = VEC_GetVal((nm32s*) SpektrEqv,k);};
-
-	gr0 = false noflags;                                  //<411,15>
-	[ar6 + 96] = gr0;                                  //<411,15>
-	goto L30;                                  //<411,5>
-<L31>
-	gr0 = [ar6+96];                                  //<411,75>
-	gr7 = [ar6+94];                                  //<411,72>
-	ar0 = ar7 set;                                  //<411,121>
-	gr0 = gr7 + gr0;                                  //<411,74>
-	[ar6 + 97] = gr0;                                  //<411,77>
-	gr5 = [ar6+97];                                  //<411,121>
-	gr7 = [ar6+9];                                  //<411,121>
-	gr6 = [ar6+96];                                  //<411,121>
-	[ar0++] = gr6;                                  //<411,121>
-	[ar0++] = gr7;                                  //<411,121>
-	ar7 = ar7 + 2;                                  //<411,121>
-	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<411,121>
-	[gr5] = gr7;                                  //<411,121>
-	ar7 = ar7 - 2;                                  //<411,121>
-	gr0 = [ar6+96];                                  //<411,26>
-	gr0 = gr0 + 1 noflags;                                  //<411,26>
-	[ar6 + 96] = gr0;                                  //<411,26>
-	goto L30;                                  //<411,5>
-<L30>
-	gr0 = 512 set;                                  //<411,20>
-	gr7 = [ar6+96];                                  //<411,18>
-	gr7 - gr0;                                  //<411,19>
-	if v< goto L31;                                  //<411,19>
-	goto L32;                                  //<411,19>
-<L32>
-
-//412:     //======================================
-//413:  
-//414:  
-//415:  
-//416:  
-//417:     VEC_Free(SignalI);
-
-	ar0 = ar7 set;                                  //<417,13>
-	gr7 = [ar6+65];                                  //<417,13>
-	[ar0++] = ar0;                                  //<417,13>
-	[ar0++] = gr7;                                  //<417,13>
-	ar7 = ar7 + 2;                                  //<417,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<417,13>
-	ar7 = ar7 - 2;                                  //<417,13>
-
-//418:     VEC_Free(Signal1);
-
-	ar0 = ar7 set;                                  //<418,13>
-	gr7 = [ar6+12];                                  //<418,13>
-	[ar0++] = ar0;                                  //<418,13>
-	[ar0++] = gr7;                                  //<418,13>
-	ar7 = ar7 + 2;                                  //<418,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<418,13>
-	ar7 = ar7 - 2;                                  //<418,13>
-
-//419:     VEC_Free(Signal2);
-
-	ar0 = ar7 set;                                  //<419,13>
-	gr7 = [ar6+13];                                  //<419,13>
-	[ar0++] = ar0;                                  //<419,13>
-	[ar0++] = gr7;                                  //<419,13>
-	ar7 = ar7 + 2;                                  //<419,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<419,13>
-	ar7 = ar7 - 2;                                  //<419,13>
-
-//420:     VEC_Free(Spektr);
-
-	ar0 = ar7 set;                                  //<420,13>
-	gr7 = [ar6+6];                                  //<420,13>
-	[ar0++] = ar0;                                  //<420,13>
-	[ar0++] = gr7;                                  //<420,13>
-	ar7 = ar7 + 2;                                  //<420,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<420,13>
-	ar7 = ar7 - 2;                                  //<420,13>
-
-//421:     VEC_Free(Spektr1);
-
-	ar0 = ar7 set;                                  //<421,13>
-	gr7 = [ar6+7];                                  //<421,13>
-	[ar0++] = ar0;                                  //<421,13>
-	[ar0++] = gr7;                                  //<421,13>
-	ar7 = ar7 + 2;                                  //<421,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<421,13>
-	ar7 = ar7 - 2;                                  //<421,13>
-
-//422:     VEC_Free(SpektrA);
-
-	ar0 = ar7 set;                                  //<422,13>
-	gr7 = [ar6+8];                                  //<422,13>
-	[ar0++] = ar0;                                  //<422,13>
-	[ar0++] = gr7;                                  //<422,13>
-	ar7 = ar7 + 2;                                  //<422,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<422,13>
-	ar7 = ar7 - 2;                                  //<422,13>
-
-//423:     VEC_Free(SpektrEqv);
-
-	ar0 = ar7 set;                                  //<423,13>
-	gr7 = [ar6+9];                                  //<423,13>
-	[ar0++] = ar0;                                  //<423,13>
-	[ar0++] = gr7;                                  //<423,13>
-	ar7 = ar7 + 2;                                  //<423,13>
-	call _void._.8.8VEC_Free.1void._.0.2;                                  //<423,13>
-	ar7 = ar7 - 2;                                  //<423,13>
-
-//424:  
-//425:  
+//410:         Z0=(int) sqrt((double) (Im0*Im0+Re0*Re0));
+//411:         Z1=(int) sqrt((double) (Im1*Im1+Re1*Re1));
+//412:         if(jk>3){
+//413:          VEC_SetVal ((nm32s*) SpektrEqv, 2*jk, Re0-Re1*Z0/Z1);
+//414:          VEC_SetVal ((nm32s*) SpektrEqv, 2*jk+1, Im0-Im1*Z0/Z1);
+//415:          };
+//416:     };
+//417:     */
+//418:     int ImM0,ReM0, ImM1,ReM1;
+//419:     //ImM0 = VEC_GetVal((nm32s*) Spektr,2*pok+1);
+//420:     //ReM0 = VEC_GetVal((nm32s*) Spektr,2*pok);
+//421:     //ImM1 = VEC_GetVal((nm32s*) Spektr1,2*pok+1);
+//422:     //ReM1 = VEC_GetVal((nm32s*) Spektr1,2*pok);
+//423:  
+//424:     //AM0 = (int) sqrt(ImM0*ImM0+ReM0*ReM0);
+//425:    // AM1 = (int) (ImM1*ImM1+ReM1*ReM1);
 //426:  
 //427:  
-//428:     int a = 0xDEADBEAF;
-
-	gr7 = -559038801 set;                                  //<428,12>
-
-//429:     ncl_hostSync(a);
-
-	ar0 = ar7 set;                                  //<429,17>
-	[ar6 + 98] = gr7;                                  //<428,12>
-	gr7 = [ar6+98];                                  //<429,17>
-	[ar0++] = ar0;                                  //<429,17>
-	[ar0++] = gr7;                                  //<429,17>
-	ar7 = ar7 + 2;                                  //<429,17>
-	call _ncl_hostSync;                                  //<429,17>
-	ar7 = ar7 - 2;                                  //<429,17>
-
+//428:  
+//429:     //if (((ImM/ReM)*(ImM1/ReM1))<0 && (ReM*ReM1>0)) pok = 128-pok;
 //430:  
-//431:      return n;
+//431:    //    t3=clock();
+//432:  
+//433:    //  int a = 0xDEADBEAF;
+//434:    //  ncl_hostSync(a);
+//435:  
+//436:  
+//437:     nm32s *SignalI=NULL;
 
-	ar0 = ar7 set;                                  //<431,5>
-	gr5 = [_int._.8.8n];                                  //<431,12>
-	ar4 = ar6 + 24;                                  //<431,5>
-	gr7 = 1 set;                                  //<431,5>
-	ar7 = ar7 + 2;                                  //<431,5>
-	[ar0++] = gr7;                                  //<431,5>
-	[ar0++] = ar4;                                  //<431,5>
-	call _dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2;                                  //<431,5>
-	ar7 = ar7 - 2;                                  //<431,5>
-	gr7 = gr5 set;                                  //<431,5>
+	gr7 = 0 set;                                  //<437,24>
+
+//438:     VEC_Malloc (&SignalI, 2048, MEM_LOCAL);
+
+	ar0 = ar7 set;                                  //<438,42>
+	gr0 = false noflags;                                  //<438,42>
+	ar4 = ar6 + 83;                                  //<438,42>
+	[ar6 + 83] = gr7;                                  //<437,24>
+	[ar0++] = ar0;                                  //<438,42>
+	[ar0++] = gr0;                                  //<438,42>
+	gr7 = 2048 set;                                  //<438,42>
+	ar7 = ar7 + 4;                                  //<438,42>
+	[ar0++] = gr7;                                  //<438,42>
+	[ar0++] = ar4;                                  //<438,42>
+	call _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2;                                  //<438,42>
+	ar7 = ar7 - 4;                                  //<438,42>
+
+//439:     int nom;
+//440:     for(nom=0; nom<2048; nom++) {VEC_SetVal ((nm32s*) SignalI, nom, (uint32b) nom);};
+
+	gr0 = false noflags;                                  //<440,12>
+	[ar6 + 84] = gr0;                                  //<440,12>
+	goto L29;                                  //<440,4>
+<L30>
+	ar4 = ar7 set;                                  //<440,78>
+	ar0 = [ar6+84];                                  //<440,78>
+	gr6 = [ar6+83];                                  //<440,78>
+	gr5 = [ar6+84];                                  //<440,78>
+	[ar4++] = ar4;                                  //<440,78>
+	[ar4++] = ar0;                                  //<440,78>
+	[ar4++] = gr5;                                  //<440,78>
+	[ar4++] = gr6;                                  //<440,78>
+	ar7 = ar7 + 4;                                  //<440,78>
+	call _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2;                                  //<440,78>
+	ar7 = ar7 - 4;                                  //<440,78>
+	gr0 = [ar6+84];                                  //<440,28>
+	gr0 = gr0 + 1 noflags;                                  //<440,28>
+	[ar6 + 84] = gr0;                                  //<440,28>
+	goto L29;                                  //<440,4>
+<L29>
+	gr0 = 2048 set;                                  //<440,19>
+	gr7 = [ar6+84];                                  //<440,15>
+	gr7 - gr0;                                  //<440,18>
+	if v< goto L30;                                  //<440,18>
+	goto L31;                                  //<440,18>
+<L31>
+
+//441:  
+//442:     int norm_delI, norm_delQ;
+//443:      //channel_I.normalizer.GetSettings(norm_settings);
+//444:      norm_delI = norm_settings.norm_from_bit;
+
+	gr0 = [ar6+37];                                  //<444,45>
+	gr0 = gr0 << 27;                                  //<444,45>
+	gr0 = gr0 >> 27;                                  //<444,45>
+	[ar6 + 85] = gr0;                                  //<444,45>
+
+//445:  
+//446:      //channel_Q.normalizer.GetSettings(norm_settings1);
+//447:      norm_delQ = norm_settings1.norm_from_bit;
+
+	gr0 = [ar6+38];                                  //<447,46>
+	gr0 = gr0 << 27;                                  //<447,46>
+	gr0 = gr0 >> 27;                                  //<447,46>
+
+//448:     //===========In memory==================
+//449:  
+//450:     uint64b g2 = 0x42002;
+
+	ar0 = loword( 270338l ) set;                                  //<450,17>
+	gr7 = hiword( 270338l ) set;                                  //<450,17>
+	[ar6 + 86] = gr0;                                  //<447,46>
+	[ar6 + 88] = ar0;                                  //<450,17>
+
+//451:     for(long int k=0; k<512; k++) {nm32s  *adresf=reinterpret_cast<nm32s*>(g2+k); *adresf = VEC_GetVal((nm32s*) SpektrA,k);};
+
+	ar0 = loword( 0l ) set;                                  //<451,19>
+	[ar6 + 89] = gr7;                                  //<450,17>
+	gr7 = hiword( 0l ) set;                                  //<451,19>
+	[ar6 + 90] = ar0;                                  //<451,19>
+	[ar6 + 91] = gr7;                                  //<451,19>
+	goto L33;                                  //<451,4>
+<L34>
+	gr0 = [ar6+90];                                  //<451,78>
+	gr7 = [ar6+88];                                  //<451,75>
+	ar4 = ar7 set;                                  //<451,121>
+	gr0 = gr7 + gr0;                                  //<451,77>
+	[ar6 + 92] = gr0;                                  //<451,80>
+	ar0 = [ar6+90];                                  //<451,121>
+	gr4 = [ar6+92];                                  //<451,121>
+	gr6 = [ar6+8];                                  //<451,121>
+	[ar4++] = ar0;                                  //<451,121>
+	[ar4++] = gr6;                                  //<451,121>
+	ar7 = ar7 + 2;                                  //<451,121>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<451,121>
+	[gr4] = gr7;                                  //<451,121>
+	ar7 = ar7 - 2;                                  //<451,121>
+	gr0 = [ar6+90];                                  //<451,30>
+	gr7 = [ar6+91];                                  //<451,30>
+	gr6 = loword( 1l ) set;                                  //<451,30>
+	gr5 = hiword( 1l ) set;                                  //<451,30>
+	gr0 = gr0 + gr6;                                  //<451,30>
+	gr7 = gr7 + gr5 + carry;                                  //<451,30>
+	[ar6 + 90] = gr0;                                  //<451,30>
+	[ar6 + 91] = gr7;                                  //<451,30>
+	goto L33;                                  //<451,4>
+<L33>
+	gr0 = loword( 512l ) set;                                  //<451,24>
+	gr7 = hiword( 512l ) set;                                  //<451,24>
+	gr6 = [ar6+90];                                  //<451,22>
+	gr5 = [ar6+91];                                  //<451,22>
+	gr6 - gr0;                                  //<451,23>
+	gr5 - gr7 - 1 + carry;                                  //<451,23>
+	if v< goto L34;                                  //<451,23>
+	goto L35;                                  //<451,23>
+<L35>
+
+//452:  
+//453:  
+//454:  
+//455:  
+//456:     nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/512;
+
+	gr0 = [ar6+88];                                  //<456,45>
+	gr7 = loword( 514l ) set;                                  //<456,47>
+	gr0 = gr0 + gr7;                                  //<456,47>
+	[ar6 + 93] = gr0;                                  //<456,52>
+	gr0 = [ar6+74];                                  //<456,77>
+	ar0 = [ar6+93];                                  //<456,77>
+	gr7 = gr0 << 2;                                  //<456,77>
+	gr7 = gr0 + gr7 noflags;                                  //<456,77>
+	gr7 = gr7 << 14;                                  //<456,77>
+	gr0 = gr7 A>> 31;                                  //<456,77>
+	gr0 = gr0 >> 23;                                  //<456,77>
+	gr0 = gr7 + gr0 noflags;                                  //<456,77>
+	gr0 = gr0 A>> 9;                                  //<456,77>
+	[ar0] = gr0;                                  //<456,77>
+
+//457:     nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = ill;
+
+	gr7 = loword( 516l ) set;                                  //<457,49>
+	gr0 = [ar6+88];                                  //<457,47>
+	gr0 = gr0 + gr7;                                  //<457,49>
+	[ar6 + 94] = gr0;                                  //<457,54>
+	ar0 = [ar6+94];                                  //<457,69>
+	gr7 = [ar6+72];                                  //<457,69>
+	[ar0] = gr7;                                  //<457,69>
+
+//458:     nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = M;
+
+	gr0 = [ar6+88];                                  //<458,47>
+	gr7 = loword( 518l ) set;                                  //<458,49>
+	gr0 = gr0 + gr7;                                  //<458,49>
+	[ar6 + 95] = gr0;                                  //<458,54>
+	ar0 = [ar6+95];                                  //<458,69>
+	gr7 = [ar6+75];                                  //<458,69>
+	[ar0] = gr7;                                  //<458,69>
+
+//459:     nm32s  *adresf520=reinterpret_cast<nm32s*>(g2+520); *adresf520 = (t2-t1)/82;
+
+	gr0 = [ar6+88];                                  //<459,47>
+	gr7 = loword( 520l ) set;                                  //<459,49>
+	gr0 = gr0 + gr7;                                  //<459,49>
+	[ar6 + 96] = gr0;                                  //<459,54>
+	ar0 = [ar6+96];                                  //<459,77>
+	gr0 = [ar6+52];                                  //<459,77>
+	gr7 = [ar6+53];                                  //<459,77>
+	gr0 = gr7 - gr0 noflags;                                  //<459,77>
+	gr6 = 82 set;                                  //<459,77>
+	delayed call UDiv32;	
+push gr0;	
+push gr6;                                  //<459,77>
+	[ar0] = gr7;                                  //<459,77>
+
+//460:     nm32s  *adresf522=reinterpret_cast<nm32s*>(g2+522); *adresf522 = (t3-t1)/82;
+
+	gr0 = [ar6+88];                                  //<460,47>
+	gr7 = loword( 522l ) set;                                  //<460,49>
+	gr0 = gr0 + gr7;                                  //<460,49>
+	[ar6 + 97] = gr0;                                  //<460,54>
+	ar0 = [ar6+97];                                  //<460,77>
+	gr0 = [ar6+52];                                  //<460,77>
+	gr7 = [ar6+54];                                  //<460,77>
+	gr0 = gr7 - gr0 noflags;                                  //<460,77>
+	gr6 = 82 set;                                  //<460,77>
+	delayed call UDiv32;	
+push gr0;	
+push gr6;                                  //<460,77>
+	[ar0] = gr7;                                  //<460,77>
+
+//461:      nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = treshold_acq1;
+
+	gr0 = [ar6+88];                                  //<461,48>
+	gr7 = loword( 523l ) set;                                  //<461,50>
+	gr0 = gr0 + gr7;                                  //<461,50>
+	[ar6 + 98] = gr0;                                  //<461,55>
+	gr7 = [ar6+98];                                  //<461,70>
+	ar0 = [ar6+70];                                  //<461,70>
+	[gr7] = ar0;                                  //<461,70>
+
+//462:         nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = treshold_acq;
+
+	gr0 = [ar6+88];                                  //<462,51>
+	gr7 = loword( 524l ) set;                                  //<462,53>
+	gr0 = gr0 + gr7;                                  //<462,53>
+	[ar6 + 99] = gr0;                                  //<462,58>
+	gr7 = [ar6+99];                                  //<462,73>
+	ar0 = [ar6+68];                                  //<462,73>
+	[gr7] = ar0;                                  //<462,73>
+
+//463:     uint64b g3 = 0x42002+1000;
+
+	ar0 = loword( 271338l ) set;                                  //<463,24>
+	gr7 = hiword( 271338l ) set;                                  //<463,24>
+	[ar6 + 100] = ar0;                                  //<463,24>
+	[ar6 + 101] = gr7;                                  //<463,24>
+
+//464:     for(int k=0; k<512; k++) {nm32s  *adresf0=reinterpret_cast<nm32s*>(g3+k); *adresf0 = VEC_GetVal((nm32s*) Signal1,k);};
+
+	gr0 = false noflags;                                  //<464,14>
+	[ar6 + 102] = gr0;                                  //<464,14>
+	goto L37;                                  //<464,4>
+<L38>
+	gr0 = [ar6+102];                                  //<464,74>
+	gr7 = [ar6+100];                                  //<464,71>
+	ar0 = ar7 set;                                  //<464,118>
+	gr0 = gr7 + gr0;                                  //<464,73>
+	[ar6 + 103] = gr0;                                  //<464,76>
+	gr5 = [ar6+103];                                  //<464,118>
+	gr7 = [ar6+14];                                  //<464,118>
+	gr6 = [ar6+102];                                  //<464,118>
+	[ar0++] = gr6;                                  //<464,118>
+	[ar0++] = gr7;                                  //<464,118>
+	ar7 = ar7 + 2;                                  //<464,118>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<464,118>
+	[gr5] = gr7;                                  //<464,118>
+	ar7 = ar7 - 2;                                  //<464,118>
+	gr0 = [ar6+102];                                  //<464,25>
+	gr0 = gr0 + 1 noflags;                                  //<464,25>
+	[ar6 + 102] = gr0;                                  //<464,25>
+	goto L37;                                  //<464,4>
+<L37>
+	gr0 = 512 set;                                  //<464,19>
+	gr7 = [ar6+102];                                  //<464,17>
+	gr7 - gr0;                                  //<464,18>
+	if v< goto L38;                                  //<464,18>
+	goto L39;                                  //<464,18>
+<L39>
+
+//465:  
+//466:     uint64b g4 = 0x42002+1600;
+
+	ar0 = loword( 271938l ) set;                                  //<466,24>
+	gr7 = hiword( 271938l ) set;                                  //<466,24>
+	[ar6 + 104] = ar0;                                  //<466,24>
+
+//467:     for(long int k=0; k<256; k++) {
+
+	ar0 = loword( 0l ) set;                                  //<467,19>
+	[ar6 + 105] = gr7;                                  //<466,24>
+	gr7 = hiword( 0l ) set;                                  //<467,19>
+	[ar6 + 106] = ar0;                                  //<467,19>
+	[ar6 + 107] = gr7;                                  //<467,19>
+	goto L41;                                  //<467,4>
+<L42>
+
+//468:     nm32s  *adresf=reinterpret_cast<nm32s*>(g4+4*k); *adresf = VEC_GetVal((nm32s*) Spektr,2*k);
+
+	gr0 = [ar6+106];                                  //<468,49>
+	gr7 = [ar6+104];                                  //<468,44>
+	gr0 = gr0 << 2;                                  //<468,48>
+	gr0 = gr7 + gr0;                                  //<468,46>
+	[ar6 + 108] = gr0;                                  //<468,51>
+	gr0 = [ar6+106];                                  //<468,92>
+	ar0 = ar7 set;                                  //<468,92>
+	gr0 = gr0 << 1;                                  //<468,92>
+	gr5 = [ar6+108];                                  //<468,92>
+	gr7 = [ar6+6];                                  //<468,92>
+	[ar0++] = gr0;                                  //<468,92>
+	[ar0++] = gr7;                                  //<468,92>
+	ar7 = ar7 + 2;                                  //<468,92>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<468,92>
+	[gr5] = gr7;                                  //<468,92>
+
+//469:     nm32s  *ad=reinterpret_cast<nm32s*>(g4+4*k+1); *ad = VEC_GetVal((nm32s*) Spektr,2*k+1);
+
+	gr0 = [ar6+106];                                  //<469,45>
+	gr0 = gr0 << 2;                                  //<469,44>
+	gr7 = [ar6+104];                                  //<469,40>
+	gr6 = loword( 1l ) set;                                  //<469,46>
+	gr0 = gr7 + gr0;                                  //<469,42>
+	gr0 = gr0 + gr6;                                  //<469,46>
+	[ar6 + 109] = gr0;                                  //<469,49>
+	gr0 = [ar6+106];                                  //<469,88>
+	gr0 = gr0 << 1;                                  //<469,88>
+	ar7 = ar7 - 2;                                  //<468,92>
+	gr7 = loword( 1l ) set;                                  //<469,88>
+	ar0 = ar7 set;                                  //<469,88>
+	gr0 = gr0 + gr7;                                  //<469,88>
+	gr5 = [ar6+109];                                  //<469,88>
+	gr7 = [ar6+6];                                  //<469,88>
+	[ar0++] = gr0;                                  //<469,88>
+	[ar0++] = gr7;                                  //<469,88>
+	ar7 = ar7 + 2;                                  //<469,88>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<469,88>
+	[gr5] = gr7;                                  //<469,88>
+
+//470:     nm32s  *adro=reinterpret_cast<nm32s*>(g4+4*k+2); *adro = VEC_GetVal((nm32s*) Spektr1,2*k);
+
+	gr0 = [ar6+106];                                  //<470,47>
+	gr7 = [ar6+104];                                  //<470,42>
+	gr0 = gr0 << 2;                                  //<470,46>
+	gr0 = gr7 + gr0;                                  //<470,44>
+	ar7 = ar7 - 2;                                  //<469,88>
+	gr7 = loword( 2l ) set;                                  //<470,48>
+	gr0 = gr0 + gr7;                                  //<470,48>
+	[ar6 + 110] = gr0;                                  //<470,51>
+	gr0 = [ar6+106];                                  //<470,91>
+	ar0 = ar7 set;                                  //<470,91>
+	gr0 = gr0 << 1;                                  //<470,91>
+	gr5 = [ar6+110];                                  //<470,91>
+	gr7 = [ar6+7];                                  //<470,91>
+	[ar0++] = gr0;                                  //<470,91>
+	[ar0++] = gr7;                                  //<470,91>
+	ar7 = ar7 + 2;                                  //<470,91>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<470,91>
+	[gr5] = gr7;                                  //<470,91>
+
+//471:     nm32s  *adrok=reinterpret_cast<nm32s*>(g4+4*k+3); *adrok = VEC_GetVal((nm32s*) Spektr1,2*k+1);};
+
+	gr0 = [ar6+106];                                  //<471,48>
+	gr0 = gr0 << 2;                                  //<471,47>
+	gr7 = [ar6+104];                                  //<471,43>
+	gr6 = loword( 3l ) set;                                  //<471,49>
+	gr0 = gr7 + gr0;                                  //<471,45>
+	gr0 = gr0 + gr6;                                  //<471,49>
+	[ar6 + 111] = gr0;                                  //<471,52>
+	gr0 = [ar6+106];                                  //<471,95>
+	gr0 = gr0 << 1;                                  //<471,95>
+	ar7 = ar7 - 2;                                  //<470,91>
+	gr7 = loword( 1l ) set;                                  //<471,95>
+	ar0 = ar7 set;                                  //<471,95>
+	gr0 = gr0 + gr7;                                  //<471,95>
+	gr5 = [ar6+111];                                  //<471,95>
+	gr7 = [ar6+7];                                  //<471,95>
+	[ar0++] = gr0;                                  //<471,95>
+	[ar0++] = gr7;                                  //<471,95>
+	ar7 = ar7 + 2;                                  //<471,95>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<471,95>
+	[gr5] = gr7;                                  //<471,95>
+	ar7 = ar7 - 2;                                  //<471,95>
+	gr0 = [ar6+106];                                  //<467,30>
+	gr7 = [ar6+107];                                  //<467,30>
+	gr6 = loword( 1l ) set;                                  //<467,30>
+	gr5 = hiword( 1l ) set;                                  //<467,30>
+	gr0 = gr0 + gr6;                                  //<467,30>
+	gr7 = gr7 + gr5 + carry;                                  //<467,30>
+	[ar6 + 106] = gr0;                                  //<467,30>
+	[ar6 + 107] = gr7;                                  //<467,30>
+	goto L41;                                  //<467,4>
+<L41>
+	gr0 = loword( 256l ) set;                                  //<467,24>
+	gr7 = hiword( 256l ) set;                                  //<467,24>
+	gr6 = [ar6+106];                                  //<467,22>
+	gr5 = [ar6+107];                                  //<467,22>
+	gr6 - gr0;                                  //<467,23>
+	gr5 - gr7 - 1 + carry;                                  //<467,23>
+	if v< goto L42;                                  //<467,23>
+	goto L43;                                  //<467,23>
+<L43>
+
+//472:  
+//473:      uint64b g6 = 0x42002+2700;
+
+	ar0 = loword( 273038l ) set;                                  //<473,25>
+	gr7 = hiword( 273038l ) set;                                  //<473,25>
+	[ar6 + 112] = ar0;                                  //<473,25>
+	[ar6 + 113] = gr7;                                  //<473,25>
+
+//474:      for(int k=0; k<512; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g6+k); *adresf1 = VEC_GetVal((nm32s*) Spektr_issled,k);};
+
+	gr0 = false noflags;                                  //<474,15>
+	[ar6 + 114] = gr0;                                  //<474,15>
+	goto L45;                                  //<474,5>
+<L46>
+	gr0 = [ar6+114];                                  //<474,75>
+	gr7 = [ar6+112];                                  //<474,72>
+	ar0 = ar7 set;                                  //<474,125>
+	gr0 = gr7 + gr0;                                  //<474,74>
+	[ar6 + 115] = gr0;                                  //<474,77>
+	gr5 = [ar6+115];                                  //<474,125>
+	gr7 = [ar6+10];                                  //<474,125>
+	gr6 = [ar6+114];                                  //<474,125>
+	[ar0++] = gr6;                                  //<474,125>
+	[ar0++] = gr7;                                  //<474,125>
+	ar7 = ar7 + 2;                                  //<474,125>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<474,125>
+	[gr5] = gr7;                                  //<474,125>
+	ar7 = ar7 - 2;                                  //<474,125>
+	gr0 = [ar6+114];                                  //<474,26>
+	gr0 = gr0 + 1 noflags;                                  //<474,26>
+	[ar6 + 114] = gr0;                                  //<474,26>
+	goto L45;                                  //<474,5>
+<L45>
+	gr0 = 512 set;                                  //<474,20>
+	gr7 = [ar6+114];                                  //<474,18>
+	gr7 - gr0;                                  //<474,19>
+	if v< goto L46;                                  //<474,19>
+	goto L47;                                  //<474,19>
+<L47>
+
+//475:  
+//476:      uint64b g7 = 0x42002+2700+512;
+
+	ar0 = loword( 273550l ) set;                                  //<476,30>
+	gr7 = hiword( 273550l ) set;                                  //<476,30>
+	[ar6 + 116] = ar0;                                  //<476,30>
+	[ar6 + 117] = gr7;                                  //<476,30>
+
+//477:      for(int k=0; k<1000; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g7+k); *adresf1 = VEC_GetVal((nm32s*) Spektr_issled_Max,k);};
+
+	gr0 = false noflags;                                  //<477,15>
+	[ar6 + 118] = gr0;                                  //<477,15>
+	goto L49;                                  //<477,5>
+<L50>
+	gr0 = [ar6+118];                                  //<477,76>
+	gr7 = [ar6+116];                                  //<477,73>
+	ar0 = ar7 set;                                  //<477,130>
+	gr0 = gr7 + gr0;                                  //<477,75>
+	[ar6 + 119] = gr0;                                  //<477,78>
+	gr5 = [ar6+119];                                  //<477,130>
+	gr7 = [ar6+11];                                  //<477,130>
+	gr6 = [ar6+118];                                  //<477,130>
+	[ar0++] = gr6;                                  //<477,130>
+	[ar0++] = gr7;                                  //<477,130>
+	ar7 = ar7 + 2;                                  //<477,130>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<477,130>
+	[gr5] = gr7;                                  //<477,130>
+	ar7 = ar7 - 2;                                  //<477,130>
+	gr0 = [ar6+118];                                  //<477,27>
+	gr0 = gr0 + 1 noflags;                                  //<477,27>
+	[ar6 + 118] = gr0;                                  //<477,27>
+	goto L49;                                  //<477,5>
+<L49>
+	gr0 = 1000 set;                                  //<477,20>
+	gr7 = [ar6+118];                                  //<477,18>
+	gr7 - gr0;                                  //<477,19>
+	if v< goto L50;                                  //<477,19>
+	goto L51;                                  //<477,19>
+<L51>
+
+//478:  
+//479:      uint64b g8 = 0x42002+2700+1512;
+
+	ar0 = loword( 274550l ) set;                                  //<479,30>
+	gr7 = hiword( 274550l ) set;                                  //<479,30>
+	[ar6 + 120] = ar0;                                  //<479,30>
+	[ar6 + 121] = gr7;                                  //<479,30>
+
+//480:      for(int k=0; k<1000; k++) {nm32s  *adresf1=reinterpret_cast<nm32s*>(g8+k); *adresf1 = VEC_GetVal((nm32s*) Pok,k);};
+
+	gr0 = false noflags;                                  //<480,15>
+	[ar6 + 122] = gr0;                                  //<480,15>
+	goto L53;                                  //<480,5>
+<L54>
+	gr0 = [ar6+122];                                  //<480,76>
+	gr7 = [ar6+120];                                  //<480,73>
+	ar0 = ar7 set;                                  //<480,116>
+	gr0 = gr7 + gr0;                                  //<480,75>
+	[ar6 + 123] = gr0;                                  //<480,78>
+	gr5 = [ar6+123];                                  //<480,116>
+	gr7 = [ar6+17];                                  //<480,116>
+	gr6 = [ar6+122];                                  //<480,116>
+	[ar0++] = gr6;                                  //<480,116>
+	[ar0++] = gr7;                                  //<480,116>
+	ar7 = ar7 + 2;                                  //<480,116>
+	call _int._.8.8VEC_GetVal.1int._.0.9._int.2;                                  //<480,116>
+	[gr5] = gr7;                                  //<480,116>
+	ar7 = ar7 - 2;                                  //<480,116>
+	gr0 = [ar6+122];                                  //<480,27>
+	gr0 = gr0 + 1 noflags;                                  //<480,27>
+	[ar6 + 122] = gr0;                                  //<480,27>
+	goto L53;                                  //<480,5>
+<L53>
+	gr0 = 1000 set;                                  //<480,20>
+	gr7 = [ar6+122];                                  //<480,18>
+	gr7 - gr0;                                  //<480,19>
+	if v< goto L54;                                  //<480,19>
+	goto L55;                                  //<480,19>
+<L55>
+
+//481:     //======================================
+//482:  
+//483:  
+//484:  
+//485:  
+//486:     VEC_Free(SignalI);
+
+	ar0 = ar7 set;                                  //<486,13>
+	gr7 = [ar6+83];                                  //<486,13>
+	[ar0++] = ar0;                                  //<486,13>
+	[ar0++] = gr7;                                  //<486,13>
+	ar7 = ar7 + 2;                                  //<486,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<486,13>
+	ar7 = ar7 - 2;                                  //<486,13>
+
+//487:     VEC_Free(Signal1);
+
+	ar0 = ar7 set;                                  //<487,13>
+	gr7 = [ar6+14];                                  //<487,13>
+	[ar0++] = ar0;                                  //<487,13>
+	[ar0++] = gr7;                                  //<487,13>
+	ar7 = ar7 + 2;                                  //<487,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<487,13>
+	ar7 = ar7 - 2;                                  //<487,13>
+
+//488:     VEC_Free(Signal2);
+
+	ar0 = ar7 set;                                  //<488,13>
+	gr7 = [ar6+15];                                  //<488,13>
+	[ar0++] = ar0;                                  //<488,13>
+	[ar0++] = gr7;                                  //<488,13>
+	ar7 = ar7 + 2;                                  //<488,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<488,13>
+	ar7 = ar7 - 2;                                  //<488,13>
+
+//489:     VEC_Free(Spektr);
+
+	ar0 = ar7 set;                                  //<489,13>
+	gr7 = [ar6+6];                                  //<489,13>
+	[ar0++] = ar0;                                  //<489,13>
+	[ar0++] = gr7;                                  //<489,13>
+	ar7 = ar7 + 2;                                  //<489,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<489,13>
+	ar7 = ar7 - 2;                                  //<489,13>
+
+//490:     VEC_Free(Spektr1);
+
+	ar0 = ar7 set;                                  //<490,13>
+	gr7 = [ar6+7];                                  //<490,13>
+	[ar0++] = ar0;                                  //<490,13>
+	[ar0++] = gr7;                                  //<490,13>
+	ar7 = ar7 + 2;                                  //<490,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<490,13>
+	ar7 = ar7 - 2;                                  //<490,13>
+
+//491:     VEC_Free(SpektrA);
+
+	ar0 = ar7 set;                                  //<491,13>
+	gr7 = [ar6+8];                                  //<491,13>
+	[ar0++] = ar0;                                  //<491,13>
+	[ar0++] = gr7;                                  //<491,13>
+	ar7 = ar7 + 2;                                  //<491,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<491,13>
+	ar7 = ar7 - 2;                                  //<491,13>
+
+//492:     VEC_Free(SpektrEqv);
+
+	ar0 = ar7 set;                                  //<492,13>
+	gr7 = [ar6+9];                                  //<492,13>
+	[ar0++] = ar0;                                  //<492,13>
+	[ar0++] = gr7;                                  //<492,13>
+	ar7 = ar7 + 2;                                  //<492,13>
+	call _void._.8.8VEC_Free.1void._.0.2;                                  //<492,13>
+	ar7 = ar7 - 2;                                  //<492,13>
+
+//493:  
+//494:  
+//495:  
+//496:  
+//497:   // int a = 0xDEADBEAF;
+//498:    ncl_hostSync(a);
+
+	ar0 = ar7 set;                                  //<498,16>
+	gr7 = [ar6+50];                                  //<498,16>
+	[ar0++] = ar0;                                  //<498,16>
+	[ar0++] = gr7;                                  //<498,16>
+	ar7 = ar7 + 2;                                  //<498,16>
+	call _ncl_hostSync;                                  //<498,16>
+	ar7 = ar7 - 2;                                  //<498,16>
+
+//499:  
+//500:      return n;
+
+	ar0 = ar7 set;                                  //<500,5>
+	gr5 = [_int._.8.8n];                                  //<500,12>
+	ar4 = ar6 + 28;                                  //<500,5>
+	gr7 = 1 set;                                  //<500,5>
+	ar7 = ar7 + 2;                                  //<500,5>
+	[ar0++] = gr7;                                  //<500,5>
+	[ar0++] = ar4;                                  //<500,5>
+	call _dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2;                                  //<500,5>
+	ar7 = ar7 - 2;                                  //<500,5>
+	gr7 = gr5 set;                                  //<500,5>
 	gr5 = [ar7 -= 2];
 	pop ar4,gr4;
 	pop ar3,gr3;
 	pop ar0,gr0;
-	ar7 -= 100;
+	ar7 -= 124;
 	pop ar6,gr6;
-return;                                  //<431,5>
+return;                                  //<500,5>
 
 	//end of function
 
@@ -2082,7 +2384,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._.6.2._const : label;
 <_void._dsppu.8.8C_InputUnitBase.8.8GetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._.6.2._const>
-<L35>
+<L58>
 
 //--- /home/eduard/module/nmsdk/DSPPU/include/DSPPUBase.h
 
@@ -2245,7 +2547,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_InputUnitBase.8.8SetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._const._.6.2 : label;
 <_void._dsppu.8.8C_InputUnitBase.8.8SetSettings.1class._dsppu.8.8C_InputUnitBase.8.8S_Settings._const._.6.2>
-<L36>
+<L59>
 
 //133:  		void SetSettings(const S_Settings &settings) {
 
@@ -2277,7 +2579,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const : label;
 <_void._dsppu.8.8C_NormalizerBase.8.8GetSettings.1class._dsppu.8.8C_NormalizerBase.8.8S_Settings._.6.2._const>
-<L37>
+<L60>
 
 //136:  		DELTA GetDelta() const {
 //137:  			return delta;
@@ -2445,7 +2747,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const : label;
 <_void._dsppu.8.8C_AccumulatorBase.8.8GetSettings.1class._dsppu.8.8C_AccumulatorBase.8.8S_Settings._.6.2._const>
-<L38>
+<L61>
 
 //275:  		void SetSettings(const S_Settings &settings) {
 //276:  			this->settings = settings;
@@ -2504,7 +2806,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const : label;
 <_void._dsppu.8.8C_PackerBase.8.8GetSettings.1class._dsppu.8.8C_PackerBase.8.8S_Settings._.6.2._const>
-<L39>
+<L62>
 
 //305:  		void SetSettings(const S_Settings &settings) {
 //306:  			this->settings = settings;
@@ -2562,7 +2864,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2 : label;
 <_void._dsppu.8.8C_BaseChannelBase.8.8EnableStop.1unsigned._int.2>
-<L40>
+<L63>
 
 //334:  		void SetSettings(const S_Settings &settings) {
 //335:  			this->settings = settings;
@@ -2833,7 +3135,7 @@ begin ".text"
 
 weak _void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const : label;
 <_void._dsppu.8.8C_BaseChannelBase.8.8GetSettings.1class._dsppu.8.8C_BaseChannelBase.8.8S_Settings._.6.2._const>
-<L41>
+<L64>
 
 //577:  		BOOL IsErrorInterruptEnabled() const {
 //578:  			return enable_error_interrupt;
@@ -2872,7 +3174,7 @@ begin ".text"
 
 weak _unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.2 : label;
 <_unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.2>
-<L42>
+<L65>
 
 //586:  		void SetSettings(const S_Settings &settings) {
 //587:  			this->settings = settings;
@@ -2925,9 +3227,9 @@ weak _unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.
 	gr7 = 65535 set;                                  //<626,18>
 	gr0 = [ar6+-6];                                  //<626,7>
 	gr7 - gr0;                                  //<626,16>
-	if u< goto L43;                                  //<626,16>
-	goto L44;                                  //<626,16>
-<L43>
+	if u< goto L66;                                  //<626,16>
+	goto L67;                                  //<626,16>
+<L66>
 
 //627:  				return false;
 
@@ -2935,7 +3237,7 @@ weak _unsigned._int._dsppu.8.8C_IntervalTimerBase.8.8SetInterval.1unsigned._int.
 	pop ar0,gr0;
 	pop ar6,gr6;
 return;                                  //<627,5>
-<L44>
+<L67>
 
 //628:  			this->interval = interval;
 
@@ -2958,7 +3260,7 @@ begin ".text"
 
 weak _dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2 : label;
 <_dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2>
-<L45>
+<L68>
 
 //--- /home/eduard/module/nmsdk/DSPPU/include/DSPPUControl.h
 
@@ -3031,17 +3333,17 @@ weak _dsppu.8.8C_DSPPUControl.8.8.aC_DSPPUControl.1.2 : label;
 	gr7 - gr0;                                  //<41,3>
 	ar7 = ar7 - 2;                                  //<44,35>
 	gr6 = [ar6+-5];                                  //<41,3>
-	if <>0 goto L46;                                  //<41,3>
-	goto L47;                                  //<41,3>
-<L46>
+	if <>0 goto L69;                                  //<41,3>
+	goto L70;                                  //<41,3>
+<L69>
 	ar0 = ar7 set;                                  //<41,3>
 	[ar0++] = ar0;                                  //<41,3>
 	[ar0++] = gr6;                                  //<41,3>
 	ar7 = ar7 + 2;                                  //<41,3>
 	call _void._.8.8operator._delete.1void._.0.2;                                  //<41,3>
 	ar7 = ar7 - 2;                                  //<41,3>
-	goto L47;                                  //<41,3>
-<L47>
+	goto L70;                                  //<41,3>
+<L70>
 	pop ar4,gr4;
 	pop ar0,gr0;
 	pop ar6,gr6;
@@ -3055,7 +3357,7 @@ begin ".text"
 
 weak _dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2 : label;
 <_dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2>
-<L48>
+<L71>
 
 //--- /home/eduard/module/firmware_module/nmc/NM_part.cpp
 
@@ -3100,93 +3402,106 @@ weak _dsppu.8.8C_DSPPUControl.8.8C_DSPPUControl.1.2 : label;
 //39:                VEC_SetVal( Map01, 2*im, noo*2); VEC_SetVal(Map01, 2*im+1, noo*2 +1);
 //40:               };*/
 //41:   
-//42:               nm32s *SIGI = (nm32s*) (0x40002);
-//43:               nm32s *SIGQ = (nm32s*) (0x40002+4*BUF_SIZE);
-//44:   
+//42:   
+//43:               nm32s *SIGI = (nm32s*) (0x40002);
+//44:               nm32s *SIGQ = (nm32s*) (0x40002+4*BUF_SIZE);
 //45:   
 //46:   
 //47:   
-//48:               nm32sc *Spektr = NULL;
-//49:               nm32sc *Spektr1 = NULL;
-//50:   
-//51:               nm64s *SpektrA = NULL;
-//52:               nm64s *SpektrEqv = NULL;
-//53:               nm64s *LTmp1 = NULL;
-//54:               nm64s *LTmp2 = NULL;
-//55:               nm32s *Signal1 = NULL;
-//56:                nm32s *Signal2 = NULL;
-//57:   
-//58:               VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
-//59:               VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
-//60:               VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
-//61:               VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
-//62:               VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
-//63:               VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
-//64:               VEC_Malloc (&Signal1, len, MEM_LOCAL);
-//65:                VEC_Malloc (&Signal2, len, MEM_LOCAL);
+//48:   
+//49:               nm32sc *Spektr = NULL;
+//50:               nm32sc *Spektr1 = NULL;
+//51:   
+//52:               nm64s *SpektrA = NULL;
+//53:               nm64s *SpektrEqv = NULL;
+//54:               nm64s *Spektr_issled = NULL;
+//55:                nm64s *Spektr_issled_Max = NULL;
+//56:               nm64s *LTmp1 = NULL;
+//57:               nm64s *LTmp2 = NULL;
+//58:               nm32s *Signal1 = NULL;
+//59:                nm32s *Signal2 = NULL;
+//60:   
+//61:               nm32s *MM = NULL;
+//62:               nm32s *Pok = NULL;
+//63:   
+//64:               VEC_Malloc ((nm64s**)&Spektr, len/2, MEM_GLOBAL);
+//65:   
 //66:   
-//67:               nm32s *Masko=NULL;
-//68:               VEC_Malloc (&Masko, len, MEM_GLOBAL);
-//69:               for(int im=0; im<len/2; im++) {VEC_SetVal( Masko, 2*im+1, 0xFFFFFFFF);};
-//70:   
-//71:               //Опорный спектр
-//72:               /*nm64s *Spektr_sub_Re=NULL;
-//73:               VEC_Malloc ((nm64s**) &Spektr_sub_Re, len, MEM_GLOBAL);
-//74:   
-//75:           nm64s *Spektr_sub_Im=NULL;
-//76:               VEC_Malloc ((nm64s**) &Spektr_sub_Im, len, MEM_GLOBAL);
-//77:   
-//78:               nm64s *Spektr_sub_Re_sh=NULL;
-//79:               VEC_Malloc ((nm64s**) &Spektr_sub_Re_sh, len, MEM_GLOBAL);
-//80:   
-//81:           nm64s *Spektr_sub_Im_sh=NULL;
-//82:               VEC_Malloc ((nm64s**) &Spektr_sub_Im_sh, len, MEM_GLOBAL);
-//83:            #include "Sub_spektr.cpp"
-//84:   
-//85:               //Опорный сигнал
-//86:               nm32s *Signal_sub_I=NULL;
-//87:               VEC_Malloc (&Signal_sub_I, 2000, MEM_GLOBAL);
-//88:   
-//89:               nm32s *Signal_sub_Q=NULL;
-//90:               VEC_Malloc (&Signal_sub_Q, 2000, MEM_GLOBAL);
-//91:   
-//92:   
-//93:               #include "Sub_signal.cpp"*/
-//94:               double freq_het =  0;
-//95:               double phase_het = 1.5708;
-//96:   
-//97:               //int* adr_Signal_sub_I = VEC_Addr ((nm32s*) Signal_sub_I, 0);
-//98:               //int* adr_Signal_sub_Q = VEC_Addr ((nm32s*) Signal_sub_Q, 0);
-//99:   
-//100:      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//101:      ///==========================================================НАСТРОЙКА БПОС=============================================================================
-//102:               // const int BUF_SIZE = 3072;  //Размер буфера (64-разрядных слов)
-//103:  
-//104:              //const int K_pr = 10;         //Коэфициент прореживания
-//105:          const int N_E = 400;           //Время работы БПОC (в периодах)
-//106:              // Определение буферов для чётного и нечётного кадров.
-//107:          // Буферы будут располагаться в SMB0.
-//108:              //Для  АЦП 0
-//109:              uint64b *dst_even_I = reinterpret_cast<uint64b*>(0x40000);
-//110:              uint64b *dst_odd_I = reinterpret_cast<uint64b*>(0x40000 + 2*BUF_SIZE);
-//111:              //Для  АЦП 1
-//112:              uint64b *dst_even_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 4*BUF_SIZE);
-//113:              uint64b *dst_odd_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 6*BUF_SIZE);
-//114:      // Создание экземпляра класса для управления БПОС.
-//115:      dsppu::C_DSPPUControl DSPPU;
+//67:               VEC_Malloc ((nm64s**)&Spektr1, len/2, MEM_GLOBAL);
+//68:               VEC_Malloc ((nm64s**)&SpektrA, len/2, MEM_GLOBAL);
+//69:               VEC_Malloc ((nm64s**)&SpektrEqv, len/2, MEM_GLOBAL);
+//70:               VEC_Malloc ((nm64s**)&Spektr_issled, len/2, MEM_GLOBAL);
+//71:               VEC_Malloc ((nm64s**)&Spektr_issled_Max, len/2, MEM_GLOBAL);
+//72:               VEC_Malloc (&LTmp1, len*3/2, MEM_LOCAL);
+//73:               VEC_Malloc (&LTmp2, len*3/2, MEM_GLOBAL);
+//74:               VEC_Malloc (&Signal1, len, MEM_LOCAL);
+//75:                VEC_Malloc (&Signal2, len, MEM_LOCAL);
+//76:   
+//77:                VEC_Malloc ((nm64s**)&MM, len, MEM_GLOBAL);
+//78:                VEC_Malloc ((nm64s**)&Pok, len, MEM_GLOBAL);
+//79:   
+//80:               nm32s *Masko=NULL;
+//81:               VEC_Malloc (&Masko, len, MEM_GLOBAL);
+//82:               for(int im=0; im<len/2; im++) {VEC_SetVal( Masko, 2*im+1, 0xFFFFFFFF);};
+//83:   
+//84:               //Опорный спектр
+//85:               /*nm64s *Spektr_sub_Re=NULL;
+//86:               VEC_Malloc ((nm64s**) &Spektr_sub_Re, len, MEM_GLOBAL);
+//87:   
+//88:           nm64s *Spektr_sub_Im=NULL;
+//89:               VEC_Malloc ((nm64s**) &Spektr_sub_Im, len, MEM_GLOBAL);
+//90:   
+//91:               nm64s *Spektr_sub_Re_sh=NULL;
+//92:               VEC_Malloc ((nm64s**) &Spektr_sub_Re_sh, len, MEM_GLOBAL);
+//93:   
+//94:           nm64s *Spektr_sub_Im_sh=NULL;
+//95:               VEC_Malloc ((nm64s**) &Spektr_sub_Im_sh, len, MEM_GLOBAL);
+//96:            #include "Sub_spektr.cpp"
+//97:   
+//98:               //Опорный сигнал
+//99:               nm32s *Signal_sub_I=NULL;
+//100:              VEC_Malloc (&Signal_sub_I, 2000, MEM_GLOBAL);
+//101:  
+//102:              nm32s *Signal_sub_Q=NULL;
+//103:              VEC_Malloc (&Signal_sub_Q, 2000, MEM_GLOBAL);
+//104:  
+//105:  
+//106:              #include "Sub_signal.cpp"*/
+//107:              double freq_het =  0;
+//108:              double phase_het = 1.5708;
+//109:  
+//110:              //int* adr_Signal_sub_I = VEC_Addr ((nm32s*) Signal_sub_I, 0);
+//111:              //int* adr_Signal_sub_Q = VEC_Addr ((nm32s*) Signal_sub_Q, 0);
+//112:  
+//113:      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//114:      ///==========================================================НАСТРОЙКА БПОС=============================================================================
+//115:               // const int BUF_SIZE = 3072;  //Размер буфера (64-разрядных слов)
+//116:  
+//117:              //const int K_pr = 10;         //Коэфициент прореживания
+//118:          const int N_E = 400;           //Время работы БПОC (в периодах)
+//119:              // Определение буферов для чётного и нечётного кадров.
+//120:          // Буферы будут располагаться в SMB0.
+//121:              //Для  АЦП 0
+//122:              uint64b *dst_even_I = reinterpret_cast<uint64b*>(0x40000);
+//123:              uint64b *dst_odd_I = reinterpret_cast<uint64b*>(0x40000 + 2*BUF_SIZE);
+//124:              //Для  АЦП 1
+//125:              uint64b *dst_even_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 4*BUF_SIZE);
+//126:              uint64b *dst_odd_Q = reinterpret_cast<unsigned __int64*>(0x40000 + 6*BUF_SIZE);
+//127:      // Создание экземпляра класса для управления БПОС.
+//128:      dsppu::C_DSPPUControl DSPPU;
 
 	push ar6, gr6;
 	ar6 = ar7;
 	push ar0,gr0;
 	push ar4,gr4;
-                                  //<115,33>
-	ar4 = [ar6+-5];                                  //<115,33>
-	ar0 = __class._dsppu.8.8C_DSPPUControl__class_info + 0 set;                                  //<115,33>
-	[ar4] = ar0;                                  //<115,33>
+                                  //<128,33>
+	ar4 = [ar6+-5];                                  //<128,33>
+	ar0 = __class._dsppu.8.8C_DSPPUControl__class_info + 0 set;                                  //<128,33>
+	[ar4] = ar0;                                  //<128,33>
 	pop ar4,gr4;
 	pop ar0,gr0;
 	pop ar6,gr6;
-return;                                  //<115,33>
+return;                                  //<128,33>
 
 	//end of function
 
@@ -3196,7 +3511,7 @@ begin ".text"
 
 weak _void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2 : label;
 <_void._.8.8VEC_Malloc.1int._.0.0.9._int.9._int.2>
-<L49>
+<L72>
 
 //--- /home/eduard/module/nmsdk/NMPP1/nmplv/include/vSupport.h
 
@@ -3287,7 +3602,7 @@ begin ".text"
 
 weak _void._.8.8VEC_Free.1void._.0.2 : label;
 <_void._.8.8VEC_Free.1void._.0.2>
-<L50>
+<L73>
 
 //55:   inline void VEC_Malloc(nm64u** pptr, int nSize, int hint = MEM_LOCAL) { VEC_Malloc((nm64s**)pptr, nSize, hint);}
 //56:       //! \}
@@ -3337,7 +3652,7 @@ begin ".text"
 
 weak _void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2 : label;
 <_void._.8.8VEC_SetVal.1int._.0.9._int.9._int.2>
-<L51>
+<L74>
 
 //79:       //! \}
 //80:   
@@ -3493,7 +3808,7 @@ begin ".text"
 
 weak _int._.8.8VEC_GetVal.1int._.0.9._int.2 : label;
 <_int._.8.8VEC_GetVal.1int._.0.9._int.2>
-<L52>
+<L75>
 
 //211:  inline void VEC_SetVal(nm64s* pVec, int nIndex,  int64b nVal)	{pVec[nIndex]=nVal;}
 //212:  

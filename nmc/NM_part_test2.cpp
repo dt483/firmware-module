@@ -9,6 +9,7 @@
 //                                                                      //
 //----------------------------------------------------------------------//
 
+//Попытка на 80Мгц
 
 #include "../../nmsdk/lowlevel_sync/include/lls.h"
 #include "../../nmsdk/NMPP1/include/nmpp.h"
@@ -221,14 +222,14 @@ int main()
     // Выбираем первые 8 бит из действительной и мнимой частей
     dsppu::C_Normalizer::S_Settings norm_settings;
     channel_I.normalizer.GetSettings(norm_settings);
-    norm_settings.norm_from_bit = 7; //13 9
+    norm_settings.norm_from_bit = 3; //13 9
     //norm_settings.auto_norm_delta = dsppu::C_Normalizer::S_Settings::PLUS_0;
     //norm_settings.enable_auto_norm_repeat = true;
     channel_I.normalizer.SetSettings(norm_settings);
 
     dsppu::C_Normalizer::S_Settings norm_settings1;
     channel_Q.normalizer.GetSettings(norm_settings1);
-    norm_settings1.norm_from_bit = 7;  //13 9
+    norm_settings1.norm_from_bit = 3;  //13 9
     //norm_settings1.auto_norm_delta =  dsppu::C_Normalizer::S_Settings::PLUS_0;
     //norm_settings1.enable_auto_norm_repeat = true;
     channel_Q.normalizer.SetSettings(norm_settings1);
@@ -288,7 +289,7 @@ int main()
     int32b M = 0, M1 = 0;
     int acq=0,acq0=0;
 
-    while (ill<200000 && acq<10) {
+    while (ill<200000 && acq<1) {
      if ((DSPPU.GetStackMonitor(sm))&(sm.ag_number==ag_nI)) {
 
 
@@ -296,12 +297,11 @@ int main()
          //Сигнал
              //VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
        if(ill%2==0){
-         VEC_Cnv ((nm8s*) SIGI, (nm32s*) Signal1, len);
-         //VEC_Cnv ((nm8s*) SIGQ, (nm32s*) Signal2, len/2);
-       }
+         VEC_Cnv ((nm8s*) SIGI, (nm64s*) Signal1, len/2);
+         VEC_Cnv ((nm8s*) SIGQ, (nm64s*) Signal2, len/2);}
        else {
-           VEC_Cnv ((nm8s*) ((int) SIGI+2*BUF_SIZE), (nm32s*) Signal1, len);
-           //VEC_Cnv ((nm8s*) ((int) SIGQ+2*BUF_SIZE), (nm64s*) Signal2, len/2);
+           VEC_Cnv ((nm8s*) ((int) SIGI+2*BUF_SIZE), (nm64s*) Signal1, len/2);
+           VEC_Cnv ((nm8s*) ((int) SIGQ+2*BUF_SIZE), (nm64s*) Signal2, len/2);
        };
          //VEC_ArshC((nm32s*) Signal2, 64, (nm32s*) Signal2, len/2);
 
@@ -310,8 +310,8 @@ int main()
        //  sum_Sig_0 = -sum_Sig_0/128;
        //  sum_Sig_1 = -sum_Sig_1/128;
 
-        VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len);
-        //VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
+        //VEC_AddC ((nm64s*) Signal1,(int64b*)  &sum_Sig_0,(nm64s*) Signal1,len/2);
+        VEC_AddC ((nm64s*) Signal2,(int64b*)  &sum_Sig_1,(nm64s*) Signal2,len/2);
         //VEC_Neg ((nm64s*) Signal2, (nm64s*) Signal2,len/2);
         // VEC_AddC ((nm32s*) Signal1, (int64b)(-sum_Sig/len), (nm32s*) Signal1, len);
        t3=clock();
@@ -323,8 +323,8 @@ int main()
          FFT_Fwd256Set6bit();
          FFT_Fwd256((nm32sc*) ((int) Signal1+2),(nm32sc*) Spektr,(void*)LTmp1,(void*)LTmp2,8);
 
-         //FFT_Fwd256Set6bit();
-         //FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
+         FFT_Fwd256Set6bit();
+         FFT_Fwd256((nm32sc*) ((int) Signal2),(nm32sc*) Spektr1,(void*)LTmp1,(void*)LTmp2,8);
 
          VEC_AddV((nm64s*) ((int) (Signal1+2)), (nm64s*) ((int) Signal2), (nm64s*) Signal1, len/2);
 
@@ -334,7 +334,7 @@ int main()
 
         //VEC_Abs ((nm32s*) ((int) SpektrEqv+20), (nm32s*) ((int) SpektrA+20), len/2-40);
 
-        VEC_Abs ((nm32s*) ((int) Spektr+4), (nm32s*) ((int) SpektrA+4), len/2-4);
+        VEC_Abs ((nm32s*) ((int) SpektrEqv+4), (nm32s*) ((int) SpektrA+4), len/2-4);
         //VEC_AddV((nm32s*) ((int) SpektrEqv+1), (nm32s*) SpektrEqv, (nm32s*) SpektrEqv, len);
          //VEC_Cnv ((nm64s*) SpektrEqv, (nm32s*) SpektrA, len/2);
 
@@ -366,14 +366,13 @@ int main()
              if(M>M1) M1=M;
           };
 
-         treshold_acq = 25*VEC_GetVal((nm32s*) Spektr_issled,pok)/10000;
-         treshold_acq1 = 15*VEC_GetVal((nm32s*) Spektr_issled_Max,pok)/10;
+          treshold_acq = 100*VEC_GetVal((nm32s*) Spektr_issled,pok)/10000;
+          treshold_acq1 = 2*VEC_GetVal((nm32s*) Spektr_issled,pok);
           //acq0 =acq;
-          //treshold_acq = 0;
-          //treshold_acq1 = 0;
 
 
-          if((M>((int) treshold_acq))&&(M>treshold_acq1)&&(ill>10000)) {acq=1; VEC_SetVal((nm32s*) Pok, i_acq, pok); i_acq++;} else acq =0;
+
+          if((M>((int) treshold_acq))&&(M>treshold_acq1)&&(ill>1000)) {acq=1; VEC_SetVal((nm32s*) Pok, i_acq, pok); i_acq++;} else acq =0;
          // if((M>((int) treshold_acq))&&(ill>1000)) acq=1; else acq = 0;
 
          *pok_arm = pok;
@@ -428,7 +427,7 @@ int main()
 
    //if (((ImM/ReM)*(ImM1/ReM1))<0 && (ReM*ReM1>0)) pok = 128-pok;
 
-  //    t3=clock();
+    t3=clock();
 
   //  int a = 0xDEADBEAF;
   //  ncl_hostSync(a);
@@ -453,12 +452,12 @@ int main()
 
 
 
-   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/512;
+   nm32s  *adresf1=reinterpret_cast<nm32s*>(g2+514); *adresf1 = (pok*81920)/256;
    nm32s  *adresf516=reinterpret_cast<nm32s*>(g2+516); *adresf516 = ill;
    nm32s  *adresf518=reinterpret_cast<nm32s*>(g2+518); *adresf518 = M;
    nm32s  *adresf520=reinterpret_cast<nm32s*>(g2+520); *adresf520 = (t2-t1)/82;
    nm32s  *adresf522=reinterpret_cast<nm32s*>(g2+522); *adresf522 = (t3-t1)/82;
-    nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = treshold_acq1;
+    nm32s  *adresf523=reinterpret_cast<nm32s*>(g2+523); *adresf523 = sum_SpeA;
        nm32s  *adresf524=reinterpret_cast<nm32s*>(g2+524); *adresf524 = treshold_acq;
    uint64b g3 = 0x42002+1000;
    for(int k=0; k<512; k++) {nm32s  *adresf0=reinterpret_cast<nm32s*>(g3+k); *adresf0 = VEC_GetVal((nm32s*) Signal1,k);};
